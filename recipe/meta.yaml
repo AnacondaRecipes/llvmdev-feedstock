@@ -54,7 +54,6 @@ requirements:
     - ninja  # [win]
     # Needed to build LLVM
     - python 3.6.*
-  host:
     - zlib
   run:
     - vs2015_runtime  # [win]
