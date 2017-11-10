@@ -23,15 +23,18 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
+    - toolchain
+    - {{ compiler('c') }}    # [not osx]
+    - {{ compiler('cxx') }}  # [not osx]
     - cmake
     - ninja     # [win]
     - python    3.7
   host:
-    - llvm-meta {{ version }}
+    - system  # [linux and not armv7l]
     - libcxx    4.0.1  # [osx]
   run:
-    - llvm-meta {{ version }}
+    - vc 14  # [win]
+    - llvm-meta {{ version }}|{{ version }}.*
 
 test:
   files:
