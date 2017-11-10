@@ -34,7 +34,6 @@ requirements:
     - cmake
     - ninja     # [win]
     - python
-  host:
     - libcxx    4.0.1  # [osx]
   run:
     - vc 14  # [win]
