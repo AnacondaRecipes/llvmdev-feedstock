@@ -2,7 +2,6 @@
 
 set -x
 
-declare -a _cmake_config
 if [[ $(uname) == Darwin ]]; then
   ${SYS_PREFIX}/bin/conda create -y -p ${SRC_DIR}/bootstrap clangxx_osx-64
   export PATH=${SRC_DIR}/bootstrap/bin:${PATH}
