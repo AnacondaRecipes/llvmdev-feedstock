@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x
+# Ensure we do not end up linking to a shared libz
+rm -f "${PREFIX}"/lib/libz*${SHLIB_EXT}
 
 if [[ $(uname) == Darwin ]]; then
   ${SYS_PREFIX}/bin/conda create -y -p ${SRC_DIR}/bootstrap clangxx_osx-64
