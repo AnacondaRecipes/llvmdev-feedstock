@@ -30,6 +30,8 @@ build:
   number: {{ build_number }}
   string: {{ llvm_variant }}_{{ build_number }}
   skip:  true  # [py<36]
+  ignore_run_exports:
+    - zlib
 
 {% if llvm_variant == "cling" %}
   features:
@@ -51,6 +53,8 @@ requirements:
     - ninja  # [win]
     # Needed to build LLVM
     - python
+  host:
+    - zlib
   run:
     - vs2015_runtime  # [win]
 
