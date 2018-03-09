@@ -4,7 +4,7 @@
 rm -f "${PREFIX}"/lib/libz*${SHLIB_EXT}
 
 if [[ $(uname) == Darwin ]]; then
-  ${SYS_PREFIX}/bin/conda create -y -p ${SRC_DIR}/bootstrap clangxx_osx-64
+  ${SYS_PREFIX}/bin/conda create -y -p ${SRC_DIR}/bootstrap -c https://repo.continuum.io/pkgs/main clangxx_osx-64
   export PATH=${SRC_DIR}/bootstrap/bin:${PATH}
   CONDA_PREFIX=${SRC_DIR}/bootstrap \
     . ${SRC_DIR}/bootstrap/etc/conda/activate.d/*
@@ -15,9 +15,8 @@ if [[ $(uname) == Darwin ]]; then
   CFLAG_SYSROOT="--sysroot ${SYSROOT_DIR}"
 fi
 
-if [[ ${MACOSX_DEPLOYMENT_TARGET} == 10.9 ]]; then
-  DARWIN_TARGET=x86_64-apple-darwin13.4.0
-fi
+# This is the clang compiler prefix
+DARWIN_TARGET=x86_64-apple-darwin13.4.0
 
 declare -a _cmake_config
 _cmake_config+=(-DCMAKE_INSTALL_PREFIX:PATH=${PREFIX})
