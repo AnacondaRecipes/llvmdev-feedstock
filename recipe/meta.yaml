@@ -28,10 +28,11 @@ source:
 
 build:
   number: {{ build_number }}
-  string: {{ llvm_variant }}_{{ build_number }}
-  skip:  true  # [py<36]
+  # string: {{ llvm_variant }}_{{ build_number }}
   ignore_run_exports:
     - zlib
+  missing_dso_whitelist:  # [osx]
+    - '*'  # [osx]
 
 {% if llvm_variant == "cling" %}
   features:
@@ -52,7 +53,7 @@ requirements:
     - m2w64-xz  # [py27 and win]
     - ninja  # [win]
     # Needed to build LLVM
-    - python
+    - python 3.6.*
   host:
     - zlib
   run:
