@@ -12,9 +12,15 @@ source:
   url: http://llvm.org/releases/{{ version }}/llvm-{{ version }}.src.tar.xz
   sha256: {{ sha256 }}
   patches:
+    # http://lists.llvm.org/pipermail/llvm-dev/2016-January/094520.html
     - llvm-lto-static.patch   # [win]
-    - partial-testing.patch
+    # Intel SVML optimizations
+    - intel-svml.patch
+    # https://reviews.llvm.org/D44140 Fix LLVM-C symbol export
+    - 0001-Transforms-Add-missing-header-for-InstructionCombini.patch
+    # undefined behavior bug due to Twine usage
     - twine_cfg_undefined_behavior.patch
+    - partial-testing.patch
     - D47188-svml-VF.patch    # Fixes vectorizer and extends SVML support
 
 build:
