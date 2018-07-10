@@ -1,7 +1,18 @@
 {% set shortversion = "6.0" %}
+
+{% if ppc64le %}
+
+{% set version = "6.0.1" %}
+{% set sha256 = "b6d6c324f9c71494c0ccaf3dac1f16236d970002b42bb24a6c9e1634f7d0f4e2" %}
+{% set build_number = "0" %}
+
+{% else %}
+
 {% set version = "6.0.0" %}
 {% set sha256 = "1ff53c915b4e761ef400b803f07261ade637b0c269d99569f18040f3dcee4408" %}
-{% set build_number = "3" %}
+{% set build_number = "4" %}
+
+{% endif %}
 
 package:
   name: llvmdev
@@ -13,13 +24,13 @@ source:
   sha256: {{ sha256 }}
   patches:
     # http://lists.llvm.org/pipermail/llvm-dev/2016-January/094520.html
-    - llvm-lto-static.patch   # [win]
+    - ../llvm-lto-static.patch   # [win]
     # Intel SVML optimizations
-    - intel-svml.patch
-    # https://reviews.llvm.org/D44140 Fix LLVM-C symbol export
-    - 0001-Transforms-Add-missing-header-for-InstructionCombini.patch
+    - ../D47188-svml.patch
+    # https://reviews.llvm.org/D44140 Fix LLVM-C symbol export, backport to 6.0.0 from upstream
+    - ../0001-Transforms-Add-missing-header-for-InstructionCombini.patch # [not ppc64le]
     # undefined behavior bug due to Twine usage
-    - twine_cfg_undefined_behavior.patch
+    - ../twine_cfg_undefined_behavior.patch
 
 build:
   number: {{ build_number }}
@@ -59,6 +70,7 @@ test:
     - python
   files:
     - cfg_test.ll
+    - numba-3016.ll
     - test_cfg_dot.py
   commands:
     - $PREFIX/bin/llvm-config --libs                         # [not win]
@@ -74,6 +86,10 @@ test:
     # Test for ../twine_cfg_undefined_behavior.patch
     - $PREFIX/bin/opt -dot-cfg cfg_test.ll                   # [not win]
     - python test_cfg_dot.py                                 # [not win]
+
+    - opt -S -vector-library=SVML -mcpu=haswell -O3 numba-3016.ll -o out.ll
+    - findstr __svml_sin4 out.ll                             # [win]
+    - grep __svml_sin4 out.ll                                # [unix and x86_64]
 
 about:
   home: http://llvm.org/
