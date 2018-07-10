@@ -24,13 +24,13 @@ source:
   sha256: {{ sha256 }}
   patches:
     # http://lists.llvm.org/pipermail/llvm-dev/2016-January/094520.html
-    - ../llvm-lto-static.patch   # [win]
+    - llvm-lto-static.patch   # [win]
     # Intel SVML optimizations
-    - ../D47188-svml.patch
+    - D47188-svml.patch
     # https://reviews.llvm.org/D44140 Fix LLVM-C symbol export, backport to 6.0.0 from upstream
-    - ../0001-Transforms-Add-missing-header-for-InstructionCombini.patch # [not ppc64le]
+    - 0001-Transforms-Add-missing-header-for-InstructionCombini.patch # [not ppc64le]
     # undefined behavior bug due to Twine usage
-    - ../twine_cfg_undefined_behavior.patch
+    - twine_cfg_undefined_behavior.patch
 
 build:
   number: {{ build_number }}
