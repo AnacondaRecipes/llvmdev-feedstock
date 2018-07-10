@@ -1,7 +1,17 @@
+
+{% if ppc64le %}
+
+{% set version = "6.0.1" %}
+{% set sha256 = "b6d6c324f9c71494c0ccaf3dac1f16236d970002b42bb24a6c9e1634f7d0f4e2" %}
+{% set build_number = "0" %}
+
+{% else %}
+
 {% set version = "7.0.1" %}
 {% set sha256 = "a38dfc4db47102ec79dcc2aa61e93722c5f6f06f0a961073bd84b78fb949419b" %}
+{% set build_number = "3" %}
 
-{% set build_number = "1" %}
+{% endif %}
 
 package:
   name: llvmdev
@@ -15,9 +25,9 @@ source:
     # http://lists.llvm.org/pipermail/llvm-dev/2016-January/094520.html
     - llvm-lto-static.patch   # [win]
     # Intel SVML optimizations
-    - intel-svml.patch
-    # https://reviews.llvm.org/D44140 Fix LLVM-C symbol export
-    - 0001-Transforms-Add-missing-header-for-InstructionCombini.patch
+    - D47188-svml.patch
+    # https://reviews.llvm.org/D44140 Fix LLVM-C symbol export, backport to 6.0.0 from upstream
+    - 0001-Transforms-Add-missing-header-for-InstructionCombini.patch # [not ppc64le]
     # undefined behavior bug due to Twine usage
     - twine_cfg_undefined_behavior.patch
     - partial-testing.patch
@@ -27,10 +37,12 @@ build:
   number: {{ build_number }}
   string: {{ llvm_variant }}_{{ build_number }}
   ignore_run_exports:
+    # Is static-linked
+    - xar
     - zlib
   missing_dso_whitelist:  # [osx]
     - '*'  # [osx]
-  skip:  true  # [win and vc<14]
+  skip: true  # [win and vc<14]
 
 requirements:
   build:
@@ -46,17 +58,30 @@ requirements:
     - llvm-meta {{ version }}|{{ version }}.*
 
 test:
+  requires:
+    - python
   files:
+    - cfg_test.ll
     - numba-3016.ll
-
+    - test_cfg_dot.py
   commands:
     - $PREFIX/bin/llvm-config --libs                         # [not win]
     - $PREFIX/bin/llc -version                               # [not win]
 
     - if not exist %LIBRARY_INC%\\llvm\\Pass.h exit 1        # [win]
+    - if not exist %LIBRARY_LIB%\\LLVMSupport.lib exit 1     # [win]
 
     - test -f $PREFIX/include/llvm/Pass.h                    # [unix]
+    - test -f $PREFIX/lib/libLLVMSupport.a                   # [unix]
+
     - test -f $PREFIX/lib/libLLVMCore.a                      # [not win]
+    # Test for ../twine_cfg_undefined_behavior.patch
+    - $PREFIX/bin/opt -dot-cfg cfg_test.ll                   # [not win]
+    - python test_cfg_dot.py                                 # [not win]
+
+    - opt -S -vector-library=SVML -mcpu=haswell -O3 numba-3016.ll -o out.ll
+    - findstr __svml_sin4 out.ll                             # [win]
+    - grep __svml_sin4 out.ll                                # [unix and x86_64]
 
 about:
   home: http://llvm.org/
