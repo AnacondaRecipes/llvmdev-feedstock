@@ -47,8 +47,10 @@ requirements:
     # at build.sh time
     # Windows needs to build using vs2015_runtime
     # irrespective of python version
-    - {{ compiler('c') }} # [unix]
-    - {{ compiler('cxx') }} # [unix]
+    - {{ compiler('c') }}  # [unix]
+    - {{ compiler('cxx') }}  # [unix]
+    - vs2017_win-64  # [win64]
+    - vs2017_win-32  # [win32]
     - cmake
     # Needed to unpack the source tarball
     - m2w64-xz  # [py27 and win]
