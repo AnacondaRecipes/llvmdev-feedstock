@@ -4,8 +4,6 @@
 
 set -x
 
-<<<<<<< Updated upstream
-=======
 if [[ $(uname) == Darwin ]] && [[ yes == no ]]; then
   ${SYS_PREFIX}/bin/conda create -y -p ${SRC_DIR}/bootstrap clangxx_osx-64
   export PATH=${SRC_DIR}/bootstrap/bin:${PATH}
@@ -18,7 +16,6 @@ if [[ $(uname) == Darwin ]] && [[ yes == no ]]; then
   CFLAG_SYSROOT="--sysroot ${SYSROOT_DIR}"
 fi
 
->>>>>>> Stashed changes
 # This is the clang compiler prefix
 DARWIN_TARGET=x86_64-apple-darwin13.4.0
 
