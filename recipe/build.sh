@@ -1,12 +1,23 @@
 #!/bin/bash
 
-# based on https://github.com/AnacondaRecipes/llvmdev-feedstock/blob/master/recipe/build.sh
+# Ensure we do not end up linking to a shared libz
+rm -f "${PREFIX}"/lib/libz*${SHLIB_EXT}
+declare -a _cmake_config
+if [[ $(uname) == Darwin ]] && [[ yes == no ]]; then
+  ${SYS_PREFIX}/bin/conda create -y -p ${SRC_DIR}/bootstrap clangxx_osx-64
+  export PATH=${SRC_DIR}/bootstrap/bin:${PATH}
+  CONDA_PREFIX=${SRC_DIR}/bootstrap \
+    . ${SRC_DIR}/bootstrap/etc/conda/activate.d/*
+  export CONDA_BUILD_SYSROOT=${CONDA_BUILD_SYSROOT:-/opt/MacOSX${MACOSX_DEPLOYMENT_TARGET}.sdk}
+  export CXXFLAGS=${CFLAGS}" -mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET}"
+  export CFLAGS=${CFLAGS}" -mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET}"
+  SYSROOT_DIR=${CONDA_BUILD_SYSROOT}
+  CFLAG_SYSROOT="--sysroot ${SYSROOT_DIR}"
+fi
 
-set -x
-
-# This is the clang compiler prefix
-DARWIN_TARGET=x86_64-apple-darwin13.4.0
-
+if [[ ${MACOSX_DEPLOYMENT_TARGET} == 10.9 ]]; then
+  DARWIN_TARGET=x86_64-apple-darwin13.4.0
+fi
 
 declare -a _cmake_config
 _cmake_config+=(-DCMAKE_INSTALL_PREFIX:PATH=${PREFIX})
@@ -27,8 +38,7 @@ _cmake_config+=(-DHAVE_TERMINFO_TINFO=OFF)
 _cmake_config+=(-DHAVE_TERMIOS_H=OFF)
 _cmake_config+=(-DCLANG_ENABLE_LIBXML=OFF)
 _cmake_config+=(-DLIBOMP_INSTALL_ALIASES=OFF)
-_cmake_config+=(-DLLVM_ENABLE_RTTI=OFF)
-_cmake_config+=(-DLLVM_TARGETS_TO_BUILD=host)
+_cmake_config+=(-DLLVM_ENABLE_RTTI=ON)
 # TODO :: It would be nice if we had a cross-ecosystem 'BUILD_TIME_LIMITED' env var we could use to
 #         disable these unnecessary but useful things.
 if [[ ${CONDA_FORGE} == yes ]]; then
@@ -54,6 +64,7 @@ if [[ $(uname) == Darwin ]]; then
 #elif [[ $(uname) == Linux ]]; then
 #  _cmake_config+=(-DLLVM_BINUTILS_INCDIR=${PREFIX}/lib/gcc/${cpu_arch}-${vendor}-linux-gnu/${compiler_ver}/plugin/include)
 fi
+cmake_config+=(-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly)
 
 # For when the going gets tough:
 # _cmake_config+=(-Wdev)
@@ -68,5 +79,5 @@ cmake -G'Unix Makefiles'     \
       "${_cmake_config[@]}"  \
       ..
 
-make -j${CPU_COUNT} VERBOSE=1
+make -j${CPU_COUNT} ${VERBOSE_CM}
 make install
