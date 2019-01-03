@@ -38,11 +38,11 @@ _cmake_config+=(-DHAVE_TERMIOS_H=OFF)
 _cmake_config+=(-DCLANG_ENABLE_LIBXML=OFF)
 _cmake_config+=(-DLIBOMP_INSTALL_ALIASES=OFF)
 _cmake_config+=(-DLLVM_ENABLE_RTTI=ON)
+_cmake_config+=(-DLLVM_INCLUDE_UTILS=ON) # for llvm-lit
 # TODO :: It would be nice if we had a cross-ecosystem 'BUILD_TIME_LIMITED' env var we could use to
 #         disable these unnecessary but useful things.
 if [[ ${CONDA_FORGE} == yes ]]; then
   _cmake_config+=(-DLLVM_INCLUDE_TESTS=OFF)
-  _cmake_config+=(-DLLVM_INCLUDE_UTILS=OFF)
   _cmake_config+=(-DLLVM_INCLUDE_DOCS=OFF)
   _cmake_config+=(-DLLVM_INCLUDE_EXAMPLES=OFF)
 fi
@@ -60,7 +60,8 @@ if [[ $(uname) == Darwin ]]; then
   # this causes link failures building the santizers since they respect DARWIN_osx_ARCHS. We may as well
   # save some compilation time by setting this for all of our llvm builds.
   _cmake_config+=(-DDARWIN_osx_ARCHS=x86_64)
-#elif [[ $(uname) == Linux ]]; then
+elif [[ $(uname) == Linux ]]; then
+  _cmake_config+=(-DLLVM_USE_INTEL_JITEVENTS=ON)
 #  _cmake_config+=(-DLLVM_BINUTILS_INCDIR=${PREFIX}/lib/gcc/${cpu_arch}-${vendor}-linux-gnu/${compiler_ver}/plugin/include)
 fi
 
@@ -83,8 +84,19 @@ cmake -G'Unix Makefiles'     \
       -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly \
       ${conditional_args} ..
 
+ARCH=`uname -m`
+if [ $ARCH == 'armv7l' ]; then # RPi need thread count throttling
+    make -j2 VERBOSE=1
+else
 make -j${CPU_COUNT} ${VERBOSE_CM}
+fi
+
+# From: https://github.com/conda-forge/llvmdev-feedstock/pull/53
 make install || exit $?
+
+# SVML tests on x86_64 arch only
+if [[ $ARCH == 'x86_64' ]]; then
 bin/opt -S -vector-library=SVML -mcpu=haswell -O3 $RECIPE_DIR/numba-3016.ll | bin/FileCheck $RECIPE_DIR/numba-3016.ll || exit $?
+fi
 cd ../test
 ../build/bin/llvm-lit -vv Transforms ExecutionEngine Analysis CodeGen/X86
