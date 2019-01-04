@@ -89,7 +89,7 @@ test:
 
     - test -f $PREFIX/lib/libLLVMCore.a                      # [not win]
     # Test for ../twine_cfg_undefined_behavior.patch
-    - $PREFIX/bin/opt -dot-cfg cfg_test.ll                   # [not win]
+    - $PREFIX/bin/opt -dot-cfg cfg_test.ll &>/dev/null       # [not win]
     - python test_cfg_dot.py                                 # [not win]
 
     # LLD tests
