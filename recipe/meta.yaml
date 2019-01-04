@@ -68,11 +68,11 @@ requirements:
     - zlib # [not win]
     - xar # [osx]
     # llvm-lit testing needs *a* python
-    - python # [not (armv6l or armv7l or aarch64 or win)]
+    - python >=3 # [not (armv6l or armv7l or aarch64 or win)]
 
 test:
   requires:
-    - python
+    - python >=3
   files:
     - cfg_test.ll
     - numba-3016.ll
