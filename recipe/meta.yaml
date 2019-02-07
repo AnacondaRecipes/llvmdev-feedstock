@@ -2,7 +2,7 @@
 {% set version = "7.0.1" %}
 {% set sha256_llvm = "a38dfc4db47102ec79dcc2aa61e93722c5f6f06f0a961073bd84b78fb949419b" %}
 {% set sha256_lld = "8869aab2dd2d8e00d69943352d3166d159d7eae2615f66a684f4a0999fc74031" %}
-{% set build_number = "1" %}
+{% set build_number = "2" %}
 
 package:
   name: llvmdev

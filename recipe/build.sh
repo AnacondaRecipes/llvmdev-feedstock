@@ -27,7 +27,7 @@ _cmake_config+=(-DHAVE_TERMINFO_TINFO=OFF)
 _cmake_config+=(-DHAVE_TERMIOS_H=OFF)
 _cmake_config+=(-DCLANG_ENABLE_LIBXML=OFF)
 _cmake_config+=(-DLIBOMP_INSTALL_ALIASES=OFF)
-_cmake_config+=(-DLLVM_ENABLE_RTTI=OFF)
+_cmake_config+=(-DLLVM_ENABLE_RTTI=ON)
 _cmake_config+=(-DLLVM_TARGETS_TO_BUILD=host)
 _cmake_config+=(-DLLVM_INCLUDE_UTILS=ON) # for llvm-lit
 # TODO :: It would be nice if we had a cross-ecosystem 'BUILD_TIME_LIMITED' env var we could use to
