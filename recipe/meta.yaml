@@ -1,12 +1,9 @@
-{% set shortversion = "6.0" %}
-{% set version = "7.0.0" %}
-{% set sha256_llvm = "8bc1f844e6cbde1b652c19c1edebc1864456fd9c78b8c1bea038e51b363fe222" %}
-{% set version = "6.0.0" %}
-{% set sha256 = "1ff53c915b4e761ef400b803f07261ade637b0c269d99569f18040f3dcee4408" %}
-{% set build_number = "4" %}
-
-{% set sha256_lld = "fbcf47c5e543f4cdac6bb9bbbc6327ff24217cd7eafc5571549ad6d237287f9c" %}
-{% set build_number = "1" %}
+{% set shortversion = "7.0" %}
+{% set version = "7.0.1" %}
+{% set sha256_llvm = "a38dfc4db47102ec79dcc2aa61e93722c5f6f06f0a961073bd84b78fb949419b" %}
+{% set build_number = "5" %}
+{% set sha256_lld = "8869aab2dd2d8e00d69943352d3166d159d7eae2615f66a684f4a0999fc74031" %}
+{% set build_number = "5" %}
 
 package:
   name: llvmdev
@@ -31,9 +28,8 @@ source:
     # Patches for X86 common symbols over-allocation and testing thereof, see
     # https://reviews.llvm.org/D50240 and https://reviews.llvm.org/rL340788
     # for details:
-    - 0001-RuntimeDyld-Fix-a-bug-in-RuntimeDyld-loadObjectImpl-.patch
+    # - 0001-RuntimeDyld-Fix-a-bug-in-RuntimeDyld-loadObjectImpl-.patch
     - 0001-RuntimeDyld-Add-test-case-that-was-accidentally-left.patch
-    - D47188-svml-VF.patch    # Fixes vectorizer and extends SVML support
   - url: http://releases.llvm.org/{{ version }}/lld-{{ version }}.src.tar.xz
     fn: lld-{{ version }}.src.tar.xz
     sha256: {{ sha256_lld }}
@@ -52,9 +48,8 @@ build:
 
 requirements:
   build:
-    - toolchain
-    - {{ compiler('c') }}  # [unix]
-    - {{ compiler('cxx') }}  # [unix]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - cmake # [not (armv6l or armv7l)]
     - ninja     # [win]
     - python >=3
@@ -62,7 +57,7 @@ requirements:
     - make # [unix]
   run:
     - vc 14  # [win]
-    - llvm-meta {{ version }}|{{ version }}.*
+    # - llvm-meta {{ version }}|{{ version }}.*
     # llvm-lit testing needs *a* python
     - python >=3 # [not (armv6l or armv7l or aarch64 or win)]
 
