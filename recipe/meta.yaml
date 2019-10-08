@@ -4,6 +4,8 @@
 {% set build_number = 2 %}
 {% set major_ver = version.split(".")[0] %}
 
+{% set cxx_compiler_version = '4.0.1' %}
+
 package:
   name: llvm-package
   version: {{ version }}

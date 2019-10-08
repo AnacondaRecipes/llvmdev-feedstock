@@ -4,12 +4,19 @@ set -x
 sed -i.bak "s/NOT APPLE AND ARG_SONAME/ARG_SONAME/g" cmake/modules/AddLLVM.cmake
 sed -i.bak "s/NOT APPLE AND NOT ARG_SONAME/NOT ARG_SONAME/g" cmake/modules/AddLLVM.cmake
 
-mkdir build
+mkdir build || true
 cd build
 
-[[ $(uname) == Linux ]] && conditional_args="
-      -DLLVM_USE_INTEL_JITEVENTS=ON
-"
+cp -f "${RECIPE_DIR}"/{xcrun,xcodebuild} .
+
+declare -a conditional_args
+[[ ${target_platform} =~ .*inux.* ]] && conditional_args+=(-DLLVM_USE_INTEL_JITEVENTS=ON)
+if [[ ${target_platform} == osx-64 ]]; then
+  conditional_args+=(-DICONV_LIBRARY_PATH:FILEPATH=${CONDA_PREFIX}/lib/libiconv.dylib)
+  conditional_args+=(-DLLVM_PTHREAD_LIBRARY_PATH:FILEPATH=${CONDA_PREFIX}/lib/libpthread.dylib)
+  conditional_args+=(-DCMAKE_INSTALL_NAME_TOOL:FILEPATH=${INSTALL_NAME_TOOL})
+  conditional_args+=(-DCMAKE_XCRUN:FILEPATH=${PWD}/xcrun)
+fi
 
 cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
       -DCMAKE_BUILD_TYPE=Release \
@@ -28,11 +35,25 @@ cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
       -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly \
       -DLLVM_BUILD_LLVM_DYLIB=yes \
       -DLLVM_LINK_LLVM_DYLIB=yes \
-      ${conditional_args} ..
+      -DCMAKE_CXX:FILEPATH=${CXX} \
+      -DCMAKE_LINKER:FILEPATH=${LD} \
+      -DCMAKE_AR:FILEPATH=${AR} \
+      -DCMAKE_AS:FILEPATH=${AS} \
+      -DCMAKE_RANLIB:FILEPATH=${RANLIB} \
+      -DCMAKE_ASM_COMPILER_AR:FILEPATH=${AR} \
+      -DCMAKE_ASM_COMPILER_RANLIB:FILEPATH=${RANLIB} \
+      -DCMAKE_INSTALL_NAME_TOOL:FILEPATH=${INSTALL_NAME_TOOL} \
+      -DCMAKE_NM:FILEPATH=${NM} \
+      -DCMAKE_OBJCOPY:FILEPATH=${OBJCOPY} \
+      -DCMAKE_OBJDUMP:FILEPATH=${OBJDUMP} \
+      -DCMAKE_STRIP:FILEPATH=${STRIP} \
+      -DGOLD_EXECUTABLE:FILEPATH=${LD} \
+      "${conditional_args[@]}" \
+      ..
 
 make -j${CPU_COUNT}
 
-if [[ "${target_platform}" == "linux-64" || "${target_platform}" == "osx-64" ]]; then
+if [[ ${target_platform} == linux-64 ]] || [[ ${target_platform} == osx-64 ]]; then
     export TEST_CPU_FLAG="-mcpu=haswell"
 else
     export TEST_CPU_FLAG=""
