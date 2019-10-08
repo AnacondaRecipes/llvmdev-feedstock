@@ -8,7 +8,7 @@ mkdir build || true
 cd build
 
 cp -f "${RECIPE_DIR}"/{xcrun,xcodebuild} .
-
+[[ $(uname) == Linux ]] && conditional_args="
 declare -a conditional_args
 [[ ${target_platform} =~ .*inux.* ]] && conditional_args+=(-DLLVM_USE_INTEL_JITEVENTS=ON)
 if [[ ${target_platform} == osx-64 ]]; then
@@ -18,10 +18,11 @@ if [[ ${target_platform} == osx-64 ]]; then
   conditional_args+=(-DCMAKE_XCRUN:FILEPATH=${PWD}/xcrun)
 fi
 
-_VER_MAJOR=$(echo ${PKG_VERSION} | cut -d. -f1)
-_VER_MINOR=$(echo ${PKG_VERSION} | cut -d. -f2)
-_VER_PATCH=$(echo ${PKG_VERSION} | cut -d. -f3)
-
+  conditional_args+=(-DICONV_LIBRARY_PATH:FILEPATH=${CONDA_PREFIX}/lib/libiconv.dylib)
+  conditional_args+=(-DLLVM_PTHREAD_LIBRARY_PATH:FILEPATH=${CONDA_PREFIX}/lib/libpthread.dylib)
+  conditional_args+=(-DCMAKE_INSTALL_NAME_TOOL:FILEPATH=${INSTALL_NAME_TOOL})
+  conditional_args+=(-DCMAKE_XCRUN:FILEPATH=${PWD}/xcrun)
+"
 if [[ ! -f CMakeCache.txt ]]; then
   cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
     -DLLVM_VERSION_MAJOR=${_VER_MAJOR} \
