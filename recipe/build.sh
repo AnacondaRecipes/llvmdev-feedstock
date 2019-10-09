@@ -18,11 +18,6 @@ if [[ ${target_platform} == osx-64 ]]; then
   conditional_args+=(-DCMAKE_XCRUN:FILEPATH=${PWD}/xcrun)
 fi
 
-  conditional_args+=(-DICONV_LIBRARY_PATH:FILEPATH=${CONDA_PREFIX}/lib/libiconv.dylib)
-  conditional_args+=(-DLLVM_PTHREAD_LIBRARY_PATH:FILEPATH=${CONDA_PREFIX}/lib/libpthread.dylib)
-  conditional_args+=(-DCMAKE_INSTALL_NAME_TOOL:FILEPATH=${INSTALL_NAME_TOOL})
-  conditional_args+=(-DCMAKE_XCRUN:FILEPATH=${PWD}/xcrun)
-"
 if [[ ! -f CMakeCache.txt ]]; then
   cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
     -DLLVM_VERSION_MAJOR=${_VER_MAJOR} \
