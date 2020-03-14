@@ -51,7 +51,7 @@ outputs:
         - {{ compiler('cxx') }}            # [linux]
         - vs2017_{{ target_platform  }}    # [win]
         - clang_bootstrap_osx-64           # [osx]
-        - xar
+        - xar                              # [not win]
         - cmake
         - make                             # [not win]
         - ninja     # [win]
