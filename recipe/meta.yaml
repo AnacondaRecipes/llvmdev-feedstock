@@ -19,6 +19,8 @@ source:
     # ref: https://github.com/numba/llvmlite/blob/v0.29.0/conda-recipes/0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/amd-roc-2.7.0.diff
+    - patches/0002-Fix-ccache-invocation.patch
+0002-Fix-ccache-invocation-on-WIN32-AND-NOT-UNIX.patch
 
 build:
   number: {{ build_number }}
@@ -27,6 +29,7 @@ build:
 
 requirements:
   build:
+    - ccache
     - {{ compiler('cxx') }}            # [linux]
     - vs2017_{{ target_platform  }}    # [win]
     - clang_bootstrap_osx-64           # [osx]
@@ -35,6 +38,8 @@ requirements:
     - ninja                            # [win]
     - python >=3
     - libcxx {{cxx_compiler_version}}  # [osx]
+    - patch                            # [not win]
+    - m2-patch                         # [win]
   host:
     - libcxx {{cxx_compiler_version}}  # [osx]
 

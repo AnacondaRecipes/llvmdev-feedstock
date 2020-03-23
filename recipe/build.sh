@@ -53,6 +53,7 @@ if [[ ! -f CMakeCache.txt ]]; then
     -DCMAKE_OBJDUMP:FILEPATH=${OBJDUMP} \
     -DCMAKE_STRIP:FILEPATH=${STRIP} \
     -DGOLD_EXECUTABLE:FILEPATH=${LD} \
+    -DLLVM_CCACHE_BUILD=yes \
     "${conditional_args[@]}" \
     ..
 fi
