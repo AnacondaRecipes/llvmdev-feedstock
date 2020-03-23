@@ -20,7 +20,6 @@ source:
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/amd-roc-2.7.0.diff
     - patches/0002-Fix-ccache-invocation.patch
-0002-Fix-ccache-invocation-on-WIN32-AND-NOT-UNIX.patch
 
 build:
   number: {{ build_number }}
