@@ -5,6 +5,8 @@ cd build
 
 REM remove GL flag for now
 set "CXXFLAGS=-MD"
+set "CC=cl.exe"
+set "CXX=cl.exe"
 
 cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE="Release" ^
@@ -23,7 +25,6 @@ cmake -G "Ninja" ^
     -DLLVM_ENABLE_LIBXML2=OFF ^
     -DLLVM_ENABLE_ZLIB=OFF ^
     -DLLVM_BUILD_LLVM_C_DYLIB=no ^
-    -DLLVM_CCACHE_BUILD=yes ^
     %SRC_DIR%
 
 if errorlevel 1 exit 1
