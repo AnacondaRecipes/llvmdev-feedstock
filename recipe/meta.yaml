@@ -1,9 +1,11 @@
 {% set version = "10.0.0" %}
 {% set sha256 = "df83a44b3a9a71029049ec101fb0077ecbbdf5fe41e395215025779099a98fdf" %}
-{% set libcxx_compiler_version="10.0.0" %}
+{% set libcxx_compiler_version="4.0.1" %}  # set to minimum support version
 
 {% set build_number = 0 %}
 {% set major_ver = version.split(".")[0] %}
+
+{% set posix = 'm2-' if win else '' %}
 
 package:
   name: llvm-package
@@ -33,7 +35,8 @@ requirements:
     - cmake
     - ninja     # [win]
     - python    >=3
-    - make
+    - {{posix}}make
+    - {{posix}}patch
     - libcxx >={{libcxx_compiler_version}}  # [osx]
   host:
     - libcxx >={{libcxx_compiler_version}}  # [osx]
@@ -128,6 +131,8 @@ outputs:
         - cmake
         - ninja     # [win]
         - python    >=3
+        - {{posix}}make
+        - {{posix}}patch
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
       run:
