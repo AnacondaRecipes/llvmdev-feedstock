@@ -18,7 +18,7 @@ conditional_args="
       -DLLVM_INCLUDE_DOCS=OFF
 "
 
-+if [[ $(uname) == Darwin ]]; then
+if [[ $(uname) == Darwin ]]; then
       conditional_args+="\
       -DCMAKE_C_FLAGS='-mlinker-version=305' \
       -DCMAKE_CXX_FLAGS='-mlinker-version=305'"
