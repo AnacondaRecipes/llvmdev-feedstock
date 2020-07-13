@@ -17,6 +17,13 @@ conditional_args="
       -DLIBCXX_CXX_ABI_LIBRARY_PATH=${CONDA_BUILD_SYSROOT}/usr/lib \
       -DLLVM_INCLUDE_DOCS=OFF
 "
+
+if [[ $(uname) == Darwin ]]; then
+      conditional_args+="\
+      -DCMAKE_C_FLAGS='-mlinker-version=305' \
+      -DCMAKE_CXX_FLAGS='-mlinker-version=305'"
+fi
+
 cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
       -DCMAKE_BUILD_TYPE=Release \
       -DLLVM_ENABLE_RTTI=ON \

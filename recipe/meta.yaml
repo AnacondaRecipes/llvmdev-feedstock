@@ -2,7 +2,7 @@
 {% set sha256 = "df83a44b3a9a71029049ec101fb0077ecbbdf5fe41e395215025779099a98fdf" %}
 {% set libcxx_compiler_version="4.0.1" %}  # set to minimum support version
 
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -21,10 +21,12 @@ source:
     # ref: https://github.com/numba/llvmlite/blob/v0.29.0/conda-recipes/0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     #- patches/amd-roc-2.7.0.diff
+    - patches/numba-0001-Revert-NVPTX-Use-atomicrmw-fadd-instead-of-intrinsic.patch
+    - patches/numba-0002-Revert-NVPTX-Remove-now-unused-atomic.load.add.f32-i.patch
 
 build:
   number: {{ build_number }}
-  skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+  skip: true  # [(win and vc<14) or aarch64]
   merge_build_host: false
 
 requirements:
@@ -34,6 +36,7 @@ requirements:
     - clang_bootstrap_osx-64           # [osx]
     - cmake
     - ninja     # [win]
+    - make                             # [not win]
     - python    >=3
     - {{posix}}make
     - {{posix}}patch
@@ -47,7 +50,7 @@ outputs:
     script: install_llvm.sh  # [not win]
     script: install_llvm.bat  # [win]
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       activate_in_script: true
     requirements:
       build:
@@ -55,6 +58,7 @@ outputs:
         - vs2017_{{ target_platform  }}    # [win]
         - clang_bootstrap_osx-64           # [osx]
         - cmake
+        - make                             # [not win]
         - ninja     # [win]
         - python    >=3
       host:
@@ -78,7 +82,7 @@ outputs:
   - name: libllvm{{ major_ver }}
     script: install_llvm.sh  # [not win]
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       activate_in_script: true
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
@@ -88,6 +92,7 @@ outputs:
         - vs2017_{{ target_platform  }}    # [win]
         - clang_bootstrap_osx-64           # [osx]
         - cmake                    # [not win]
+        - make                     # [not win]
         - python    >=3            # [not win]
       host:
         - libcxx >={{ libcxx_compiler_version }}  # [osx]
@@ -101,7 +106,7 @@ outputs:
   # for run_exports
   - name: llvm
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
@@ -121,7 +126,7 @@ outputs:
     script: install_llvm.sh  # [not win]
     script: install_llvm.bat  # [win]
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       activate_in_script: true
     requirements:
       build:
@@ -129,6 +134,7 @@ outputs:
         - vs2017_{{ target_platform  }}    # [win]
         - clang_bootstrap_osx-64           # [osx]
         - cmake
+        - make                             # [not win]
         - ninja     # [win]
         - python    >=3
         - {{posix}}make
