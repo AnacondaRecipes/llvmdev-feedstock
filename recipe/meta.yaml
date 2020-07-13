@@ -26,7 +26,7 @@ source:
 
 build:
   number: {{ build_number }}
-  skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+  skip: true  # [(win and vc<14) or aarch64]
   merge_build_host: false
 
 requirements:
@@ -35,6 +35,7 @@ requirements:
     - vs2017_{{ target_platform  }}    # [win]
     - clang_bootstrap_osx-64           # [osx]
     - cmake
+    - make                             # [not win]
     - ninja     # [win]
     - python    >=3
     - {{posix}}make
@@ -49,12 +50,13 @@ outputs:
     script: install_llvm.sh  # [not win]
     script: install_llvm.bat  # [win]
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       activate_in_script: true
     requirements:
       build:
         - {{ compiler('cxx') }}            # [linux]
         - vs2017_{{ target_platform  }}    # [win]
+        - make                             # [not win]
         - clang_bootstrap_osx-64           # [osx]
         - cmake
         - ninja     # [win]
@@ -80,13 +82,14 @@ outputs:
   - name: libllvm{{ major_ver }}
     script: install_llvm.sh  # [not win]
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       activate_in_script: true
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
     requirements:
       build:
         - {{ compiler('cxx') }}            # [linux]
+        - make                             # [not win]
         - vs2017_{{ target_platform  }}    # [win]
         - clang_bootstrap_osx-64           # [osx]
         - cmake                    # [not win]
@@ -103,7 +106,7 @@ outputs:
   # for run_exports
   - name: llvm
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
@@ -123,7 +126,7 @@ outputs:
     script: install_llvm.sh  # [not win]
     script: install_llvm.bat  # [win]
     build:
-      skip: true  # [(win and vc<14) or aarch64 or ppc64le]
+      skip: true  # [(win and vc<14) or aarch64]
       activate_in_script: true
     requirements:
       build:
@@ -131,6 +134,7 @@ outputs:
         - vs2017_{{ target_platform  }}    # [win]
         - clang_bootstrap_osx-64           # [osx]
         - cmake
+        - make                             # [not win]
         - ninja     # [win]
         - python    >=3
         - {{posix}}make
