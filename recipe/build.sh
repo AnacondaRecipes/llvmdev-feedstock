@@ -30,7 +30,7 @@ cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
       -DLLVM_LINK_LLVM_DYLIB=yes \
       ${conditional_args} ..
 
-make -j${CPU_COUNT}
+make -j${CPU_COUNT} ${VERBOSE_CM}
 
 if [[ "${target_platform}" == "linux-64" || "${target_platform}" == "osx-64" ]]; then
     export TEST_CPU_FLAG="-mcpu=haswell"
