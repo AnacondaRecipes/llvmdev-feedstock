@@ -2,7 +2,7 @@
 {% set sha256 = "df83a44b3a9a71029049ec101fb0077ecbbdf5fe41e395215025779099a98fdf" %}
 {% set libcxx_compiler_version="4.0.1" %}  # set to minimum support version
 
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -21,8 +21,6 @@ source:
     # ref: https://github.com/numba/llvmlite/blob/v0.29.0/conda-recipes/0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     #- patches/amd-roc-2.7.0.diff
-    - patches/numba-0001-Revert-NVPTX-Use-atomicrmw-fadd-instead-of-intrinsic.patch
-    - patches/numba-0002-Revert-NVPTX-Remove-now-unused-atomic.load.add.f32-i.patch
 
 build:
   number: {{ build_number }}
