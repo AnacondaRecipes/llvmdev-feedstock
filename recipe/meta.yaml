@@ -1,11 +1,11 @@
-{% set version = "10.0.1" %}
+{% set version = "11.1.0" %}
 # Build with old when bootstrapping on macOS
 {% set cxx_compiler_version_bootstrap = "10.0.0" %}  # [osx]
-{% set sha256 = "c5d8e30b57cbded7128d78e5e8dad811bff97a8d471896812f57fa99ee82cdf3" %}
+{% set sha256 = "ce8508e318a01a63d4e8b3090ab2ded3c598a50258cc49e2625b9120d4c03ea5" %}
 {% set ccache_method = 'native' %}  # [unix]
 {% set ccache_method = 'symlinks' %}  # [win]
 
-{% set build_number = 6 %}
+{% set build_number = 0 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -15,7 +15,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/llvm/llvm-project/releases/download/llvmorg-{{ version }}/llvm-{{ version }}.src.tar.xz
+  url: https://github.com/llvm/llvm-project/releases/download/llvmorg-{{ version.replace(".rc", "-rc") }}/llvm-{{ version.replace(".rc", "rc") }}.src.tar.xz
   sha256: {{ sha256 }}
   patches:
     - patches/intel-D47188-svml-VF.patch    # Fixes vectorizer and extends SVML support
@@ -24,6 +24,9 @@ source:
     # ref: https://github.com/numba/llvmlite/blob/v0.29.0/conda-recipes/0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     #- patches/amd-roc-2.7.0.diff
+    - patches/pass-through-qemu-ld-prefix.diff
+    # Don't link libLLVM.dylib to llvm-config. Makes it easier for cross compiling
+    # - patches/llvm-config-no-libLLVM.diff
 
 build:
   number: {{ build_number }}
@@ -48,6 +51,7 @@ requirements:
   host:
     - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
     - zlib
+    - libxml2   # [win]
 
 outputs:
   # Contains everything

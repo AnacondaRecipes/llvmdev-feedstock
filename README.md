@@ -5,11 +5,11 @@ Home: http://llvm.org/
 
 Package license: Apache-2.0 WITH LLVM-exception
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/llvmdev-feedstock/blob/master/LICENSE.txt)
 
 Summary: Development headers and libraries for LLVM
 
-
+Development: https://github.com/llvm-mirror/llvm
 
 Current build status
 ====================
@@ -57,10 +57,17 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_target_platformwin-64</td>
+              <td>osx_arm64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=593&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/llvmdev-feedstock?branchName=master&jobName=win&configuration=win_64_target_platformwin-64" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/llvmdev-feedstock?branchName=master&jobName=osx&configuration=osx_arm64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=593&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/llvmdev-feedstock?branchName=master&jobName=win&configuration=win_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -76,7 +83,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libllvm10-green.svg)](https://anaconda.org/conda-forge/libllvm10) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libllvm10.svg)](https://anaconda.org/conda-forge/libllvm10) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libllvm10.svg)](https://anaconda.org/conda-forge/libllvm10) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libllvm10.svg)](https://anaconda.org/conda-forge/libllvm10) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libllvm11-green.svg)](https://anaconda.org/conda-forge/libllvm11) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libllvm11.svg)](https://anaconda.org/conda-forge/libllvm11) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libllvm11.svg)](https://anaconda.org/conda-forge/libllvm11) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libllvm11.svg)](https://anaconda.org/conda-forge/libllvm11) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-lit-green.svg)](https://anaconda.org/conda-forge/lit) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lit.svg)](https://anaconda.org/conda-forge/lit) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lit.svg)](https://anaconda.org/conda-forge/lit) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lit.svg)](https://anaconda.org/conda-forge/lit) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-llvm-green.svg)](https://anaconda.org/conda-forge/llvm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/llvm.svg)](https://anaconda.org/conda-forge/llvm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/llvm.svg)](https://anaconda.org/conda-forge/llvm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/llvm.svg)](https://anaconda.org/conda-forge/llvm) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-llvm--tools-green.svg)](https://anaconda.org/conda-forge/llvm-tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/llvm-tools.svg)](https://anaconda.org/conda-forge/llvm-tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/llvm-tools.svg)](https://anaconda.org/conda-forge/llvm-tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/llvm-tools.svg)](https://anaconda.org/conda-forge/llvm-tools) |
@@ -91,16 +98,16 @@ Installing `llvm-package` from the `conda-forge` channel can be achieved by addi
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `libllvm10, lit, llvm, llvm-tools, llvmdev` can be installed with:
+Once the `conda-forge` channel has been enabled, `libllvm11, lit, llvm, llvm-tools, llvmdev` can be installed with:
 
 ```
-conda install libllvm10 lit llvm llvm-tools llvmdev
+conda install libllvm11 lit llvm llvm-tools llvmdev
 ```
 
-It is possible to list all of the versions of `libllvm10` available on your platform with:
+It is possible to list all of the versions of `libllvm11` available on your platform with:
 
 ```
-conda search libllvm10 --channel conda-forge
+conda search libllvm11 --channel conda-forge
 ```
 
 
@@ -159,9 +166,9 @@ build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string).
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string).
  * If the version of a package **is** being increased, please remember to return
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string)
    back to 0.
 
 Feedstock Maintainers
