@@ -1,0 +1,17 @@
+This test case alters the permission of a file and attempts to read it. Typically this will result
+in an error. However, in our Docker containers the builds use the root user. This causes the test
+to fail because the file can be read. If we change this Docker user in the future, then this test
+should start passing again and we can remove this patch.
+
+diff --git a/llvm/test/tools/llvm-ar/error-opening-permission.test b/llvm/test/tools/llvm-ar/error-opening-permission.test
+index 00f80c0a1848..f51a4715553c 100644
+--- a/llvm/test/tools/llvm-ar/error-opening-permission.test
++++ b/llvm/test/tools/llvm-ar/error-opening-permission.test
+@@ -1,6 +1,7 @@
+ ## Unsupported on windows as marking files "unreadable"
+ ## is non-trivial on windows.
+ # UNSUPPORTED: system-windows
++# XFAIL: -linux-, system-darwin
+ 
+ # RUN: rm -rf %t && mkdir -p %t
+ # RUN: echo file1 > %t/1.txt

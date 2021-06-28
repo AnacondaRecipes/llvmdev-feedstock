@@ -27,6 +27,7 @@ source:
     - patches/pass-through-qemu-ld-prefix.diff
     # Don't link libLLVM.dylib to llvm-config. Makes it easier for cross compiling
     # - patches/llvm-config-no-libLLVM.diff
+    - patches/xfail-permission-test-on-linux.patch  # [unix]
 
 build:
   number: {{ build_number }}
@@ -162,7 +163,7 @@ outputs:
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
-        - zlib  # [win]
+        - zlib
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
