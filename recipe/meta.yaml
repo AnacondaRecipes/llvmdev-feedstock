@@ -25,6 +25,7 @@ source:
     # ref: https://github.com/numba/llvmlite/blob/v0.29.0/conda-recipes/0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     #- patches/amd-roc-2.7.0.diff
+    - patches/xfail-permission-test-on-unix.patch  # [unix]
 
 build:
   number: {{ build_number }}
