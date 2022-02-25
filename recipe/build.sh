@@ -52,8 +52,10 @@ cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 
 make -j${CPU_COUNT} ${VERBOSE_CM}
 
-make check-llvm-unit || exit 1
-
+# this was skipped for prior v11.x osx-arm64 builds..
+if [[ "${target_platform}" != "osx-arm64" ]]; then
+  make check-llvm-unit || exit 1
+fi
 
 if [[ "${target_platform}" == "linux-64" || "${target_platform}" == "osx-64" ]]; then
     export TEST_CPU_FLAG="-mcpu=haswell"
@@ -61,7 +63,7 @@ else
     export TEST_CPU_FLAG=""
 fi
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]] && [[ "${target_platform}" != "osx-arm64" ]]; then
   bin/opt -S -vector-library=SVML $TEST_CPU_FLAG -O3 $RECIPE_DIR/numba-3016.ll | bin/FileCheck $RECIPE_DIR/numba-3016.ll || exit $?
 
   if [[ "$target_platform" == linux* ]]; then
