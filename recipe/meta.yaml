@@ -30,6 +30,8 @@ source:
 build:
   number: {{ build_number }}
   skip: true  # [win and vc<14]
+  # we do not yet provide llvm on linux-s390x
+  skip: true    # [s390x]
   merge_build_host: false
 
 requirements:
