@@ -1,0 +1,13 @@
+diff --git a/unittests/Support/Host.cpp b/unittests/Support/Host.cpp
+index 7d43366..da814a9 100644
+--- a/unittests/Support/Host.cpp
++++ b/unittests/Support/Host.cpp
+@@ -325,7 +325,7 @@ TEST_F(HostTest, DummyRunAndGetCommandOutputUse) {
+ }
+ #endif
+ 
+-#if defined(__APPLE__)
++#if 0
+ TEST_F(HostTest, getMacOSHostVersion) {
+   using namespace llvm::sys;
+   llvm::Triple HostTriple(getProcessTriple());

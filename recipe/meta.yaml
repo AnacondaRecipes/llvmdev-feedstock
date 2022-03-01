@@ -6,7 +6,7 @@
 {% set ccache_method = 'native' %}  # [unix]
 {% set ccache_method = 'symlinks' %}  # [win]
 
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -26,17 +26,19 @@ source:
     - patches/numba-0001-Revert-Limit-size-of-non-GlobalValue-name.patch
     #- patches/amd-roc-2.7.0.diff
     - patches/xfail-permission-test-on-unix.patch  # [unix]
+    - patches/skip-osx-getMacOSHostVersion.patch   # [osx]
 
 build:
   number: {{ build_number }}
   skip: true  # [win and vc<14]
+  # we do not yet provide llvm on linux-s390x
+  skip: true    # [s390x]
   merge_build_host: false
 
 requirements:
   build:
-    - {{ compiler('cxx') }}            # [linux or win]
+    - {{ compiler('cxx') }}
     - {{ ccache(ccache_method) }}
-    - clang_bootstrap_osx-64           # [osx]
     - cmake
     - ninja     # [win]
     - python >=3
@@ -61,9 +63,8 @@ outputs:
       activate_in_script: true
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
@@ -100,9 +101,8 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
         - cmake                    # [not win]
         - make                     # [not win]
         - m2-coreutils  # [win]
@@ -145,9 +145,8 @@ outputs:
       activate_in_script: true
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
