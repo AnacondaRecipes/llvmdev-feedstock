@@ -64,6 +64,8 @@ outputs:
     build:
       skip: true  # [win and vc<14]
       activate_in_script: true
+      ignore_run_exports:
+        - zlib
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -100,6 +102,8 @@ outputs:
     build:
       skip: true  # [win and vc<14]
       activate_in_script: true
+      ignore_run_exports:
+        - zlib
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
@@ -186,6 +190,8 @@ outputs:
       host:
         - python >=3
         - pip
+        - setuptools
+        - wheel
       run:
         - python
     test:
