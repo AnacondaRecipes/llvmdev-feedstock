@@ -1,6 +1,6 @@
 {% set version = "11.1.0" %}
 # Build with old when bootstrapping on macOS
-{% set cxx_compiler_version_bootstrap = "10.0.0" %}  # [osx]
+{% set cxx_compiler_version_bootstrap = "4.0.0" %}  # [osx]
 {% set sha256 = "ce8508e318a01a63d4e8b3090ab2ded3c598a50258cc49e2625b9120d4c03ea5" %}
 {% set ccache_method = 'native' %}  # [unix]
 {% set ccache_method = 'symlinks' %}  # [win]
@@ -31,8 +31,7 @@ source:
 
 build:
   number: {{ build_number }}
-  # trigger: #1
-  skip: true  # [win and vc<14]
+  skip: True  # [win and vc<14]
   merge_build_host: false
 
 requirements:
