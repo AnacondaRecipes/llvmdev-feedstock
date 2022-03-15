@@ -36,8 +36,6 @@ build:
   # we do not yet provide llvm on linux-s390x
   skip: true    # [s390x]
   merge_build_host: false
-  ignore_run_exports:
-    - zlib
 
 requirements:
   build:
@@ -67,7 +65,7 @@ outputs:
       skip: true  # [win and vc<14]
       activate_in_script: true
       ignore_run_exports:
-        - zlib
+        - zlib  # [not linux]
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -88,6 +86,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
+        - zlib  # [not linux]
     test:
       commands:
         - $PREFIX/bin/llvm-config --libs                         # [not win]
@@ -104,8 +103,6 @@ outputs:
     build:
       skip: true  # [win and vc<14]
       activate_in_script: true
-      ignore_run_exports:
-        - zlib
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
