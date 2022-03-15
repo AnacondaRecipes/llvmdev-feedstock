@@ -36,10 +36,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}            # [linux or win]
+    - {{ compiler('cxx') }}
     - {{ ccache(ccache_method) }}
-    - clang_bootstrap_osx-64           # [osx and x86_64]
-    - clang_bootstrap_osx-arm64        # [osx and arm64]
     - cmake
     - ninja     # [win]
     - python >=3
@@ -65,10 +63,8 @@ outputs:
       activate_in_script: true
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx and x86_64]
-        - clang_bootstrap_osx-arm64        # [osx and arm64]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
@@ -105,10 +101,8 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx and x86_64]
-        - clang_bootstrap_osx-arm64        # [osx and arm64]
         - cmake                    # [not win]
         - make                     # [not win]
         - m2-coreutils  # [win]
@@ -151,10 +145,8 @@ outputs:
       activate_in_script: true
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx and x86_64]
-        - clang_bootstrap_osx-arm64        # [osx and arm64]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]

@@ -22,7 +22,7 @@ fi
 if [[ "$CC_FOR_BUILD" != "" && "$CC_FOR_BUILD" != "$CC" ]]; then
   CMAKE_ARGS+=("-DCROSS_TOOLCHAIN_FLAGS_NATIVE=-DCMAKE_C_COMPILER=$CC_FOR_BUILD;-DCMAKE_CXX_COMPILER=$CXX_FOR_BUILD;-DCMAKE_C_FLAGS=-O2;-DCMAKE_CXX_FLAGS=-O2")
   # CMAKE_ARGS="${CMAKE_ARGS} -DCROSS_TOOLCHAIN_FLAGS_NATIVE=-DCMAKE_C_COMPILER=$CC_FOR_BUILD;-DCMAKE_CXX_COMPILER=$CXX_FOR_BUILD;-DCMAKE_EXE_LINKER_FLAGS=;-DCMAKE_MODULE_LINKER_FLAGS=;-DCMAKE_SHARED_LINKER_FLAGS=;-DCMAKE_C_FLAGS=-O2;-DCMAKE_CXX_FLAGS=-O2"
-  CMAKE_ARGS+=("-DLLVM_HOST_TRIPLE=$(echo ${HOST} | sed s/conda/unknown/g)-DLLVM_DEFAULT_TARGET_TRIPLE=$(echo ${HOST} | sed s/conda/unknown/g)")
+  CMAKE_ARGS+=("-DLLVM_HOST_TRIPLE=$(echo ${HOST} | sed s/conda/unknown/g) -DLLVM_DEFAULT_TARGET_TRIPLE=$(echo ${HOST} | sed s/conda/unknown/g)")
 fi
 
 if [[ ${target_platform} =~ osx-.* ]]; then
@@ -62,7 +62,7 @@ else
     export TEST_CPU_FLAG=""
 fi
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]] && [[ "${target_platform}" != "osx-arm64" ]]; then
   bin/opt -S -vector-library=SVML $TEST_CPU_FLAG -O3 $RECIPE_DIR/numba-3016.ll | bin/FileCheck $RECIPE_DIR/numba-3016.ll || exit $?
 
   if [[ "$target_platform" == linux* ]]; then
