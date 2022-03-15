@@ -36,6 +36,8 @@ build:
   # we do not yet provide llvm on linux-s390x
   skip: true    # [s390x]
   merge_build_host: false
+  ignore_run_exports:
+    - zlib
 
 requirements:
   build:
