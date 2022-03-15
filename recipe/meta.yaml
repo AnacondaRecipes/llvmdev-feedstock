@@ -38,7 +38,8 @@ requirements:
   build:
     - {{ compiler('cxx') }}            # [linux or win]
     - {{ ccache(ccache_method) }}
-    - clang_bootstrap_osx-64           # [osx]
+    - clang_bootstrap_osx-64           # [osx and x86_64]
+    - clang_bootstrap_osx-arm64        # [osx and arm64]
     - cmake
     - ninja     # [win]
     - python >=3
@@ -66,7 +67,8 @@ outputs:
       build:
         - {{ compiler('cxx') }}            # [linux or win]
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
+        - clang_bootstrap_osx-64           # [osx and x86_64]
+        - clang_bootstrap_osx-arm64        # [osx and arm64]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
@@ -105,7 +107,8 @@ outputs:
       build:
         - {{ compiler('cxx') }}            # [linux or win]
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
+        - clang_bootstrap_osx-64           # [osx and x86_64]
+        - clang_bootstrap_osx-arm64        # [osx and arm64]
         - cmake                    # [not win]
         - make                     # [not win]
         - m2-coreutils  # [win]
@@ -150,7 +153,8 @@ outputs:
       build:
         - {{ compiler('cxx') }}            # [linux or win]
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
+        - clang_bootstrap_osx-64           # [osx and x86_64]
+        - clang_bootstrap_osx-arm64        # [osx and arm64]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
