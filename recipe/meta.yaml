@@ -1,11 +1,11 @@
 {% set version = "11.1.0" %}
 # Build with old when bootstrapping on macOS
-{% set cxx_compiler_version_bootstrap = "10.0.0" %}  # [osx]
+{% set cxx_compiler_version_bootstrap = "4.0.0" %}  # [osx]
 {% set sha256 = "ce8508e318a01a63d4e8b3090ab2ded3c598a50258cc49e2625b9120d4c03ea5" %}
 {% set ccache_method = 'native' %}  # [unix]
 {% set ccache_method = 'symlinks' %}  # [win]
 
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -28,17 +28,19 @@ source:
     # Don't link libLLVM.dylib to llvm-config. Makes it easier for cross compiling
     # - patches/llvm-config-no-libLLVM.diff
     - patches/xfail-permission-test-on-linux.patch  # [unix]
+    - patches/skip-osx-getMacOSHostVersion.patch  # [osx]
 
 build:
   number: {{ build_number }}
-  skip: true  # [win and vc<14]
+  skip: True  # [win and vc<14]
+  # we do not yet provide llvm on linux-s390x
+  skip: true    # [s390x]
   merge_build_host: false
 
 requirements:
   build:
-    - {{ compiler('cxx') }}            # [linux or win]
+    - {{ compiler('cxx') }}
     - {{ ccache(ccache_method) }}
-    - clang_bootstrap_osx-64           # [osx]
     - cmake
     - ninja     # [win]
     - python >=3
@@ -62,11 +64,12 @@ outputs:
     build:
       skip: true  # [win and vc<14]
       activate_in_script: true
+      ignore_run_exports:
+        - zlib  # [not linux]
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
@@ -83,6 +86,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
+        - zlib  # [not linux]
     test:
       commands:
         - $PREFIX/bin/llvm-config --libs                         # [not win]
@@ -99,13 +103,14 @@ outputs:
     build:
       skip: true  # [win and vc<14]
       activate_in_script: true
+      ignore_run_exports:
+        - zlib
       run_exports:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
         - cmake                    # [not win]
         - make                     # [not win]
         - m2-coreutils  # [win]
@@ -116,6 +121,7 @@ outputs:
         - zlib
       run:
         - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
+        - zlib
     test:                                                          # [unix]
       commands:                                                    # [unix]
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}${SHLIB_EXT}  # [unix]
@@ -148,9 +154,8 @@ outputs:
       activate_in_script: true
     requirements:
       build:
-        - {{ compiler('cxx') }}            # [linux or win]
+        - {{ compiler('cxx') }}
         - {{ ccache(ccache_method) }}
-        - clang_bootstrap_osx-64           # [osx]
         - cmake
         - make                             # [not win]
         - m2-coreutils  # [win]
@@ -187,6 +192,8 @@ outputs:
       host:
         - python >=3
         - pip
+        - setuptools
+        - wheel
       run:
         - python
     test:
