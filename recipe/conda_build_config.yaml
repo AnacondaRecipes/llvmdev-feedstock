@@ -3,8 +3,6 @@ c_compiler:         # [osx]
 cxx_compiler:       # [osx]
   - clang_bootstrap # [osx]
 
-cxx_compiler_version: # [linux]
-  - 10                # [linux and aarch64]
-  - 9                 # [linux and not ppc64le and not aarch64]
-  # linking error with gcc 9
+cxx_compiler_version: # [linux and ppc64le]
+  # linking error with gcc 9+ (relocation truncated to fit: R_PPC64_REL24 against symbol ...)
   - 8                 # [linux and ppc64le]
