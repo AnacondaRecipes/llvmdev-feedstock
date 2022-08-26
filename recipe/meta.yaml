@@ -30,6 +30,7 @@ source:
     - patches/xfail-permission-test-on-linux.patch  # [unix]
     - patches/skip-osx-getMacOSHostVersion.patch  # [osx]
     - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
+    - patches/benchmark_register_include_fix.diff
 
 build:
   number: {{ build_number }}
