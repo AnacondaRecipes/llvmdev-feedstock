@@ -184,15 +184,14 @@ outputs:
 
   - name: lit
     build:
-      noarch: python
       script: python -m pip install utils/lit --no-deps -vv
       activate_in_script: true
-      skip: true  # [not linux]
+      skip: true  # [py<30]
       entry_points:
         - lit = lit:main
     requirements:
       host:
-        - python >=3
+        - python
         - pip
         - setuptools
         - wheel
