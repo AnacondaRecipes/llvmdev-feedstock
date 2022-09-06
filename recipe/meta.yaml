@@ -5,7 +5,7 @@
 {% set ccache_method = 'native' %}  # [unix]
 {% set ccache_method = 'symlinks' %}  # [win]
 
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -29,6 +29,8 @@ source:
     # - patches/llvm-config-no-libLLVM.diff
     - patches/xfail-permission-test-on-linux.patch  # [unix]
     - patches/skip-osx-getMacOSHostVersion.patch  # [osx]
+    - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
+    - patches/benchmark_register_include_fix.diff
 
 build:
   number: {{ build_number }}
@@ -182,15 +184,14 @@ outputs:
 
   - name: lit
     build:
-      noarch: python
       script: python -m pip install utils/lit --no-deps -vv
       activate_in_script: true
-      skip: true  # [not linux]
+      skip: true  # [py<30]
       entry_points:
         - lit = lit:main
     requirements:
       host:
-        - python >=3
+        - python
         - pip
         - setuptools
         - wheel
@@ -201,7 +202,8 @@ outputs:
         - lit
 
 about:
-  home: http://llvm.org/
+  home: https://llvm.org/
+  doc_url: https://llvm.org/docs/
   dev_url: https://github.com/llvm-mirror/llvm
   license: Apache-2.0 WITH LLVM-exception
   license_file: LICENSE.TXT
