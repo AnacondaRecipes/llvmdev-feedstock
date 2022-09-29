@@ -5,7 +5,7 @@
 {% set ccache_method = 'native' %}  # [unix]
 {% set ccache_method = 'symlinks' %}  # [win]
 
-{% set build_number = 5 %}
+{% set build_number = 6 %}
 {% set major_ver = version.split(".")[0] %}
 
 {% set posix = 'm2-' if win else '' %}
@@ -31,6 +31,11 @@ source:
     - patches/skip-osx-getMacOSHostVersion.patch  # [osx]
     - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
     - patches/benchmark_register_include_fix.diff
+    # Fixes a consecutive register issue on `aarch64`
+    # ref: https://reviews.llvm.org/D104123
+    - patches/llvm-consecutive-registers.patch
+    # Restores the ABI previously modified by llvm-consecutive-registers.patch
+    - patches/llvm-consecutive-registers-abi.patch
 
 build:
   number: {{ build_number }}
