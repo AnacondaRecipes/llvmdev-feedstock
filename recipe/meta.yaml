@@ -47,7 +47,7 @@ requirements:
     - {{ ccache(ccache_method) }}
     - cmake
     - ninja     # [win]
-    - python >=3
+    - python
     - make      # [not win]
     - m2-coreutils  # [win]
     - m2-grep  # [win]
@@ -80,7 +80,7 @@ outputs:
         - m2-grep  # [win]
         - m2-sed  # [win]
         - ninja     # [win]
-        - python    >=3
+        - python
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -119,7 +119,7 @@ outputs:
         - make                     # [not win]
         - m2-coreutils  # [win]
         - m2-grep  # [win]
-        - python    >=3            # [not win]
+        - python                   # [not win]
       host:
         - libcxx >={{ cxx_compiler_version_bootstrap }}  # [osx]
         - zlib
@@ -166,7 +166,7 @@ outputs:
         - m2-grep  # [win]
         - m2-sed  # [win]
         - ninja     # [win]
-        - python    >=3
+        - python
         - {{posix}}make
         - {{posix}}patch
       host:
