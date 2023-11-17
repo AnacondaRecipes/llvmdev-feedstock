@@ -21,6 +21,7 @@ source:
     # https://reviews.llvm.org/D101972
     - patches/osx_ver.patch
     - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
+    - patches/llvm14-clear-gotoffsetmap.patch
 
 build:
   number: 3
