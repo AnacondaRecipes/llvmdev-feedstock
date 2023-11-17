@@ -48,6 +48,7 @@ requirements:
     - zlib 1.2.13
     - libxml2 2.10 # [win]
     - libffi 3.4   # [unix]
+    - zstd
 
 outputs:
   # Contains everything
@@ -67,6 +68,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - zlib 1.2.13
+        - zstd
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -99,6 +101,7 @@ outputs:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
         - zlib 1.2.13
         - libffi 3.4  # [unix]
+        - zstd
       run:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
         - libffi >=3.4,<3.5  # [unix]
@@ -119,6 +122,7 @@ outputs:
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
         - zlib 1.2.13
+        - zstd
       run:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
       run_constrained:             # [not win]
@@ -144,6 +148,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libxml2 2.10  # [win]
         - zlib 1.2.13
+        - zstd
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
       run_constrained:
