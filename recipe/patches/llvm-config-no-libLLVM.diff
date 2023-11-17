@@ -1,8 +1,8 @@
-Index: llvm/tools/llvm-config/CMakeLists.txt
+Index: llvm-project/llvm/tools/llvm-config/CMakeLists.txt
 ===================================================================
---- llvm.orig/tools/llvm-config/CMakeLists.txt
-+++ llvm/tools/llvm-config/CMakeLists.txt
-@@ -5,6 +5,7 @@ set(BUILDVARIABLES_OBJPATH ${CMAKE_CURRE
+--- llvm-project.orig/llvm/tools/llvm-config/CMakeLists.txt	2023-10-31 15:28:09.370676000 -0500
++++ llvm-project/llvm/tools/llvm-config/CMakeLists.txt	2023-11-17 13:40:42.321730254 -0600
+@@ -8,6 +8,7 @@
  
  # Add the llvm-config tool.
  add_llvm_tool(llvm-config

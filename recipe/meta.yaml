@@ -13,7 +13,6 @@ source:
     # - patches/expect-fastmath-entrypoints-in-add-TLI-mappings.ll.patch # adjusts test added in 10.0.0 for intel-D47188-svml-VF.patch effects
     # - patches/amd-roc-2.7.0.diff
     - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
-    - patches/llvm-config-no-libLLVM.diff
     - patches/0002-restore-macos-10.9-support.patch
     # backports patch for issues with LLJIT, see
     # https://github.com/llvm/llvm-project/commit/122ebe3b500190b1f408e2e6db753853e297ba28
@@ -21,7 +20,7 @@ source:
     # https://reviews.llvm.org/D101972
     - patches/osx_ver.patch
     - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
-    - patches/llvm14-clear-gotoffsetmap.patch
+    - patches/llvm-config-no-libLLVM.diff
 
 build:
   number: 3
