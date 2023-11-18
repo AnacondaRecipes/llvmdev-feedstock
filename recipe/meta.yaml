@@ -46,7 +46,7 @@ requirements:
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
     - zlib 1.2.13
-    - libxml2 2.10 # [win]
+    - libxml2 2.10
     - libffi 3.4   # [unix]
     - zstd
 
@@ -67,6 +67,7 @@ outputs:
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
+        - libxml2
         - zlib 1.2.13
         - zstd
       run:
@@ -99,6 +100,7 @@ outputs:
         - python >=3             # [not win]
       host:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libxml2
         - zlib 1.2.13
         - libffi 3.4  # [unix]
         - zstd
@@ -121,6 +123,7 @@ outputs:
       build:
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
+        - libxml2
         - zlib 1.2.13
         - zstd
       run:   # [not win]
@@ -146,7 +149,7 @@ outputs:
         - python >=3
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
-        - libxml2 2.10  # [win]
+        - libxml2 2.10
         - zlib 1.2.13
         - zstd
       run:
