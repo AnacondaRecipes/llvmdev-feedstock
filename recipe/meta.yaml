@@ -54,11 +54,15 @@ outputs:
         - cmake
         - ninja
         - python >=3
+        - patch       # [not win]
+        - m2-patch    # [win]
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
-        - libxml2
+        - libcxx {{ cxx_compiler_version }}  # [osx]
+        - libxml2 2.10
         - zlib 1.2.13
+        - libffi 3.4   # [unix]
         - zstd
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
@@ -112,10 +116,18 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
+        - {{ compiler('cxx') }}
+        - cmake
+        - ninja
+        - python >=3
+        - patch       # [not win]
+        - m2-patch    # [win]
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
-        - libxml2
+        - libcxx {{ cxx_compiler_version }}  # [osx]
+        - libxml2 2.10
         - zlib 1.2.13
+        - libffi 3.4   # [unix]
         - zstd
       run:   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
@@ -137,10 +149,14 @@ outputs:
         - cmake
         - ninja
         - python >=3
+        - patch       # [not win]
+        - m2-patch    # [win]
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
+        - libcxx {{ cxx_compiler_version }}  # [osx]
         - libxml2 2.10
         - zlib 1.2.13
+        - libffi 3.4   # [unix]
         - zstd
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
