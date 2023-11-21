@@ -36,6 +36,9 @@ requirements:
     - m2-patch    # [win]
     - git         # [(linux and x86_64)]
   host:
+    # this is so conda-build doesn't throw an "Empty package; python dep present in build but not host requirements"
+    # error on windows
+    - python >=3  # [win]
     - libcxx {{ cxx_compiler_version }}  # [osx]
     - libxml2 2.10
     - zlib 1.2.13
@@ -61,6 +64,9 @@ outputs:
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
+        # this is so conda-build doesn't throw an "Empty package; python dep present in build but not host requirements"
+        # error on windows
+        - python >=3  # [win]
         - libcxx {{ cxx_compiler_version }}  # [osx]
         - libxml2 2.10
         - zlib 1.2.13
@@ -100,6 +106,9 @@ outputs:
         - m2-patch    # [win]
         - git         # [(linux and x86_64)]
       host:
+        # this is so conda-build doesn't throw an "Empty package; python dep present in build but not host requirements"
+        # error on windows
+        - python >=3  # [win]
         - libcxx >={{ cxx_compiler_version }}  # [osx]
         - libxml2 2.10
         - zlib 1.2.13
@@ -149,6 +158,9 @@ outputs:
         - m2-patch    # [win]
         - git         # [(linux and x86_64)]
       host:
+        # this is so conda-build doesn't throw an "Empty package; python dep present in build but not host requirements"
+        # error on windows
+        - python >=3  # [win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libcxx {{ cxx_compiler_version }}  # [osx]
         - libxml2 2.10
