@@ -70,12 +70,15 @@ outputs:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
     test:
       commands:
-        - $PREFIX/bin/llvm-config --libs                   # [not win]
-        - test -f $PREFIX/include/llvm/Pass.h              # [not win]
-        - test -f $PREFIX/lib/libLLVMCore.a                # [not win]
-        - $PREFIX/libexec/llvm/not false                   # [not win]
-        - if not exist %LIBRARY_INC%\\llvm\\Pass.h exit 1  # [win]
+        - $PREFIX/bin/llvm-config --libs                                 # [not win]
+        - test -f $PREFIX/include/llvm/Pass.h                           # [not win]
+        - test -f $PREFIX/lib/libLLVMCore.a                             # [not win]
+        - $PREFIX/libexec/llvm/not false                                # [not win]
+        - $PREFIX/bin/llvm-nm --help                                    # [not win]
+        - if not exist %LIBRARY_INC%\\llvm\\Pass.h exit 1               # [win]
         - if not exist "%LIBRARY_PREFIX%"\\libexec\llvm\not.exe exit 1  # [win]
+        - if not exist "%LIBRARY_BIN%"\\llvm-nm.exe exit 1              # [win]
+        - llvm-nm.exe --help                                            # [win]
 
   # Contains the shared libraries. To make different LLVM libraries co-installable
   # soversion is appended to the package name.
@@ -173,7 +176,10 @@ outputs:
       script: python -m pip install llvm/utils/lit --no-deps -vv
       skip: true  # [py<30]
       entry_points:
+        # upstream LLVM is inconsistent; there's one way specified in lit's setup.py...
         - lit = lit.main:main
+        # ... and then the CMake files we install here (e.g. AddLLVM.cmake) look for another
+        - llvm-lit = lit.main:main
     requirements:
       host:
         - python
@@ -187,6 +193,7 @@ outputs:
         - lit
       commands:
         - lit -h
+        - llvm-lit -h
 
 about:
   home: https://llvm.org/
