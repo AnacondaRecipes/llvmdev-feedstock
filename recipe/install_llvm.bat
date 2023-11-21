@@ -9,7 +9,7 @@ cd build
 :: temporary prefix to be able to install files more granularly
 mkdir temp_prefix
 
-iif "%PKG_NAME%" == "llvm-tools" (
+if "%PKG_NAME%" == "llvm-tools" (
     cmake --install ./build --prefix=./temp_prefix
     if %ERRORLEVEL% neq 0 exit 1
 
