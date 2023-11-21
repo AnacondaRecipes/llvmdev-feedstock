@@ -32,13 +32,12 @@ requirements:
     - cmake
     - ninja
     - python >=3
-    - libcxx {{ cxx_compiler_version }}  # [osx]
     - patch       # [not win]
     - m2-patch    # [win]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    - zlib 1.2.13
     - libxml2 2.10
+    - zlib 1.2.13
     - libffi 3.4   # [unix]
     - zstd
 
@@ -85,12 +84,14 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
-        - ninja                  # [not win]
-        - cmake                  # [not win]
-        - python >=3             # [not win]
+        - cmake
+        - ninja
+        - python >=3
+        - patch       # [not win]
+        - m2-patch    # [win]
       host:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
-        - libxml2
+        - libxml2 2.10
         - zlib 1.2.13
         - libffi 3.4  # [unix]
         - zstd
