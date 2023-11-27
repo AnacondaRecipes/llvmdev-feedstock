@@ -27,14 +27,15 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - python >=3  # [not win]
+    - python >=3
+    - libcxx {{ cxx_compiler_version }}  # [osx]
     - patch       # [not win]
     - m2-patch    # [win]
     - git         # [(linux and x86_64)]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    - libxml2 2.10
     - zlib 1.2.13
+    - libxml2 2.10
     - libffi 3.4   # [unix]
     - zstd
 
@@ -84,15 +85,12 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
-        - cmake
-        - ninja
-        - python >=3  # [not win]
-        - patch       # [not win]
-        - m2-patch    # [win]
-        - git         # [(linux and x86_64)]
+        - ninja                  # [not win]
+        - cmake                  # [not win]
+        - python >=3             # [not win]
       host:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
-        - libxml2 2.10
+        - libxml2
         - zlib 1.2.13
         - libffi 3.4  # [unix]
         - zstd
