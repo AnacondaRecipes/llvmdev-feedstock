@@ -18,7 +18,6 @@ source:
     - patches/osx_ver.patch
     # A different approach to this fix: https://github.com/conda-forge/llvmdev-feedstock/commit/1da42e54b055d26bc58da77bd1f88ad460ac90f4
     - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
-    - patches/llvm14-clear-gotoffsetmap.patch
 
 build:
   number: 3
