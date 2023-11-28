@@ -129,7 +129,6 @@ outputs:
     script: install_llvm.bat  # [win]
     build:
       skip: true  # [(win and vc<14)]
-      activate_in_script: true
     requirements:
       build:
         - {{ compiler('cxx') }}
