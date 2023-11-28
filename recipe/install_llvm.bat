@@ -1,10 +1,10 @@
+@echo on
+
 REM Note that we don't build a dll for windows at the moment, meaning the libllvm package is an empty package. It was
 REM done like this to avoid having to have `- libllvm # [not win]` everywhere. There's an LLVM-c.dll, which implements
 REM the C (but not C++) API, which can be built if we have -DLLVM_BUILD_LLVM_C_DYLIB=ON at the build stage. LLVM .dlls
 REM are used for e.g. JIT compilation, which we don't need at the moment on Windows. See the conda-forge recipe for an
 REM example of building and packaging this dll if we do need it.
-
-cd build
 
 :: temporary prefix to be able to install files more granularly
 mkdir temp_prefix
