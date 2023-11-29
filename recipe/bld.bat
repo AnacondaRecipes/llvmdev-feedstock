@@ -42,4 +42,4 @@ REM if %ERRORLEVEL% neq 0 exit 1
 cmake --build . --target check-llvm
 
 cd ..\llvm\test
-python ..\..\build\bin\llvm-lit.py -vv Transforms ExecutionEngine Analysis CodeGen/X86
+%PYTHON% ..\..\build\bin\llvm-lit.py -vv Transforms ExecutionEngine Analysis CodeGen/X86
