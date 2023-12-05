@@ -8,6 +8,11 @@ set "CXXFLAGS=-MD"
 set "CC=cl.exe"
 set "CXX=cl.exe"
 
+REM The PDB-related tests will fail unless these DLLs are
+REM registered, see https://llvm.org/docs/GettingStartedVS.html#getting-started
+regsvr32 "%VSINSTALLDIR%\DIA SDK\bin\msdia140.dll"
+regsvr32 "%VSINSTALLDIR%\DIA SDK\bin\amd64\msdia140.dll"
+
 cmake -G "Ninja" ^
     -DCMAKE_BUILD_TYPE="Release" ^
     -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
