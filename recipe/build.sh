@@ -82,7 +82,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
     ln -s $(which $CC) $BUILD_PREFIX/bin/gcc
 
     # These tests tests permission-based behaviour and probably fail because of some
-    # filesystem-related reason. They don't seem serious so they're excluded.
+    # filesystem-related reason. They are sporadic failures and don't seem serious so they're excluded.
     # Note that indents would introduce spaces into the environment variable
     export LIT_FILTER_OUT='tools/llvm-ar/error-opening-permission.test|'\
 'tools/llvm-dwarfdump/X86/output.s|'\
