@@ -84,18 +84,18 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
     # These tests tests permission-based behaviour and probably fail because of some
     # filesystem-related reason. They don't seem serious so they're excluded.
     # Note that indents would introduce spaces into the environment variable
-    export LIT_FILTER_OUT='tools/llvm-ar/error-opening-permission.test|\
-tools/llvm-dwarfdump/X86/output.s|\
-tools/llvm-ifs/fail-file-write.test|\
-tools/llvm-ranlib/error-opening-permission.test'
+    export LIT_FILTER_OUT='tools/llvm-ar/error-opening-permission.test|'\
+'tools/llvm-dwarfdump/X86/output.s|'\
+'tools/llvm-ifs/fail-file-write.test|'\
+'tools/llvm-ranlib/error-opening-permission.test'
   fi
 
   if [[ "$target_platform" == osx-* ]]; then
     # See comment above, same reason for first test omission;
     # The second test failure seems like something to do with the output format of ls -lu
     # and looks harmless
-    export LIT_FILTER_OUT='Support/./SupportTests/FileSystemTest/permissions|\
-tools/llvm-objcopy/ELF/strip-preserve-atime.test'
+    export LIT_FILTER_OUT='Support/./SupportTests/FileSystemTest/permissions|'\
+'tools/llvm-objcopy/ELF/strip-preserve-atime.test'
   fi
 
   ninja -j${CPU_COUNT} check-llvm
