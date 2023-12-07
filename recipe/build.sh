@@ -91,11 +91,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   fi
 
   if [[ "$target_platform" == osx-* ]]; then
-    # See comment above, same reason for first test omission;
-    # The second test failure seems like something to do with the output format of ls -lu
+    # This failure seems like something to do with the output format of ls -lu
     # and looks harmless
-    export LIT_FILTER_OUT='Support/./SupportTests/FileSystemTest/permissions|'\
-'tools/llvm-objcopy/ELF/strip-preserve-atime.test'
+    export LIT_FILTER_OUT='tools/llvm-objcopy/ELF/strip-preserve-atime.test'
   fi
 
   ninja -j${CPU_COUNT} check-llvm
