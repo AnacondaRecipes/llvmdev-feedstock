@@ -39,23 +39,22 @@ if %ERRORLEVEL% neq 0 exit 1
 REM These tests fail because msdia140.dll isn't registered.
 REM The build stalls if registering is attempted in this file, probably because it needs elevated privileges.
 REM See https://llvm.org/docs/GettingStartedVS.html#getting-started
-
-set LIT_FILTER_OUT=DebugInfo/PDB/DIA/pdbdump-flags.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|DebugInfo/PDB/DIA/pdbdump-linenumbers.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|DebugInfo/PDB/DIA/pdbdump-symbol-format.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/checksum-string.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/class-layout.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/complex-padding-graphical.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/enum-layout.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/injected-sources.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/load-address.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/pretty-func-dumper.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/regex-filter.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/simple-padding-graphical.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/symbol-filters.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/type-qualifiers.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-pdbutil/usingnamespace.test
-set LIT_FILTER_OUT=%LIT_FILTER_OUT%^|tools/llvm-symbolizer/pdb/pdb.test
+set "LIT_FILTER_OUT=DebugInfo/PDB/DIA/pdbdump-flags.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|DebugInfo/PDB/DIA/pdbdump-linenumbers.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|DebugInfo/PDB/DIA/pdbdump-symbol-format.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/checksum-string.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/class-layout.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/complex-padding-graphical.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/enum-layout.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/injected-sources.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/load-address.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/pretty-func-dumper.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/regex-filter.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/simple-padding-graphical.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/symbol-filters.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/type-qualifiers.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/usingnamespace.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-symbolizer/pdb/pdb.test"
 
 cmake --build . --target check-llvm
 
