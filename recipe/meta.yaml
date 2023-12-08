@@ -137,11 +137,13 @@ outputs:
         - cmake
         - ninja
         - python >=3
+        - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libxml2 2.10
         - zlib 1.2.13
         - zstd 1.5.2
+        - libcxx {{ cxx_compiler_version }}  # [osx]
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
       run_constrained:
