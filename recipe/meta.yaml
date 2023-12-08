@@ -47,6 +47,8 @@ outputs:
     script: install_llvm.bat  # [win]
     build:
       skip: true  # [(win and vc<14)]
+    missing_dso_whitelist:  # [s390x]
+        - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -134,6 +136,8 @@ outputs:
     script: install_llvm.bat  # [win]
     build:
       skip: true  # [(win and vc<14)]
+      missing_dso_whitelist:  # [s390x]
+        - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
         - {{ compiler('cxx') }}
