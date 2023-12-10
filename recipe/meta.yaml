@@ -12,7 +12,7 @@ source:
     - patches/0002-restore-macos-10.9-support.patch
     # These two patches remove expected test failures.
     - patches/0004-remove-unsupported-intrinsic-test.patch
-    #- patches/0005-remove-permission-based-unit-tests.patch
+    - patches/0005-remove-permission-based-unit-tests.patch
     # This patches cmake code which isn't hit in the current configuration, however it's kept in case we want to build
     # libllvm-c in the future
     - patches/osx_ver.patch
