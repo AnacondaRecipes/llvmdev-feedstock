@@ -90,11 +90,11 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
 #'tools/llvm-ranlib/error-opening-permission.test'
   fi
 
-  #if [[ "$target_platform" == osx-* ]]; then
+  if [[ "$target_platform" == osx-* ]]; then
     # This failure seems like something to do with the output format of ls -lu
     # and looks harmless
     #export LIT_FILTER_OUT='tools/llvm-objcopy/ELF/strip-preserve-atime.test'
-  #fi
+  fi
 
   ninja -j1 check-llvm
 
