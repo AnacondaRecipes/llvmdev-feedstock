@@ -161,8 +161,8 @@ outputs:
         - llc -version                                           # [win]
 
   - name: lit
+    script: python -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
     build:
-      script: python -m pip install llvm/utils/lit --no-deps -vv
       skip: true  # [py<30]
       entry_points:
         # upstream LLVM is inconsistent; there's one way specified in lit's setup.py...
@@ -192,8 +192,17 @@ about:
   license_file: llvm/LICENSE.TXT
   license_family: Apache
   summary: Development headers and libraries for LLVM
+  description: | 
+    A toolkit for the construction of highly optimized compilers,
+    optimizers, and run-time environments.
 
 extra:
+  skip-lints:
+    # there are false positives for these checks,
+    # for some of the individual outputs.
+    - output_missing_script
+    - missing_tests
+    - missing_pip_check
   recipe-maintainers:
     - inducer
     - jakirkham
