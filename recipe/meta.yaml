@@ -93,9 +93,8 @@ outputs:
         - ninja                  # [not win]
         - cmake                  # [not win]
         - python >=3             # [not win]
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
       host:
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libcxx {{ cxx_compiler_version }}  # [osx]
         - libffi 3.4.2  # [unix]
         - libxml2 2.10.4
         - zlib 1.2.13
@@ -144,7 +143,6 @@ outputs:
         - cmake
         - ninja
         - python >=3
-        - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libxml2 2.10
