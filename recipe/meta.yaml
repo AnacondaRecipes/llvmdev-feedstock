@@ -162,7 +162,7 @@ outputs:
 
   - name: lit
     build:
-      script: {{ PYTHON }} -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
+      script: python -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
       skip: true  # [py<30]
       entry_points:
         # upstream LLVM is inconsistent; there's one way specified in lit's setup.py...
