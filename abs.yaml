@@ -5,3 +5,6 @@ extra_labels_for_os:
   osx-arm64: [ventura]
 
 aggregate_branch: libxml_2.13.1
+
+channels:
+  - https://staging.continuum.io/prefect/fs/libxml2-feedstock/pr17/1c2e862
