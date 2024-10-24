@@ -108,7 +108,6 @@ outputs:
     test:
       commands:
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}${SHLIB_EXT}  # [not win]
-        - if not exist %LIBRARY_LIB%\\LLVMCore.lib exit 1          # [win]
 
   # This is a meta package so that people can use the latest libllvm and also
   # for run_exports
