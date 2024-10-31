@@ -1,4 +1,4 @@
-{% set version = "14.0.6" %}
+{% set version = "15.0.7" %}
 {% set major_ver = version.split(".")[0] %}
 
 package:
@@ -7,18 +7,24 @@ package:
 
 source:
   url: https://github.com/llvm/llvm-project/releases/download/llvmorg-{{ version.replace(".rc", "-rc") }}/llvm-project-{{ version.replace(".rc", "rc") }}.src.tar.xz
-  sha256: 8b3cfd7bc695bd6cea0f37f53f0981f34f87496e79e2529874fd03a2f9dd3a8a
+  sha256: 8b5fcb24b4128cf04df1b0b9410ce8b1a729cb3c544e6da885d234280dedeac6
   patches:
-    # - patches/intel-D47188-svml-VF.patch    # Fixes vectorizer and extends SVML support
-    # - patches/expect-fastmath-entrypoints-in-add-TLI-mappings.ll.patch # adjusts test added in 10.0.0 for intel-D47188-svml-VF.patch effects
-    # - patches/amd-roc-2.7.0.diff
     - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
-    - patches/llvm-config-no-libLLVM.diff
-    # https://reviews.llvm.org/D101972
+    # backport of zlib patches, can be dropped for v>=16.0.0, see
+    # https://reviews.llvm.org/D135457 & https://reviews.llvm.org/D136065
+    - patches/0002-CMake-Fix-Findzstd-module-for-shared-DLL-on-Windows.patch
+    # clear-gotoffsetmap.patch applies to v<17.0.0
+    - patches/clear-gotoffsetmap.patch
+    - patches/no-windows-symlinks.patch
+    # LLVM > 14 does not properly set the build order on OSX when making the C bindings library. This results in an
+    # error where libllvm-c.dylib needs to link against libllvm.dylib; however, libllvm.dylib is a symlink to
+    # libllvm-<major_version>.dylib and is not created until later on in the build process.
+    # https://github.com/llvm/llvm-project/issues/64657
     - patches/osx_ver.patch
-    - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
-    - patches/llvm14-clear-gotoffsetmap.patch
-    - patches/0004-Fixes-vectorizer-and-extends-SVML-support.patch
+    - patches/llvm15-remove-use-of-clonefile.patch
+    - patches/llvm15-svml.patch
+    - patches/compiler-rt-cfi-startproc-war.patch
+    - patches/compiler-rt-macos-build.patch
 
 build:
   number: 4
@@ -31,29 +37,29 @@ requirements:
     - ninja
     - python >=3
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    - make      # [not win]
-    - m2-coreutils  # [win]
-    - m2-make   # [win]
-    - m2-patch  # [win]
-    - m2-grep   # [win]
-    - m2-sed    # [win]
-    - patch       # [not win]
-    - m2-patch    # [win]
-    - git         # [unix]
-    - m2-git      # [win]
+    - make                               # [not win]
+    - patch                              # [not win]
+    - git                                # [unix]
+    - m2-git                             # [win]
+    - m2-coreutils                       # [win]
+    - m2-make                            # [win]
+    - m2-patch                           # [win]
+    - m2-grep                            # [win]
+    - m2-sed                             # [win]
+    - m2-patch                           # [win]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
+    - libffi {{ libffi }}                # [unix]
+    - libxml2 {{ libxml2 }}
     - zlib {{ zlib }}
-    - libxml2 {{ libxml2 }} # [win]
-    - libffi {{ libffi }}   # [unix]
+    - zstd {{ zstd }}
 
 outputs:
   # Contains everything
   - name: llvmdev
-    script: install_llvm.sh  # [not win]
+    script: install_llvm.sh   # [not win]
     script: install_llvm.bat  # [win]
     build:
-      skip: true  # [(win and vc<14)]
       activate_in_script: true
       missing_dso_whitelist:  # [s390x]
         - '$RPATH/ld64.so.1'  # [s390x]
@@ -67,30 +73,33 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - libcxx >={{ cxx_compiler_version }}  # [osx]
     test:
       commands:
-        - $PREFIX/bin/llvm-config --libs                   # [not win]
-        - test -f $PREFIX/include/llvm/Pass.h              # [not win]
-        - test -f $PREFIX/lib/libLLVMCore.a                # [not win]
-        - $PREFIX/libexec/llvm/not false                   # [not win]
-        - if not exist %LIBRARY_INC%\\llvm\\Pass.h exit 1  # [win]
+        - $PREFIX/bin/llvm-config --libs                                # [not win]
+        - test -f $PREFIX/include/llvm/Pass.h                           # [not win]
+        - test -f $PREFIX/lib/libLLVMCore.a                             # [not win]
+        - $PREFIX/libexec/llvm/not false                                # [not win]
+        - $PREFIX/bin/llvm-nm --help                                    # [not win]
+        - if not exist %LIBRARY_INC%\\llvm\\Pass.h exit 1               # [win]
         - if not exist "%LIBRARY_PREFIX%"\\libexec\llvm\not.exe exit 1  # [win]
+        - if not exist "%LIBRARY_BIN%"\\llvm-nm.exe exit 1              # [win]
+        - llvm-nm.exe --help                                            # [win]
 
   # Contains the shared libraries. To make different LLVM libraries co-installable
   # soversion is appended to the package name.
   - name: libllvm{{ major_ver }}
     script: install_llvm.sh  # [not win]
     build:
-      skip: true  # [win and vc<14]
       activate_in_script: true
-      run_exports:   # [not win]
+      run_exports:                                                    # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
-      missing_dso_whitelist:  # [s390x]
-        - '$RPATH/ld64.so.1'  # [s390x]
+      missing_dso_whitelist:                                          # [s390x]
+        - '$RPATH/ld64.so.1'                                          # [s390x]
     requirements:
       build:
         - {{ compiler('cxx') }}
@@ -99,8 +108,10 @@ outputs:
         - python >=3             # [not win]
       host:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libffi {{ libffi }}                  # [unix]
+        - libxml2 {{ libxml2 }}
         - zlib {{ zlib }}
-        - libffi {{ libffi }} # [unix]
+        - zstd {{ zstd }}
       run:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
     test:
@@ -111,18 +122,18 @@ outputs:
   # for run_exports
   - name: llvm
     build:
-      skip: true  # [(win and vc<14)]
-      run_exports:   # [not win]
+      run_exports:                                                    # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
         - zlib {{ zlib }}
-      run:   # [not win]
+        - zstd {{ zstd }}
+      run:                                                         # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}  # [not win]
-      run_constrained:             # [not win]
-        - llvmdev   {{ version }}  # [not win]
+      run_constrained:                                             # [not win]
+        - llvmdev   {{ version }}                                  # [not win]
     test:
       commands:
         - echo "Hello World!"
@@ -132,7 +143,6 @@ outputs:
     script: install_llvm.sh   # [not win]
     script: install_llvm.bat  # [win]
     build:
-      skip: true  # [(win and vc<14)]
       activate_in_script: true
       missing_dso_whitelist:  # [s390x]
         - '$RPATH/ld64.so.1'  # [s390x]
@@ -146,6 +156,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libxml2 {{ libxml2 }}  # [win]
         - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libcxx >={{ cxx_compiler_version }}  # [osx]
@@ -153,9 +164,9 @@ outputs:
         - llvmdev   {{ version }}
     test:
       commands:
-        - $PREFIX/bin/llc -version                               # [not win]
-        - if not exist "%LIBRARY_BIN%"\\llc.exe exit 1           # [win]
-        - llc -version                                           # [win]
+        - $PREFIX/bin/llc -version                      # [not win]
+        - if not exist "%LIBRARY_BIN%"\\llc.exe exit 1  # [win]
+        - llc -version                                  # [win]
 
   - name: lit
     build:
@@ -175,19 +186,29 @@ outputs:
       run:
         - python
     test:
+      requires:
+        - pip
       imports:
         - lit
       commands:
+        - pip check
         - lit -h
 
 about:
   home: https://llvm.org/
-  dev_url: https://github.com/llvm/llvm-project
-  doc_url: https://llvm.org/docs/
   license: Apache-2.0 WITH LLVM-exception
   license_file: llvm/LICENSE.TXT
   license_family: Apache
   summary: Development headers and libraries for LLVM
+  description: |
+    LLVM is a collection of libraries and tools that make it easy to build compilers, optimizers, just-in-time code
+    generators, and many other compiler-related programs.
+    LLVM uses a single, language-independent virtual instruction set both as an offline code representation (to
+    communicate code between compiler phases and to run-time systems) and as the compiler internal representation (to
+    analyze and transform programs). This persistent code representation allows a common set of sophisticated compiler
+    techniques to be applied at compile-time, link-time, install-time, run-time, or "idle-time" (between program runs).
+  dev_url: https://github.com/llvm/llvm-project
+  doc_url: https://llvm.org/docs/
 
 extra:
   recipe-maintainers:
