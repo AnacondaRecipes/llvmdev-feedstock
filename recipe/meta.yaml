@@ -27,7 +27,7 @@ source:
     - patches/compiler-rt-macos-build.patch
 
 build:
-  number: 4
+  number: 3
   merge_build_host: false
 
 requirements:
@@ -50,7 +50,7 @@ requirements:
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
     - libffi {{ libffi }}                # [unix]
-    - libxml2 {{ libxml2 }}
+    - libxml2 2.10.3
     - zlib {{ zlib }}
     - zstd {{ zstd }}
 
@@ -109,7 +109,7 @@ outputs:
       host:
         - libcxx >={{ cxx_compiler_version }}  # [osx]
         - libffi {{ libffi }}                  # [unix]
-        - libxml2 {{ libxml2 }}
+        - libxml2 2.10.3
         - zlib {{ zlib }}
         - zstd {{ zstd }}
       run:
@@ -154,7 +154,7 @@ outputs:
         - python >=3
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
-        - libxml2 {{ libxml2 }}  # [win]
+        - libxml2 2.10.3  # [win]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
       run:
