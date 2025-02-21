@@ -172,6 +172,8 @@ outputs:
       # On Windows there are no symlinks and copying will create a new package
       # that is 300MB+
       skip: true  # [win]
+      missing_dso_whitelist:  # [s390x]
+        - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
         - {{ compiler('cxx') }}
