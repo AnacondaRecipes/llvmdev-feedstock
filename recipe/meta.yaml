@@ -273,8 +273,8 @@ outputs:
 
   - name: lit
     build:
-      script: python -m pip install llvm/utils/lit --no-deps -vv
-      # skip: true
+      script: python -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
+      skip: true  # [py<30]
       entry_points:
         # upstream LLVM is inconsistent; there's one way specified in lit's setup.py...
         - lit = lit.main:main
@@ -282,17 +282,19 @@ outputs:
         - llvm-lit = lit.main:main
     requirements:
       host:
-        - python >=3.9
+        - python
         - pip
         - setuptools
+        - wheel
       run:
-        - python >=3.9
+        - python
     test:
-      requires:
-        - python >=3.9
       imports:
         - lit
+      requires:
+        - pip
       commands:
+        - pip check
         - lit -h
         - llvm-lit -h
 
