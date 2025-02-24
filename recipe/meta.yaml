@@ -46,9 +46,8 @@ requirements:
     - git         # [(linux and x86_64)]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    #TODO - disabled this temporarily
-    # # needs aarch/ppc/arm (re)build of conda-forge/backtrace-feedstock
-    # - backtrace                          # [unix and x86]
+    # needs aarch/ppc/arm (re)build of backtrace-feedstock
+    - backtrace                          # [unix and x86]
     - libxml2
     - zlib
     - zstd
