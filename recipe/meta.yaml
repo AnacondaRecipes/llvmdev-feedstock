@@ -32,6 +32,8 @@ source:
 
 build:
   number: 3
+  # We only use this (and can test this) for pytorch, linux-64/GPU.
+  skip: true  # [not (linux and x86_64)]
   merge_build_host: false
 
 requirements:
