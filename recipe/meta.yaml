@@ -42,6 +42,7 @@ requirements:
     - ninja
     - python >=3
     - libcxx {{ cxx_compiler_version }}  # [osx]
+    - git
     # - patch       # [not win]
     # - m2-patch    # [win]
     # - git         # [(linux and x86_64)]
@@ -146,6 +147,9 @@ outputs:
         # new style
         - test -f $PREFIX/lib/libLLVM.so.{{ maj_min }}{{ extra }}       # [linux]
         - test -f $PREFIX/lib/libLLVM.{{ maj_min }}{{ extra }}.dylib    # [osx]
+        # Make sure libffi was linked
+        - otool -L $(llvm-config --libdir)/libLLVM.dylib | grep -i ffi  # [osx]
+        - ldd $(llvm-config --libdir)/libLLVM.so | grep -i ffi          # [linux]
 
   # This is a meta package so that people can use the latest libllvm and also
   # for run_exports
