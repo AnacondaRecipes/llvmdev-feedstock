@@ -19,7 +19,6 @@ source:
     # - patches/expect-fastmath-entrypoints-in-add-TLI-mappings.ll.patch # adjusts test added in 10.0.0 for intel-D47188-svml-VF.patch effects
     # - patches/amd-roc-2.7.0.diff
     - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
-
     # - patches/0002-restore-macos-10.9-support.patch
     # These two patches remove expected test failures.
     # - patches/0004-remove-unsupported-intrinsic-test.patch
@@ -48,7 +47,6 @@ requirements:
     - git         # [(linux and x86_64)]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    # needs aarch/ppc/arm (re)build of backtrace-feedstock
     - backtrace                          # [unix and x86]
     - libxml2
     - zlib

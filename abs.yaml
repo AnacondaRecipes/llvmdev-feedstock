@@ -3,9 +3,3 @@
 # before crashing.
 extra_labels_for_os:
   osx-arm64: [ventura]
-
-upload_without_merge: True
-
-upload_to_staging_channel_in_pr: False
-
-channels: [cuda12_def]
