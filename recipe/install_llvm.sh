@@ -29,7 +29,7 @@ if [[ "${PKG_NAME}" == libllvm-c* ]]; then
 elif [[ "${PKG_NAME}" == libllvm* ]]; then
     cmake --install ./build --prefix=./temp_prefix
     # all other libraries
-    mv ./temp_prefix/lib/libLLVM-${MAJOR_EXT}${SHLIB_EXT} $PREFIX/lib
+    mv ./temp_prefix/lib/libLLVM-${SOVER_EXT}${SHLIB_EXT} $PREFIX/lib
     mv ./temp_prefix/lib/libLLVM.${SOVER_EXT} $PREFIX/lib || true
     mv ./temp_prefix/lib/lib*.so.${SOVER_EXT} $PREFIX/lib || true
     mv ./temp_prefix/lib/lib*.${SOVER_EXT}.dylib $PREFIX/lib || true
