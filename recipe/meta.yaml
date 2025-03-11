@@ -43,16 +43,15 @@ build:
 
 requirements:
   build:
-    - {{ stdlib('c') }}                  # [not osx]
+#    - {{ stdlib('c') }}                  # [not osx]
     - {{ compiler('cxx') }}
     - cmake
     - ninja
     - python >=3
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    - git
-    # - patch       # [not win]
-    # - m2-patch    # [win]
-    # - git         # [(linux and x86_64)]
+    - patch       # [not win]
+    - m2-patch    # [win]
+    - git         # [(linux and x86_64)]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
     - backtrace                          # [unix and x86]
@@ -135,23 +134,23 @@ outputs:
         - libxml2   # [unix]
         - zlib
         - zstd
-        # - libffi {{ libffi }}  # [unix]
-        # - libxml2 {{ libxml2 }}  # [win]
-        # - zlib <2 # {{ zlib }}
+        - libffi {{ libffi }}  # [unix]
+        - libxml2 {{ libxml2 }}  # [win]
+        - zlib <2 # {{ zlib }}
         # - zstd {{ zstd }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
         - libcxx >={{ cxx_compiler_version }}  # [osx]
-        # - {{ pin_compatible('libffi', max_pin='x.x') }}  # [unix]
-        # - zlib    # [osx]
+        - {{ pin_compatible('libffi', max_pin='x.x') }}  # [unix]
+        - zlib    # [osx]
     test:
       commands:
         # old style
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.so     # [linux]
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib  # [osx]
         # Make sure libffi was linked
-        - otool -L $(llvm-config --libdir)/libLLVM.dylib | grep -i ffi  # [osx]
-        - ldd $(llvm-config --libdir)/libLLVM.so | grep -i ffi          # [linux]
+        - otool -L $PREFIX/libLLVM.dylib | grep -i ffi  # [osx]
+        - ldd $PREFIX/libLLVM.so | grep -i ffi          # [linux]
 
   # This is a meta package so that people can use the latest libllvm and also
   # for run_exports
@@ -199,20 +198,20 @@ outputs:
         - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        # - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
-        # - libxml2 {{ libxml2 }}  # [win]
-        #   - zlib {{ zlib }}
-        # - zstd {{ zstd }}
-        # - libcxx {{ cxx_compiler_version }}  # [osx]
+        - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
+        - libxml2 {{ libxml2 }}  # [win]
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
+        - libcxx {{ cxx_compiler_version }}  # [osx]
         # on unix, there's only symlinks
         - libxml2   # [win]
         - zlib      # [win]
         - zstd      # [win]
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        # - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
-        # - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
-        # - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
+        - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
+        - libcxx >={{ cxx_compiler_version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvmdev     {{ version }}
@@ -242,7 +241,7 @@ outputs:
       skip: true  # [not win]
     requirements:
       build:
-        - {{ stdlib('c') }}
+        # - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
