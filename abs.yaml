@@ -7,10 +7,10 @@ extra_labels_for_os:
 # disable tests on initial builds
 build_parameters:
   - "--suppress-variables"
-  # - "--skip-existing"
+  - "--skip-existing"
   - "--error-overlinking"
   - "--no-test"
 
-upload_without_merge: True
-upload_to_staging_channel_in_pr: True
-channels: [ llvmdev17 ]
+# upload_without_merge: True
+# upload_to_staging_channel_in_pr: True
+# channels: [ llvmdev17 ]

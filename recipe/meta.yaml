@@ -26,7 +26,7 @@ source:
     # - patches/0005-remove-permission-based-unit-tests.patch
     # This patches cmake code which isn't hit in the current configuration, however it's kept in case we want to build
     # libllvm-c in the future
-    # - patches/osx_ver.patch
+    - patches/osx_ver.patch
     # A different approach to this fix: https://github.com/conda-forge/llvmdev-feedstock/commit/1da42e54b055d26bc58da77bd1f88ad460ac90f4
     # - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
 
