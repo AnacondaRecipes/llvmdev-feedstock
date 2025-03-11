@@ -149,8 +149,8 @@ outputs:
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.so     # [linux]
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib  # [osx]
         # Make sure libffi was linked
-        - otool -L $PREFIX/libLLVM.dylib | grep -i ffi  # [osx]
-        - ldd $PREFIX/libLLVM.so | grep -i ffi          # [linux]
+        - otool -L $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib | grep -i ffi  # [osx]
+        - ldd $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.so | grep -i ffi          # [linux]
 
   # This is a meta package so that people can use the latest libllvm and also
   # for run_exports
