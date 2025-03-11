@@ -24,6 +24,7 @@ fi
 if [[ "$target_platform" == "linux-ppc64le" ]]; then
   CFLAGS="$(echo $CFLAGS | sed 's/-fno-plt //g')"
   CXXFLAGS="$(echo $CXXFLAGS | sed 's/-fno-plt //g')"
+  
 fi
 
 if [[ $target_platform == osx-* ]]; then
@@ -61,6 +62,9 @@ cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
       -DLLVM_BUILD_LLVM_DYLIB=yes \
       -DLLVM_LINK_LLVM_DYLIB=yes \
       -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly \
+      -DLLVM_ENABLE_FFI=ON \
+      -DLLVM_OPTIMIZED_TABLEGEN=ON \
+      -DCMAKE_POLICY_DEFAULT_CMP0111=NEW \
       ${CMAKE_ARGS} \
       -GNinja \
       ../llvm
