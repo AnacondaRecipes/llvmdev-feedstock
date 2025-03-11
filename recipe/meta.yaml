@@ -29,7 +29,7 @@ source:
 
     # - patches/0002-restore-macos-10.9-support.patch
     # These two patches remove expected test failures.
-    # - patches/0004-remove-unsupported-intrinsic-test.patch
+    - patches/0004-remove-unsupported-intrinsic-test.patch
     # - patches/0005-remove-permission-based-unit-tests.patch
     # This patches cmake code which isn't hit in the current configuration, however it's kept in case we want to build
     # libllvm-c in the future
@@ -54,7 +54,7 @@ requirements:
     - git         # [(linux and x86_64)]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
-    - backtrace                          # [unix and x86]
+    - backtrace                          # [unix]
     - libxml2
     - zlib
     - zstd
@@ -75,7 +75,6 @@ outputs:
         - cmake
         - ninja
         - python >=3
-      
         - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - libcxx {{ cxx_compiler_version }}  # [osx]
@@ -95,7 +94,6 @@ outputs:
     test:
       requires:
         - ripgrep  # [win]
-
       commands:
         - $PREFIX/bin/llvm-config --libs                                # [not win]
         - test -f $PREFIX/include/llvm/Pass.h                           # [not win]
@@ -106,7 +104,6 @@ outputs:
         - if not exist "%LIBRARY_PREFIX%"\\libexec\llvm\not.exe exit 1  # [win]
         - if not exist "%LIBRARY_BIN%"\\llvm-nm.exe exit 1              # [win]
         - llvm-nm.exe --help                                            # [win]
-
         # ensure we've correctly inserted %VSINSTALLDIR% into the CMake metadata for LLVM;
         # we're looking for: `INTERFACE_LINK_LIBRARIES "$ENV{VSINSTALLDIR}/DIA SDK/lib/amd64/diaguids.lib;[...]`instead
         - rg -e "INTERFACE_LINK_LIBRARIES\s\"\$ENV\{VSINSTALLDIR\}[/\w\s]+/diaguids\.lib" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake  # [win]
@@ -134,7 +131,7 @@ outputs:
         - libxml2   # [unix]
         - zlib
         - zstd
-        - libffi {{ libffi }}  # [unix]
+        - libffi {{ libffi }}
         - libxml2 {{ libxml2 }}  # [win]
         - zlib <2 # {{ zlib }}
         # - zstd {{ zstd }}
@@ -261,9 +258,8 @@ outputs:
         - if not exist %LIBRARY_LIB%\LLVM-C.lib exit 1          # [win]
 
   - name: lit
+    script: python -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
     build:
-      script: python -m pip install llvm/utils/lit --no-deps -vv
-      # skip: true
       entry_points:
         # upstream LLVM is inconsistent; there's one way specified in lit's setup.py...
         - lit = lit.main:main
@@ -274,8 +270,9 @@ outputs:
         - python >=3.9
         - pip
         - setuptools
+        - wheel
       run:
-        - python >=3.9
+        - python
     test:
       requires:
         - python >=3.9
