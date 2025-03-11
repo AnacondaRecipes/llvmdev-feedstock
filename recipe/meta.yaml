@@ -1,11 +1,18 @@
+# {% set version = "17.0.6" %}
+# {% set major_ver = version.split(".")[0] %}
+# {% set tail_ver = version.split(".")[-1] %}
+# {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
+
+# # as of LLVM 19, we expect an "-rcX" suffix for the release candidates
+# {% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
+# {% set extra = "git" if tail_ver|trim("0123456789") == "dev" else extra %}
+
 {% set version = "17.0.6" %}
 {% set major_ver = version.split(".")[0] %}
-{% set tail_ver = version.split(".")[-1] %}
-{% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
 
-# as of LLVM 19, we expect an "-rcX" suffix for the release candidates
-{% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
-{% set extra = "git" if tail_ver|trim("0123456789") == "dev" else extra %}
+# as of LLVM 17, we expect an "rc" suffix for the release candidates
+{% set extra = "rc" if version.split(".")[-1] not in "01234567" else "" %}
+{% set extra = "git" if version.split(".")[-1] == "dev0" else extra %}
 
 package:
   name: llvm-package
@@ -142,9 +149,6 @@ outputs:
         # old style
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.so     # [linux]
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib  # [osx]
-        # new style
-        - test -f $PREFIX/lib/libLLVM.so.{{ maj_min }}{{ extra }}       # [linux]
-        - test -f $PREFIX/lib/libLLVM.{{ maj_min }}{{ extra }}.dylib    # [osx]
         # Make sure libffi was linked
         - otool -L $(llvm-config --libdir)/libLLVM.dylib | grep -i ffi  # [osx]
         - ldd $(llvm-config --libdir)/libLLVM.so | grep -i ffi          # [linux]
