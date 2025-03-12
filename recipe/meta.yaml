@@ -30,7 +30,7 @@ source:
     # - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
 
 build:
-  number: 3
+  number: 1
   # We only use this (and can test this) for pytorch, linux-64/GPU.
   skip: true  # [not (linux and x86_64)]
   merge_build_host: false
@@ -73,6 +73,7 @@ outputs:
         - libcxx {{ cxx_compiler_version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
+        - libxml2 {{ libxml2 }}  # [win]
         - zlib
         - zstd
       run:
