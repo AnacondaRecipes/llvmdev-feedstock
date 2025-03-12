@@ -177,7 +177,6 @@ outputs:
         - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
         - libffi {{ libffi }}
         - libxml2 {{ libxml2 }}
         - zlib {{ zlib }}
@@ -185,7 +184,6 @@ outputs:
         - libcxx {{ cxx_compiler_version }}  # [osx]
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libcxx >={{ cxx_compiler_version }}  # [osx]
       run_constrained:
