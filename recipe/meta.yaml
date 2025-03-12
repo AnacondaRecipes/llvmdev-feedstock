@@ -21,8 +21,8 @@ source:
     - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
     # - patches/0002-restore-macos-10.9-support.patch
     # These two patches remove expected test failures.
-    # - patches/0004-remove-unsupported-intrinsic-test.patch
-    # - patches/0005-remove-permission-based-unit-tests.patch
+    - patches/0004-remove-unsupported-intrinsic-test.patch
+    - patches/0005-remove-permission-based-unit-tests.patch
     # This patches cmake code which isn't hit in the current configuration, however it's kept in case we want to build
     # libllvm-c in the future
     # - patches/osx_ver.patch
@@ -313,6 +313,11 @@ about:
     optimizers, and run-time environments.
 
 extra:
+  skip-lints:
+    # there are false positives for these checks,
+    # for some of the individual outputs.
+    - missing_tests
+    - wrong_output_script_key
   recipe-maintainers:
     - JohanMabille
     - inducer
