@@ -1,12 +1,3 @@
-# {% set version = "17.0.6" %}
-# {% set major_ver = version.split(".")[0] %}
-# {% set tail_ver = version.split(".")[-1] %}
-# {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
-
-# # as of LLVM 19, we expect an "-rcX" suffix for the release candidates
-# {% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
-# {% set extra = "git" if tail_ver|trim("0123456789") == "dev" else extra %}
-
 {% set version = "17.0.6" %}
 {% set major_ver = version.split(".")[0] %}
 
@@ -22,18 +13,13 @@ source:
   url: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{{ version.replace(".rc", "-rc") }}.tar.gz
   sha256: 81494d32e6f12ea6f73d6d25424dbd2364646011bb8f7e345ca870750aa27de1
   patches:
-    # - patches/intel-D47188-svml-VF.patch    # Fixes vectorizer and extends SVML support
-    # - patches/expect-fastmath-entrypoints-in-add-TLI-mappings.ll.patch # adjusts test added in 10.0.0 for intel-D47188-svml-VF.patch effects
-    # - patches/amd-roc-2.7.0.diff
     - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
-
-    # - patches/0002-restore-macos-10.9-support.patch
+    - patches/0002-restore-macos-10.9-support.patch
+    # this patch adds the needed version numbers to 
+    - patches/0003-change-osx-version-for-libllvm-c.patch
     # These two patches remove expected test failures.
     - patches/0004-remove-unsupported-intrinsic-test.patch
-    # - patches/0005-remove-permission-based-unit-tests.patch
-    # This patches cmake code which isn't hit in the current configuration, however it's kept in case we want to build
-    # libllvm-c in the future
-    - patches/osx_ver.patch
+    - patches/0005-remove-permission-based-unit-tests.patch
     # A different approach to this fix: https://github.com/conda-forge/llvmdev-feedstock/commit/1da42e54b055d26bc58da77bd1f88ad460ac90f4
     # - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
 
@@ -43,21 +29,21 @@ build:
 
 requirements:
   build:
-#    - {{ stdlib('c') }}                  # [not osx]
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - python >=3
+    - python
     - libcxx {{ cxx_compiler_version }}  # [osx]
     - patch       # [not win]
     - m2-patch    # [win]
-    - git         # [(linux and x86_64)]
+    - git
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
     - backtrace                          # [unix]
-    - libxml2
-    - zlib
-    - zstd
+    - libffi {{ libffi }}
+    - libxml2 {{ libxml2 }}
+    - zlib {{ zlib }}
+    - zstd {{ zstd }}
 
 outputs:
   # Contains everything
@@ -70,18 +56,19 @@ outputs:
         - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
-        # - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - python >=3
+        - python
         - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - libcxx {{ cxx_compiler_version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
-        - zlib
-        - zstd
+        - libffi {{ libffi }}
+        - libxml2 {{ libxml2 }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -121,30 +108,28 @@ outputs:
         - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
-        # - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - ninja                    # [not win]
         - cmake                    # [not win]
-        - python >=3               # [not win]
+        - python                   # [not win]
       host:
         - libcxx {{ cxx_compiler_version }}  # [osx]
-        - libxml2   # [unix]
-        - zlib
-        - zstd
+        - libxml2                 # [unix or win]
         - libffi {{ libffi }}
-        - libxml2 {{ libxml2 }}  # [win]
-        - zlib <2 # {{ zlib }}
-        # - zstd {{ zstd }}
+        - libxml2 {{ libxml2 }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
         - libcxx >={{ cxx_compiler_version }}  # [osx]
         - {{ pin_compatible('libffi', max_pin='x.x') }}  # [unix]
-        - zlib    # [osx]
+        - zlib {{ zlib }}    # [osx]
     test:
       commands:
-        # old style
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.so     # [linux]
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib  # [osx]
+        - if not exist %LIBRARY_BIN%\LLVM-C.dll exit 1                  # [win]
+        - if not exist %LIBRARY_LIB%\LLVM-C.lib exit 1                  # [win]
         # Make sure libffi was linked
         - otool -L $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib | grep -i ffi  # [osx]
         - ldd $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.so | grep -i ffi          # [linux]
@@ -160,12 +145,10 @@ outputs:
       build:
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
-        - libxml2
-        - zlib
-        - zstd
-        # - libxml2 {{ libxml2 }}  # [win]
-        # - zlib <2 # {{ zlib }}
-        # - zstd {{ zstd }}
+        - libxml2 {{ libxml2 }}
+        - libffi {{ libffi }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:                                                            # [not win]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
       run_constrained:
@@ -187,26 +170,22 @@ outputs:
         - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
-        # - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - python >=3
+        - python
         - libcxx {{ cxx_compiler_version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        # - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
-        - libxml2 {{ libxml2 }}  # [win]
+        - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
+        - libffi {{ libffi }}
+        - libxml2 {{ libxml2 }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
         - libcxx {{ cxx_compiler_version }}  # [osx]
-        # on unix, there's only symlinks
-        - libxml2   # [win]
-        - zlib      # [win]
-        - zstd      # [win]
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        # - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
+        - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libcxx >={{ cxx_compiler_version }}  # [osx]
       run_constrained:
@@ -238,7 +217,6 @@ outputs:
       skip: true  # [not win]
     requirements:
       build:
-        # - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
@@ -246,20 +224,22 @@ outputs:
       host:
         - libcxx {{ cxx_compiler_version }}  # [osx]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
-        - libxml2
-        - zlib
-        - zstd
+        - libffi {{ libffi }}
+        - libxml2 {{ libxml2 }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run_constrained:
         - llvmdev {{ version }}
     test:
       commands:
-        - test -f $PREFIX/lib/libLLVM-C.{{ major_ver }}.dylib   # [osx]
-        - if not exist %LIBRARY_BIN%\LLVM-C.dll exit 1          # [win]
-        - if not exist %LIBRARY_LIB%\LLVM-C.lib exit 1          # [win]
+        - test -f $PREFIX/lib/libLLVM-C{{ major_ver }}{{ extra }}.so # [linux]
+        - test -f $PREFIX/lib/libLLVM-C.{{ major_ver }}.dylib       # [osx]
+        - if not exist %LIBRARY_BIN%\LLVM-C.dll exit 1              # [win]
+        - if not exist %LIBRARY_LIB%\LLVM-C.lib exit 1              # [win]
 
   - name: lit
-    script: python -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
     build:
+      script: python -m pip install llvm/utils/lit --no-deps --no-build-isolation -vv
       entry_points:
         # upstream LLVM is inconsistent; there's one way specified in lit's setup.py...
         - lit = lit.main:main
@@ -267,7 +247,7 @@ outputs:
         - llvm-lit = lit.main:main
     requirements:
       host:
-        - python >=3.9
+        - python
         - pip
         - setuptools
         - wheel
@@ -275,7 +255,7 @@ outputs:
         - python
     test:
       requires:
-        - python >=3.9
+        - python
       imports:
         - lit
       commands:
@@ -295,12 +275,11 @@ about:
     optimizers, and run-time environments.
 
 extra:
-  # skip-lints:
-  #   # there are false positives for these checks,
-  #   # for some of the individual outputs.
-  #   - output_missing_script
-  #   - missing_tests
-  #   - wrong_output_script_key
+  skip-lints:
+    # there are false positives for these checks,
+    # for some of the individual outputs.
+    - missing_tests
+    - wrong_output_script_key
   recipe-maintainers:
     - JohanMabille
     - inducer
