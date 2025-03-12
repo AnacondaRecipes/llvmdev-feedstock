@@ -47,8 +47,9 @@ requirements:
     - git         # [(linux and x86_64)]
   host:
     - libcxx {{ cxx_compiler_version }}  # [osx]
+    - libffi {{ libffi }}                # [unix]
     - backtrace                          # [unix and x86]
-    - libxml2
+    - libxml2 {{ libxml2 }}
     - zlib
     - zstd
 
@@ -73,7 +74,7 @@ outputs:
         - libcxx {{ cxx_compiler_version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
-        - libxml2 {{ libxml2 }}  # [win]
+        - libxml2 {{ libxml2 }}
         - zlib
         - zstd
       run:
@@ -123,12 +124,14 @@ outputs:
         - python >=3               # [not win]
       host:
         - libcxx {{ cxx_compiler_version }}  # [osx]
-        - libxml2   # [unix]
+        - libffi {{ libffi }}                # [unix]
+        - libxml2 {{ libxml2 }}
         - zlib
         - zstd
       run:
         # we need to do this manually because clang_bootstrap has no run-export
         - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - {{ pin_compatible('libffi', max_pin='x.x') }}  # [unix]
     test:
       commands:
         # old style
@@ -149,7 +152,7 @@ outputs:
       build:
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
-        - libxml2
+        - libxml2 {{ libxml2 }}
         - zlib
         - zstd
       run:                                                            # [not win]
@@ -218,10 +221,9 @@ outputs:
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
-        # on unix, there's only symlinks
-        - libxml2   # [win]
-        - zlib      # [win]
-        - zstd      # [win]
+        - libxml2 {{ libxml2 }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
