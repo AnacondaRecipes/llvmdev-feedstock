@@ -2,7 +2,7 @@
 # These tests call /usr/lib/system/libsystem_pthread.dylib
 # before crashing.
 extra_labels_for_os:
-  osx-arm64: [ventura]
+  osx-arm64: [big-sur]
 
 # the conda build parameters to use
 build_parameters:
@@ -11,7 +11,5 @@ build_parameters:
 
 aggregate_check: false
 
-staging_channel_upload_target: llvm-17.0.6-stage2
-
 channels:
-  - https://staging.continuum.io/prefect/llvm-17.0.6-stage1-attempt-5
+  - https://staging.continuum.io/prefect/llvm-17.0.6-stage2
