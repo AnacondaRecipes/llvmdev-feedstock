@@ -1,4 +1,4 @@
-{% set version = "17.0.6" %}
+{% set version = "19.1.1" %}
 {% set major_ver = version.split(".")[0] %}
 
 # as of LLVM 17, we expect an "rc" suffix for the release candidates
@@ -13,17 +13,17 @@ package:
 
 source:
   url: https://github.com/llvm/llvm-project/releases/download/llvmorg-{{ version.replace(".rc", "-rc") }}/llvm-project-{{ version.replace(".rc", "rc") }}.src.tar.xz
-  sha256: 58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813
+  sha256: d40e933e2a208ee142898f85d886423a217e991abbcd42dd8211f507c93e1266
   patches:
-    - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
-    # - patches/0002-restore-macos-10.9-support.patch
-    # # this patch adds the needed version numbers to 
-    # - patches/0003-change-osx-version-for-libllvm-c.patch
-    # These two patches remove expected test failures.
+  #   - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
+  #   # - patches/0002-restore-macos-10.9-support.patch
+  #   # # this patch adds the needed version numbers to 
+  #   # - patches/0003-change-osx-version-for-libllvm-c.patch
+  #   # These two patches remove expected test failures.
     - patches/0004-remove-unsupported-intrinsic-test.patch
     - patches/0005-remove-permission-based-unit-tests.patch
-    # # A different approach to this fix: https://github.com/conda-forge/llvmdev-feedstock/commit/1da42e54b055d26bc58da77bd1f88ad460ac90f4
-    # # - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
+  #   # # A different approach to this fix: https://github.com/conda-forge/llvmdev-feedstock/commit/1da42e54b055d26bc58da77bd1f88ad460ac90f4
+  #   # # - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
 
 build:
   number: 4
