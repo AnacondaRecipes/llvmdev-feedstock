@@ -5,8 +5,6 @@
 {% set extra = "rc" if version.split(".")[-1] not in "0123456789" else "" %}
 {% set extra = "git" if version.split(".")[-1] == "dev0" else extra %}
 
-{% set bootstrap_version = "17.0.6" %}
-
 package:
   name: llvm-package
   version: {{ version }}
@@ -35,13 +33,13 @@ requirements:
     - cmake
     - ninja
     - python
-    - libcxx-devel {{ bootstrap_version }}    # [osx]
+    - libcxx-devel {{ version }}    # [osx]
     - patch                     # [not win]
     - m2-patch                  # [win]
     - m2-sed                    # [win]
     - git                       # [not win]
   host:
-    - libcxx-devel {{ bootstrap_version }}    # [osx]
+    - libcxx-devel {{ version }}    # [osx]
     - backtrace {{ backtrace }}         # [unix]
     - libffi {{ libffi }}
     - libxml2 {{ libxml2 }}
@@ -65,9 +63,9 @@ outputs:
         - ninja
         - python
         - m2-sed                  # [win]
-        - libcxx-devel {{ bootstrap_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx-devel {{ bootstrap_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - libxml2 {{ libxml2 }}  # [win]
@@ -76,7 +74,7 @@ outputs:
       run:
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - {{ pin_compatible("libcxx-devel", max_pin=None) }}  # [osx]
-        - libcxx {{ bootstrap_version }}  # [osx]
+        - libcxx {{ version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvm-tools  {{ version }}
@@ -114,16 +112,16 @@ outputs:
         - ninja                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
-        - libcxx-devel {{ bootstrap_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx-devel {{ bootstrap_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - libffi {{ libffi }}
         - libxml2 {{ libxml2 }} # [unix]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx {{ bootstrap_version }}  # [osx]
+        - libcxx {{ version }}  # [osx]
         - {{ pin_compatible('libffi', max_pin='x.x') }}  # [unix]
         - zlib {{ zlib }}    # [osx]
     test:
@@ -175,17 +173,17 @@ outputs:
         - cmake
         - ninja
         - python
-        - libcxx-devel {{ bootstrap_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - libxml2 {{ libxml2 }}  # [win]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
-        - libcxx-devel {{ bootstrap_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       run:
         - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
         - {{ pin_compatible("libcxx-devel", max_pin=None) }}  # [osx]
-        - libcxx {{ bootstrap_version }}  # [osx]
+        - libcxx {{ version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvmdev     {{ version }}
