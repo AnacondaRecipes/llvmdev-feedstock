@@ -1,11 +1,11 @@
-c_compiler:
-  - gcc                        # [linux]
-  - clang_bootstrap            # [osx]
-  - vs2022                     # [win]
-cxx_compiler:
-  - gxx                        # [linux]
-  - clang_bootstrap            # [osx]
-  - vs2022                     # [win]
+# c_compiler:
+#   - gcc                        # [linux]
+#   - clang_bootstrap            # [osx]
+#   - vs2022                     # [win]
+# cxx_compiler:
+#   - gxx                        # [linux]
+#   - clang_bootstrap            # [osx]
+#   - vs2022                     # [win]
 
 c_compiler_version:
   - 11.2.0            # [linux]
