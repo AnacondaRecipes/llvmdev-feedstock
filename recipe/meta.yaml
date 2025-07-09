@@ -1,17 +1,19 @@
-{% set version = "19.1.1" %}
+{% set version = "19.1.7" %}
 {% set major_ver = version.split(".")[0] %}
+{% set tail_ver = version.split(".")[-1] %}
+{% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
 
-# as of LLVM 17, we expect an "rc" suffix for the release candidates
-{% set extra = "rc" if version.split(".")[-1] not in "0123456789" else "" %}
-{% set extra = "git" if version.split(".")[-1] == "dev0" else extra %}
+# as of LLVM 19, we expect an "-rcX" suffix for the release candidates
+{% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
+{% set extra = "git" if tail_ver|trim("0123456789") == "dev" else extra %}
 
 package:
   name: llvm-package
   version: {{ version }}
 
 source:
-  url: https://github.com/llvm/llvm-project/releases/download/llvmorg-{{ version.replace(".rc", "-rc") }}/llvm-project-{{ version.replace(".rc", "rc") }}.src.tar.xz
-  sha256: d40e933e2a208ee142898f85d886423a217e991abbcd42dd8211f507c93e1266
+  url: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{{ version.replace(".rc", "-rc") }}.tar.gz
+  sha256: 59abea1c22e64933fad4de1671a61cdb934098793c7a31b333ff58dc41bff36c
   patches:
   #   - patches/0001-pass-through-QEMU_LD_PREFIX-SDKROOT.patch
   #   # - patches/0002-restore-macos-10.9-support.patch
