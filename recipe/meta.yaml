@@ -38,7 +38,7 @@ requirements:
     - libxml2 {{ libxml2 }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
-    - libcxx {{ version }}  # [osx]
+    - libcxx-devel {{ version }}  # [osx]
 
 outputs:
   # Contains everything
@@ -56,7 +56,7 @@ outputs:
         - m2-sed                  # [win]
         - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -105,9 +105,9 @@ outputs:
         - ninja                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - libxml2   # [unix]
         - zlib
         - zstd
@@ -163,9 +163,9 @@ outputs:
         - cmake
         - ninja
         - python >=3
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib
         - zstd
@@ -195,7 +195,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
@@ -238,9 +238,9 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx {{ version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib
         - zstd
