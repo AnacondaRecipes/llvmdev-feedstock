@@ -57,13 +57,12 @@ cmake -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
       -DLLVM_INCLUDE_EXAMPLES=OFF \
       -DLLVM_INCLUDE_GO_TESTS=OFF \
       -DLLVM_INCLUDE_TESTS=ON \
+      -DLLVM_INCLUDE_INTEGRATION_TESTS=ON \
       -DLLVM_INCLUDE_UTILS=ON \
       -DLLVM_INSTALL_UTILS=ON \
       -DLLVM_BUILD_LLVM_DYLIB=ON \
       -DLLVM_LINK_LLVM_DYLIB=ON \
       -DLLVM_UTILS_INSTALL_DIR=libexec/llvm \
-      -DHAVE_CXX_ATOMICS_WITHOUT_LIB=TRUE \
-      -DHAVE_CXX_ATOMICS64_WITHOUT_LIB=TRUE \
       ${CMAKE_ARGS} \
       -GNinja \
       ../llvm
@@ -103,5 +102,5 @@ if [[ ${CONDA_BUILD_CROSS_COMPILATION:-0} != "1" ]]; then
   ninja -j${CPU_COUNT} check-llvm
 
   cd ../llvm/test
-  ${PYTHON} ../../build/bin/llvm-lit -vv Transforms ExecutionEngine Analysis CodeGen/X86
+  ${PYTHON} ${BUILD_PREFIX}/bin/llvm-lit -vv Transforms ExecutionEngine Analysis CodeGen/X86
 fi
