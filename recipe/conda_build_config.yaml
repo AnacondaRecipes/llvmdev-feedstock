@@ -9,10 +9,10 @@ cxx_compiler:
 
 c_compiler_version:
   - 11.2.0            # [linux]
-  - 19.1.7            # [osx]
+  - 17.0.6            # [osx]
 cxx_compiler_version:
   - 11.2.0            # [linux]
-  - 19.1.7            # [osx]
+  - 17.0.6            # [osx]
 
 
 # CONDA_BUILD_SYSROOT:

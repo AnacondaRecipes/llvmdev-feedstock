@@ -4,10 +4,9 @@
 extra_labels_for_os:
   osx-arm64: [ventura]
 
-staging_channel_upload_target: llvm-19.1.7-stage1-build-0
+staging_channel_upload_target: llvm-19.1.1-stage0-build-3
 
 channels:
-  - https://staging.continuum.io/prefect/llvm-19.1.7-stage1-build-0
-  - https://staging.continuum.io/prefect/llvm-19.1.1-stage0-build-2
+  - https://staging.continuum.io/prefect/llvm-19.1.1-stage0-build-3
 
 aggregate_check: false
