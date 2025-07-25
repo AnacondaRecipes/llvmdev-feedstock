@@ -4,10 +4,13 @@
 extra_labels_for_os:
   osx-arm64: [ventura]
 
-staging_channel_upload_target: llvm-19.1.7-stage1-build-2
+build_parameters:
+  - "--suppress-variables"
+  - "--error-overlinking"
+
+staging_channel_upload_target: llvm-19.1.7-stage2-build-0
 
 channels:
   - https://staging.continuum.io/prefect/llvm-19.1.7-stage1-build-2
-  - https://staging.continuum.io/prefect/llvm-19.1.1-stage0-build-3
 
 aggregate_check: false
