@@ -25,6 +25,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cmake
     - ninja
     - python
@@ -50,6 +51,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
+        -  {{ stdlib('c') }}
         - cmake
         - ninja
         - python
@@ -102,6 +104,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
         - ninja                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
@@ -160,6 +163,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
         - cmake
         - ninja
         - python >=3
@@ -192,6 +196,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
         - cmake
         - ninja
         - python
@@ -236,6 +241,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
         - cmake
         - ninja
         - libcxx-devel {{ version }}  # [osx]
