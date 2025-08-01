@@ -1,4 +1,4 @@
-{% set version = "19.1.7" %}
+{% set version = "20.1.8" %}
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
@@ -13,13 +13,13 @@ package:
 
 source:
   url: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{{ version.replace(".rc", "-rc") }}.tar.gz
-  sha256: 59abea1c22e64933fad4de1671a61cdb934098793c7a31b333ff58dc41bff36c
+  sha256: a6cbad9b2243b17e87795817cfff2107d113543a12486586f8a055a2bb044963
   patches:
     - patches/0004-remove-unsupported-intrinsic-test.patch
     - patches/0005-remove-permission-based-unit-tests.patch
 
 build:
-  number: 4
+  number: 0
   merge_build_host: false
 
 requirements:
