@@ -30,8 +30,8 @@ requirements:
     - ninja
     - python
     - libcxx-devel {{ version }}    # [osx]
-    - m2-sed                    # [win]
-    - git                       # [not win]
+    - m2-sed  # [win]
+    - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
