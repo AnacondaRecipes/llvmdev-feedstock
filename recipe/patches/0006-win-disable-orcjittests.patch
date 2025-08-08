@@ -1,134 +1,27 @@
-From 1430203401dbf4e7a4054949a65d9c90d47def94 Mon Sep 17 00:00:00 2001
+From 1430203401dbf4e7a4054949a65d9c90d47def95 Mon Sep 17 00:00:00 2001
 From: Eric Lundby <Eric.Lundby@gmail.com>
 Date: Fri, 8 Aug 2025 08:15:24 -0600
-Subject: [PATCH 1/1] win-disable-orcjittests
+Subject: [PATCH 1/1] cmake-disable-orcjittests-on-windows
 
 ---
- .../gn/secondary/llvm/unittests/BUILD.gn      |   2 +-
- .../unittests/ExecutionEngine/Orc/BUILD.gn    | 101 +++++++++---------
- 2 files changed, 52 insertions(+), 51 deletions(-)
+ llvm/unittests/ExecutionEngine/CMakeLists.txt     |  6 +++++-
+ llvm/unittests/ExecutionEngine/Orc/CMakeLists.txt | 54 ++++++++++++++--------
+ 1 file changed, 5 insertions(+), 1 deletions(-)
 
-diff --git a/llvm/utils/gn/secondary/llvm/unittests/BUILD.gn b/llvm/utils/gn/secondary/llvm/unittests/BUILD.gn
-index 0d01bfa98017..4882de3fb7e4 100644
---- a/llvm/utils/gn/secondary/llvm/unittests/BUILD.gn
-+++ b/llvm/utils/gn/secondary/llvm/unittests/BUILD.gn
-@@ -25,7 +25,7 @@ group("unittests") {
-     "ExecutionEngine:ExecutionEngineTests",
-     "ExecutionEngine/JITLink:JITLinkTests",
-     "ExecutionEngine/MCJIT:MCJITTests",
--    "ExecutionEngine/Orc:OrcJITTests",
-+    # "ExecutionEngine/Orc:OrcJITTests",  # Disabled
-     "FileCheck:FileCheckTests",
-     "Frontend:LLVMFrontendTests",
-     "FuzzMutate:FuzzMutateTests",
-diff --git a/llvm/utils/gn/secondary/llvm/unittests/ExecutionEngine/Orc/BUILD.gn b/llvm/utils/gn/secondary/llvm/unittests/ExecutionEngine/Orc/BUILD.gn
-index 376f68977ed6..4781e4a2cc54 100644
---- a/llvm/utils/gn/secondary/llvm/unittests/ExecutionEngine/Orc/BUILD.gn
-+++ b/llvm/utils/gn/secondary/llvm/unittests/ExecutionEngine/Orc/BUILD.gn
-@@ -1,52 +1,53 @@
- import("//third-party/unittest/unittest.gni")
+diff --git a/llvm/unittests/ExecutionEngine/CMakeLists.txt b/llvm/unittests/ExecutionEngine/CMakeLists.txt
+index 1bf210556b66..0a6d80207544 100644
+--- a/llvm/unittests/ExecutionEngine/CMakeLists.txt
++++ b/llvm/unittests/ExecutionEngine/CMakeLists.txt
+@@ -13,7 +13,11 @@ add_llvm_unittest(ExecutionEngineTests
+   )
  
--unittest("OrcJITTests") {
--  deps = [
--    "//llvm/lib/ExecutionEngine",
--    "//llvm/lib/ExecutionEngine/Orc",
--    "//llvm/lib/ExecutionEngine/Orc/Debugging",
--    "//llvm/lib/ExecutionEngine/Orc/Shared",
--    "//llvm/lib/ExecutionEngine/RuntimeDyld",
--    "//llvm/lib/IR",
--    "//llvm/lib/Object",
--    "//llvm/lib/Support",
--    "//llvm/lib/Target:NativeTarget",
--    "//llvm/lib/TargetParser",
--    "//llvm/lib/Testing/Support",
--  ]
--  sources = [
--    "CoreAPIsTest.cpp",
--    "EPCGenericJITLinkMemoryManagerTest.cpp",
--    "EPCGenericMemoryAccessTest.cpp",
--    "ExecutionSessionWrapperFunctionCallsTest.cpp",
--    "ExecutorAddressTest.cpp",
--    "IndirectionUtilsTest.cpp",
--    "JITLinkRedirectionManagerTest.cpp",
--    "JITTargetMachineBuilderTest.cpp",
--    "LazyCallThroughAndReexportsTest.cpp",
--    "LookupAndRecordAddrsTest.cpp",
--    "MachOPlatformTest.cpp",
--    "MapperJITLinkMemoryManagerTest.cpp",
--    "MemoryFlagsTest.cpp",
--    "MemoryMapperTest.cpp",
--    "ObjectFormatsTest.cpp",
--    "ObjectLinkingLayerTest.cpp",
--    "OrcCAPITest.cpp",
--    "OrcTestCommon.cpp",
--    "RTDyldObjectLinkingLayerTest.cpp",
--    "ReOptimizeLayerTest.cpp",
--    "ResourceTrackerTest.cpp",
--    "SharedMemoryMapperTest.cpp",
--    "SimpleExecutorMemoryManagerTest.cpp",
--    "SimplePackedSerializationTest.cpp",
--    "SymbolStringPoolTest.cpp",
--    "TaskDispatchTest.cpp",
--    "ThreadSafeModuleTest.cpp",
--    "WrapperFunctionUtilsTest.cpp",
--  ]
--
--  if (host_os != "mac" && host_os != "win") {
--    # Corresponds to export_executable_symbols() in cmake.
--    ldflags = [ "-rdynamic" ]
--  }
--}
-+# Disabled OrcJITTests
-+# unittest("OrcJITTests") {
-+#   deps = [
-+#     "//llvm/lib/ExecutionEngine",
-+#     "//llvm/lib/ExecutionEngine/Orc",
-+#     "//llvm/lib/ExecutionEngine/Orc/Debugging",
-+#     "//llvm/lib/ExecutionEngine/Orc/Shared",
-+#     "//llvm/lib/ExecutionEngine/RuntimeDyld",
-+#     "//llvm/lib/IR",
-+#     "//llvm/lib/Object",
-+#     "//llvm/lib/Support",
-+#     "//llvm/lib/Target:NativeTarget",
-+#     "//llvm/lib/TargetParser",
-+#     "//llvm/lib/Testing/Support",
-+#   ]
-+#   sources = [
-+#     "CoreAPIsTest.cpp",
-+#     "EPCGenericJITLinkMemoryManagerTest.cpp",
-+#     "EPCGenericMemoryAccessTest.cpp",
-+#     "ExecutionSessionWrapperFunctionCallsTest.cpp",
-+#     "ExecutorAddressTest.cpp",
-+#     "IndirectionUtilsTest.cpp",
-+#     "JITLinkRedirectionManagerTest.cpp",
-+#     "JITTargetMachineBuilderTest.cpp",
-+#     "LazyCallThroughAndReexportsTest.cpp",
-+#     "LookupAndRecordAddrsTest.cpp",
-+#     "MachOPlatformTest.cpp",
-+#     "MapperJITLinkMemoryManagerTest.cpp",
-+#     "MemoryFlagsTest.cpp",
-+#     "MemoryMapperTest.cpp",
-+#     "ObjectFormatsTest.cpp",
-+#     "ObjectLinkingLayerTest.cpp",
-+#     "OrcCAPITest.cpp",
-+#     "OrcTestCommon.cpp",
-+#     "RTDyldObjectLinkingLayerTest.cpp",
-+#     "ReOptimizeLayerTest.cpp",
-+#     "ResourceTrackerTest.cpp",
-+#     "SharedMemoryMapperTest.cpp",
-+#     "SimpleExecutorMemoryManagerTest.cpp",
-+#     "SimplePackedSerializationTest.cpp",
-+#     "SymbolStringPoolTest.cpp",
-+#     "TaskDispatchTest.cpp",
-+#     "ThreadSafeModuleTest.cpp",
-+#     "WrapperFunctionUtilsTest.cpp",
-+#   ]
-+# 
-+#   if (host_os != "mac" && host_os != "win") {
-+#     # Corresponds to export_executable_symbols() in cmake.
-+#     ldflags = [ "-rdynamic" ]
-+#   }
-+# }
--- 
-2.45.2
-
+ add_subdirectory(JITLink)
+-add_subdirectory(Orc)
++
++# Disable OrcJITTests on Windows due to test failures
++if(NOT WIN32)
++  add_subdirectory(Orc)
++endif()
+ 
+ # Include MCJIT tests only if native arch is a built JIT target.
+ list(FIND LLVM_TARGETS_TO_BUILD "${LLVM_NATIVE_ARCH}" build_idx)
