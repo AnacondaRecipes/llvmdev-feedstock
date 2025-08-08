@@ -17,6 +17,8 @@ source:
   patches:
     - patches/0004-remove-unsupported-intrinsic-test.patch
     - patches/0005-remove-permission-based-unit-tests.patch
+    # These tests pass on a dev instance with more resources, but fail on CI.
+    - patches/0006-win-disable-orcjittests.patch  # [win]
 
 build:
   number: 0
