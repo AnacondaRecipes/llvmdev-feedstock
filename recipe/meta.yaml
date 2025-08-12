@@ -21,8 +21,6 @@ source:
 build:
   number: 5
   merge_build_host: false
-  run_exports:
-    - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}
 
 requirements:
   build:
@@ -48,6 +46,8 @@ outputs:
     script: install_llvm.bat  # [win]
     build:
       activate_in_script: true
+      run_exports:
+        - {{ pin_subpackage("libllvm" ~ major_ver, max_pin="x.x") }}
     requirements:
       build:
         - {{ compiler('cxx') }}
