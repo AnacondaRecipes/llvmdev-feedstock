@@ -19,8 +19,10 @@ source:
     - patches/0005-remove-permission-based-unit-tests.patch
 
 build:
-  number: 4
+  number: 5
   merge_build_host: false
+  run_exports:
+    - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}
 
 requirements:
   build:
