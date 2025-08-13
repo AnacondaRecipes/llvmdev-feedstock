@@ -1,7 +1,9 @@
 c_compiler:
   - clang_bootstrap            # [osx]
+  - vs2022                     # [win]
 cxx_compiler:
   - clang_bootstrap            # [osx]
+  - vs2022                     # [win]
 
 c_compiler_version:
   - 19.1.7            # [osx]
