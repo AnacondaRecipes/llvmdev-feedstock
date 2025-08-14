@@ -31,6 +31,7 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - cmake
     - ninja
@@ -60,6 +61,7 @@ outputs:
       #   - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
@@ -76,7 +78,7 @@ outputs:
       run:
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - {{ pin_compatible("libcxx-devel", max_pin=None) }}  # [osx]
-        - libcxx >= {{ bootstrap_version }}  # [osx]
+        - libcxx >={{ bootstrap_version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvm-tools  {{ version }}
@@ -110,6 +112,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - ninja                    # [not win]
         - cmake                    # [not win]
@@ -171,6 +174,7 @@ outputs:
       #   - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
@@ -214,6 +218,7 @@ outputs:
       skip: true  # [not win]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
