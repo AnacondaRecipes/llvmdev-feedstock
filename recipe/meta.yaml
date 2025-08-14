@@ -37,8 +37,6 @@ requirements:
     - ninja
     - python
     - libcxx-devel {{ bootstrap_version }}    # [osx]
-    - patch                     # [not win]
-    - m2-patch                  # [win]
     - m2-sed                    # [win]
     - git                       # [not win]
   host:
