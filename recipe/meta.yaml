@@ -185,8 +185,9 @@ outputs:
         - zstd {{ zstd }}
         - libcxx-devel {{ bootstrap_version }}  # [osx]
       run:
-        - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
-        - {{ pin_compatible("libcxx-devel", max_pin=None) }}  # [osx]
+        - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
+        # we need to do this manually because clang_bootstrap has no run-export
+        - libcxx >={{ cxx_compiler_version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvmdev     {{ version }}
