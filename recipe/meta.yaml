@@ -37,8 +37,8 @@ requirements:
     - ninja
     - python
     - libcxx-devel {{ bootstrap_version }}    # [osx]
-    - m2-sed                    # [win]
-    - git                       # [not win]
+    - msys2-sed  # [win]
+    - git   # [not win]
   host:
     - libcxx-devel {{ bootstrap_version }}    # [osx]
     - backtrace {{ backtrace }}         # [unix]
@@ -64,7 +64,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - m2-sed                  # [win]
+        - msys2-sed  # [win]
         - libcxx-devel {{ bootstrap_version }}  # [osx]
       host:
         - libcxx-devel {{ bootstrap_version }}  # [osx]
