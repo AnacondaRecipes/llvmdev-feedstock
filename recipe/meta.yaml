@@ -26,20 +26,19 @@ source:
     # # - patches/MSVC_DIA_SDK_path_fix.diff  # [win]
 
 build:
-  number: 4
+  number: 5
   merge_build_host: false
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - cmake
     - ninja
     - python
     - libcxx-devel {{ bootstrap_version }}    # [osx]
-    - patch                     # [not win]
-    - m2-patch                  # [win]
-    - m2-sed                    # [win]
-    - git                       # [not win]
+    - msys2-sed  # [win]
+    - git   # [not win]
   host:
     - libcxx-devel {{ bootstrap_version }}    # [osx]
     - backtrace {{ backtrace }}         # [unix]
@@ -60,11 +59,12 @@ outputs:
       #   - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
         - python
-        - m2-sed                  # [win]
+        - msys2-sed  # [win]
         - libcxx-devel {{ bootstrap_version }}  # [osx]
       host:
         - libcxx-devel {{ bootstrap_version }}  # [osx]
@@ -76,7 +76,7 @@ outputs:
       run:
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - {{ pin_compatible("libcxx-devel", max_pin=None) }}  # [osx]
-        - libcxx {{ bootstrap_version }}  # [osx]
+        - libcxx >={{ bootstrap_version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvm-tools  {{ version }}
@@ -110,6 +110,7 @@ outputs:
         - {{ pin_subpackage("libllvm" + major_ver, max_pin="x.x") }}  # [not win]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - ninja                    # [not win]
         - cmake                    # [not win]
@@ -123,7 +124,7 @@ outputs:
         - zstd {{ zstd }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx {{ bootstrap_version }}  # [osx]
+        - libcxx >={{ bootstrap_version }}  # [osx]
         - {{ pin_compatible('libffi', max_pin='x.x') }}  # [unix]
         - zlib {{ zlib }}    # [osx]
     test:
@@ -171,6 +172,7 @@ outputs:
       #   - $RPATH/ld64.so.1    # [s390x]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
@@ -183,9 +185,9 @@ outputs:
         - zstd {{ zstd }}
         - libcxx-devel {{ bootstrap_version }}  # [osx]
       run:
-        - {{ pin_subpackage("libllvm" + major_ver, exact=True) }}
-        - {{ pin_compatible("libcxx-devel", max_pin=None) }}  # [osx]
-        - libcxx {{ bootstrap_version }}  # [osx]
+        - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
+        # we need to do this manually because clang_bootstrap has no run-export
+        - libcxx >={{ cxx_compiler_version }}  # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvmdev     {{ version }}
@@ -215,6 +217,7 @@ outputs:
       skip: true  # [not win]
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('cxx') }}
         - cmake
         - ninja
