@@ -4,6 +4,10 @@
 extra_labels_for_os:
   osx-arm64: [ventura]
 
+build_parameters:
+  - "--suppress-variables"
+  - "--error-overlinking"
+
 staging_channel_upload_target: llvm-20.1.8-stage0-build-1
 
 channels:
