@@ -187,7 +187,8 @@ outputs:
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libcxx >={{ cxx_compiler_version }}       # [osx]
+        - libcxx-devel >={{ cxx_compiler_version }} # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvmdev     {{ version }}
