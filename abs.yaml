@@ -7,9 +7,9 @@ extra_labels_for_os:
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
-  - "-c https://staging.continuum.io/prefect/llvm-19.1.7-stage2-build-4"
+
+staging_channel_upload_target: llvm-20.1.8-stage2-build-0
 
 channels:
-  - https://staging.continuum.io/prefect/llvm-19.1.7-stage2-build-2
-
+  - https://staging.continuum.io/prefect/llvm-20.1.8-stage1-build-0
 aggregate_check: false
