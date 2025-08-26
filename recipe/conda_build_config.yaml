@@ -6,9 +6,9 @@ cxx_compiler:
   - vs2022                     # [win]
 
 c_compiler_version:
-  - 19.1.7            # [osx]
+  - 20.1.8            # [osx]
 cxx_compiler_version:
-  - 19.1.7            # [osx]
+  - 20.1.8            # [osx]
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]

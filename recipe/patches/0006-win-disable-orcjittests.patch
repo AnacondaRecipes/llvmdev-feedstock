@@ -1,0 +1,27 @@
+From 1430203401dbf4e7a4054949a65d9c90d47def95 Mon Sep 17 00:00:00 2001
+From: Eric Lundby <Eric.Lundby@gmail.com>
+Date: Fri, 8 Aug 2025 08:15:24 -0600
+Subject: [PATCH 1/1] cmake-disable-orcjittests-on-windows
+
+---
+ llvm/unittests/ExecutionEngine/CMakeLists.txt     |  6 +++++-
+ llvm/unittests/ExecutionEngine/Orc/CMakeLists.txt | 54 ++++++++++++++--------
+ 1 file changed, 5 insertions(+), 1 deletions(-)
+
+diff --git a/llvm/unittests/ExecutionEngine/CMakeLists.txt b/llvm/unittests/ExecutionEngine/CMakeLists.txt
+index 1bf210556b66..0a6d80207544 100644
+--- a/llvm/unittests/ExecutionEngine/CMakeLists.txt
++++ b/llvm/unittests/ExecutionEngine/CMakeLists.txt
+@@ -13,7 +13,11 @@ add_llvm_unittest(ExecutionEngineTests
+   )
+ 
+ add_subdirectory(JITLink)
+-add_subdirectory(Orc)
++
++# Disable OrcJITTests on Windows due to test failures
++if(NOT WIN32)
++  add_subdirectory(Orc)
++endif()
+ 
+ # Include MCJIT tests only if native arch is a built JIT target.
+ list(FIND LLVM_TARGETS_TO_BUILD "${LLVM_NATIVE_ARCH}" build_idx)
