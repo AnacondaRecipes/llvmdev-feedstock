@@ -35,6 +35,7 @@ requirements:
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
+    - libffi {{ libffi }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
     - libcxx-devel {{ version }}  # [osx]
