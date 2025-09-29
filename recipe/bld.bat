@@ -4,7 +4,7 @@ mkdir build
 cd build
 
 REM remove GL flag for now
-set "CXXFLAGS=-MD"
+set "CXXFLAGS=-MD -D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR"
 set "CC=cl.exe"
 set "CXX=cl.exe"
 
