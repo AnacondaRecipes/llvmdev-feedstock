@@ -65,6 +65,7 @@ outputs:
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
+        - libffi {{ libffi }}
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
@@ -115,6 +116,7 @@ outputs:
         - libxml2 {{ libxml2 }} # [unix]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
+        - libffi {{ libffi }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
         - libcxx >={{ cxx_compiler_version }}  # [osx]
@@ -172,8 +174,9 @@ outputs:
       host:
         - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        - zlib
-        - zstd
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
+        - libffi {{ libffi }}
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
@@ -209,6 +212,7 @@ outputs:
         - libxml2 {{ libxml2 }} # [win]
         - zlib {{ zlib }}      # [win]
         - zstd {{ zstd }}      # [win]
+        - libffi {{ libffi }}
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
@@ -251,6 +255,7 @@ outputs:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
+        - libffi {{ libffi }}
       run_constrained:
         - llvmdev {{ version }}
     test:
