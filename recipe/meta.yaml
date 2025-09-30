@@ -31,7 +31,7 @@ requirements:
     - python
     - libcxx-devel {{ version }}    # [osx]
     - m2-sed  # [win]
-    - git     # [not win]
+    - git
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
