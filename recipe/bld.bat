@@ -3,7 +3,8 @@ echo on
 mkdir build
 cd build
 
-REM remove GL flag for now
+:: See https://github.com/microsoft/STL/releases/tag/vs-2022-17.10
+:: Revert breaking change in MSVC STL
 set "CXXFLAGS=-MD -D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR"
 set "CC=cl.exe"
 set "CXX=cl.exe"
