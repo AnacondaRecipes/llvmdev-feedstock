@@ -21,7 +21,7 @@ source:
     - patches/0006-win-disable-orcjittests.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   merge_build_host: false
 
 requirements:
@@ -32,8 +32,10 @@ requirements:
     - ninja
     - python
     - libcxx-devel {{ version }}    # [osx]
-    - m2-sed  # [win]
-    - git     # [not win]
+    - msys2-sed  # [win]
+    - msys2-grep  # [win]
+    - msys2-diffutils  # [win]
+    - git
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
@@ -57,7 +59,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - m2-sed                  # [win]
+        - msys2-sed                  # [win]
         - libcxx-devel {{ version }}  # [osx]
       host:
         - libcxx-devel {{ version }}  # [osx]
