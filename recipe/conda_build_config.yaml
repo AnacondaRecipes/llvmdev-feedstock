@@ -12,3 +12,15 @@ cxx_compiler_version:
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]
+
+# Pinnings for PBP (copied from aggregate conda_build_config.yaml)
+backtrace:
+  - '20241216'
+libffi:
+  - '3.4'
+libxml2:
+  - '2.13'
+zlib:
+  - '1.2'
+zstd:
+  - '1.5'
