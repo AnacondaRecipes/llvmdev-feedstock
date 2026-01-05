@@ -5,10 +5,12 @@ cxx_compiler:
   - clang_bootstrap            # [osx]
   - vs2022                     # [win]
 
+# Stage 0: Use LLVM 20 to bootstrap LLVM 21 on macOS
+# Update to 21.1.8 in Stage 2 after libcxx-devel 21.1.8 is available
 c_compiler_version:
-  - 21.1.8            # [osx]
+  - 20.1.8            # [osx]
 cxx_compiler_version:
-  - 21.1.8            # [osx]
+  - 20.1.8            # [osx]
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]
