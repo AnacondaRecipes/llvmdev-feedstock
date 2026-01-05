@@ -1,4 +1,4 @@
-{% set version = "20.1.8" %}
+{% set version = "21.1.8" %}
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
@@ -13,7 +13,7 @@ package:
 
 source:
   url: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{{ version.replace(".rc", "-rc") }}.tar.gz
-  sha256: a6cbad9b2243b17e87795817cfff2107d113543a12486586f8a055a2bb044963
+  sha256: 7ba3f2a8d8fda88be18a31d011e8195d3b7f87f9fa92b20c94cba2d7f65b0e3f
   patches:
     - patches/0004-remove-unsupported-intrinsic-test.patch
     - patches/0005-remove-permission-based-unit-tests.patch
@@ -72,11 +72,12 @@ outputs:
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
         - libcxx >={{ cxx_compiler_version }}                           # [osx]
-      run_constrained:
-        - llvm        {{ version }}
-        - llvm-tools  {{ version }}
-        - clang       {{ version }}
-        - clang-tools {{ version }}
+      # Stage 0: Comment out run_constrained until all packages are built
+      # run_constrained:
+      #   - llvm        {{ version }}
+      #   - llvm-tools  {{ version }}
+      #   - clang       {{ version }}
+      #   - clang-tools {{ version }}
     test:
       requires:
         - ripgrep  # [win]
@@ -144,11 +145,12 @@ outputs:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
       run:                                                            # [not win]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
-      run_constrained:
-        - llvmdev     {{ version }}
-        - llvm-tools  {{ version }}
-        - clang       {{ version }}
-        - clang-tools {{ version }}
+      # Stage 0: Comment out run_constrained until all packages are built
+      # run_constrained:
+      #   - llvmdev     {{ version }}
+      #   - llvm-tools  {{ version }}
+      #   - clang       {{ version }}
+      #   - clang-tools {{ version }}
     test:
       commands:
         - echo "Hello World!"
@@ -213,11 +215,12 @@ outputs:
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
-      run_constrained:
-        - llvm        {{ version }}
-        - llvmdev     {{ version }}
-        - clang       {{ version }}
-        - clang-tools {{ version }}
+      # Stage 0: Comment out run_constrained until all packages are built
+      # run_constrained:
+      #   - llvm        {{ version }}
+      #   - llvmdev     {{ version }}
+      #   - clang       {{ version }}
+      #   - clang-tools {{ version }}
     test:
       commands:
         - $PREFIX/bin/llc -version                               # [not win]
@@ -252,8 +255,9 @@ outputs:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
-      run_constrained:
-        - llvmdev {{ version }}
+      # Stage 0: Comment out run_constrained until all packages are built
+      # run_constrained:
+      #   - llvmdev {{ version }}
     test:
       commands:
         - test -f $PREFIX/lib/libLLVM-C.{{ major_ver }}.dylib   # [osx]
