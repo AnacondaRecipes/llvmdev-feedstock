@@ -1,0 +1,1344 @@
+name: llvmdev-feedstock/pull/33/commits/8d7df64
+priority: 0
+user: xkong-anaconda
+src_channels:
+- https://staging.continuum.io/prefect/llvm-20.1.8-stage2-build-0
+- defaults
+dest_channel: main
+tasks:
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.10 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-64_py3.10_c24d9099a969c5e5
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.11 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-64_py3.11_8fd0b8393543a2d9
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.12 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-64_py3.12_78df5252151d625f
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libffi=3.4 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.10 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-aarch64_py3.10_feaa639534c7b7e7
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.11 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-aarch64_py3.11_b48b0f0f7d470941
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.12 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-aarch64_py3.12_6b191116fd9b1222
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libffi=3.4 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.10 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-osx-arm64_py3.10_fc907e72eac641ce
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.11 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-osx-arm64_py3.11_a59261b59fbb1ace
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.12 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-osx-arm64_py3.12_f183e518cd82527f
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libffi=3.4 libxml2=2.13
+    target_platform=osx-arm64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies: []
+  max_run_time: 7200
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.10 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-win-64_py3.10_ff2f977e4bf15386
+  dependencies: []
+  max_run_time: 14400
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.11 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-win-64_py3.11_58f0103427983142
+  dependencies: []
+  max_run_time: 14400
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.12 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-win-64_py3.12_ab39f3704cb2a0a2
+  dependencies: []
+  max_run_time: 14400
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Build task for llvmdev-feedstock @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libffi=3.4 libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  dependencies: []
+  max_run_time: 14400
+  type: build
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  feedstock_url: https://github.com/AnacondaRecipes/llvmdev-feedstock
+  feedstock_ref: 8d7df64edf4eb29af809503af992b64deec489ef
+  recipe_dir: recipe
+  build_options:
+  - --suppress-variables
+  - --error-overlinking
+- description: Test task for llvmdev-feedstock libllvm-c21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-libllvm-c21-win-64_py3.13_d3a6f8c9717609a8
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: libllvm-c21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock libllvm21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-libllvm21-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: libllvm21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock libllvm21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-libllvm21-linux-aarch64_py3.13_935a963280b0d893
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: libllvm21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock libllvm21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-libllvm21-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: libllvm21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock libllvm21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-libllvm21-win-64_py3.13_d3a6f8c9717609a8
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: libllvm21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.10 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-64_py3.10_c24d9099a969c5e5
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.10_c24d9099a969c5e5
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.11 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-64_py3.11_8fd0b8393543a2d9
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.11_8fd0b8393543a2d9
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.12 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-64_py3.12_78df5252151d625f
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.12_78df5252151d625f
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.10 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-aarch64_py3.10_feaa639534c7b7e7
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.10_feaa639534c7b7e7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.11 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-aarch64_py3.11_b48b0f0f7d470941
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.11_b48b0f0f7d470941
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.12 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-aarch64_py3.12_6b191116fd9b1222
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.12_6b191116fd9b1222
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-linux-aarch64_py3.13_935a963280b0d893
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.10 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-osx-arm64_py3.10_fc907e72eac641ce
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.10_fc907e72eac641ce
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.11 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-osx-arm64_py3.11_a59261b59fbb1ace
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.11_a59261b59fbb1ace
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.12 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-osx-arm64_py3.12_f183e518cd82527f
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.12_f183e518cd82527f
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.10 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-win-64_py3.10_ff2f977e4bf15386
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.10_ff2f977e4bf15386
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.10'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.11 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-win-64_py3.11_58f0103427983142
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.11_58f0103427983142
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.11'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.12 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-win-64_py3.12_ab39f3704cb2a0a2
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.12_ab39f3704cb2a0a2
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.12'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock lit @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-lit-win-64_py3.13_d3a6f8c9717609a8
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: lit
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libffi=3.4 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvm
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libffi=3.4 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-linux-aarch64_py3.13_935a963280b0d893
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvm
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libffi=3.4 libxml2=2.13
+    target_platform=osx-arm64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: llvm
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools-21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-21-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvm-tools-21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools-21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-21-linux-aarch64_py3.13_935a963280b0d893
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvm-tools-21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools-21 @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-21-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: llvm-tools-21
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvm-tools
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-linux-aarch64_py3.13_935a963280b0d893
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvm-tools
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: llvm-tools
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm-tools @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-tools-win-64_py3.13_d3a6f8c9717609a8
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: llvm-tools
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvm @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libffi=3.4 libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvm-win-64_py3.13_d3a6f8c9717609a8
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    libffi: '3.4'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: llvm
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvmdev @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvmdev-linux-64_py3.13_328eccd1a1c70bb7
+  dependencies:
+  - build-llvmdev-feedstock-linux-64_py3.13_328eccd1a1c70bb7
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvmdev
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvmdev @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    linux-aarch64 3.13 backtrace=20241216 c_stdlib=sysroot c_stdlib_version=2.28 channel_targets=defaults
+    cxx_compiler=gxx cxx_compiler_version=14.3.0 libxml2=2.13 target_platform=linux-aarch64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvmdev-linux-aarch64_py3.13_935a963280b0d893
+  dependencies:
+  - build-llvmdev-feedstock-linux-aarch64_py3.13_935a963280b0d893
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: sysroot
+    platform: linux-aarch64
+    backtrace: '20241216'
+    cxx_compiler: gxx
+    channel_targets: defaults
+    target_platform: linux-aarch64
+    c_stdlib_version: '2.28'
+    cxx_compiler_version: 14.3.0
+  package_def:
+    matchspec: llvmdev
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvmdev @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    osx-arm64 3.13 CONDA_BUILD_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    backtrace=20241216 c_stdlib=macosx_deployment_target c_stdlib_version=12.1 channel_targets=defaults
+    cxx_compiler=clang_bootstrap cxx_compiler_version=20.1.8 libxml2=2.13 target_platform=osx-arm64
+    zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvmdev-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  dependencies:
+  - build-llvmdev-feedstock-osx-arm64_py3.13_90d5c3fb98d7ad5b
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: macosx_deployment_target
+    platform: osx-arm64
+    backtrace: '20241216'
+    cxx_compiler: clang_bootstrap
+    channel_targets: defaults
+    target_platform: osx-arm64
+    c_stdlib_version: '12.1'
+    CONDA_BUILD_SYSROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk
+    cxx_compiler_version: 20.1.8
+  package_def:
+    matchspec: llvmdev
+  external_dependencies: []
+- description: Test task for llvmdev-feedstock llvmdev @ 8d7df64 (8d7df64edf4eb29af809503af992b64deec489ef)
+    win-64 3.13 c_stdlib=vs c_stdlib_version=2022.14 channel_targets=defaults cxx_compiler=vs2022
+    libxml2=2.13 target_platform=win-64 zlib=1.2 zstd=1.5 2026-01-06 02:40:26
+  public_name: test-llvmdev-feedstock-llvmdev-win-64_py3.13_d3a6f8c9717609a8
+  dependencies:
+  - build-llvmdev-feedstock-win-64_py3.13_d3a6f8c9717609a8
+  max_run_time: 7200
+  type: test
+  variant:
+    zlib: '1.2'
+    zstd: '1.5'
+    python: '3.13'
+    libxml2: '2.13'
+    c_stdlib: vs
+    platform: win-64
+    cxx_compiler: vs2022
+    channel_targets: defaults
+    target_platform: win-64
+    c_stdlib_version: '2022.14'
+  package_def:
+    matchspec: llvmdev
+  external_dependencies: []
+notification: []
+derived_state: failed
+custom_metadata: {}
+system_metadata: {}
+task_counts_by_status:
+  completed: 40
+  unscheduled: 10
+  failed: 5
+total_tasks: 55
