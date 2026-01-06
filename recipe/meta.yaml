@@ -33,6 +33,7 @@ requirements:
     - python
     - libcxx-devel {{ cxx_compiler_version }}    # [osx]
     - m2-sed  # [win]
+    - m2-grep # [win]
     - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
