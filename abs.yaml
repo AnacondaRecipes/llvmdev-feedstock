@@ -4,6 +4,9 @@
 extra_labels_for_os:
   osx-arm64: [ventura]
 
+# Extend timeout to 4 hours (14400 seconds) for Windows builds
+task_timeout: 14400
+
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
