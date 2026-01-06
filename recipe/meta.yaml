@@ -73,12 +73,12 @@ outputs:
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
         - libcxx >={{ cxx_compiler_version }}                           # [osx]
-      # Stage 0: Comment out run_constrained until all packages are built
-      # run_constrained:
-      #   - llvm        {{ version }}
-      #   - llvm-tools  {{ version }}
-      #   - clang       {{ version }}
-      #   - clang-tools {{ version }}
+      # Stage 2: Uncomment run_constrained now that packages are built
+      run_constrained:
+        - llvm        {{ version }}
+        - llvm-tools  {{ version }}
+        - clang       {{ version }}
+        - clang-tools {{ version }}
     test:
       requires:
         - ripgrep  # [win]
@@ -146,12 +146,12 @@ outputs:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
       run:                                                            # [not win]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}     # [not win]
-      # Stage 0: Comment out run_constrained until all packages are built
-      # run_constrained:
-      #   - llvmdev     {{ version }}
-      #   - llvm-tools  {{ version }}
-      #   - clang       {{ version }}
-      #   - clang-tools {{ version }}
+      # Stage 2: Uncomment run_constrained now that packages are built
+      run_constrained:
+        - llvmdev     {{ version }}
+        - llvm-tools  {{ version }}
+        - clang       {{ version }}
+        - clang-tools {{ version }}
     test:
       commands:
         - echo "Hello World!"
@@ -216,12 +216,12 @@ outputs:
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
-      # Stage 0: Comment out run_constrained until all packages are built
-      # run_constrained:
-      #   - llvm        {{ version }}
-      #   - llvmdev     {{ version }}
-      #   - clang       {{ version }}
-      #   - clang-tools {{ version }}
+      # Stage 2: Uncomment run_constrained now that packages are built
+      run_constrained:
+        - llvm        {{ version }}
+        - llvmdev     {{ version }}
+        - clang       {{ version }}
+        - clang-tools {{ version }}
     test:
       commands:
         - $PREFIX/bin/llc -version                               # [not win]
@@ -256,9 +256,9 @@ outputs:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
-      # Stage 0: Comment out run_constrained until all packages are built
-      # run_constrained:
-      #   - llvmdev {{ version }}
+      # Stage 2: Uncomment run_constrained now that packages are built
+      run_constrained:
+        - llvmdev {{ version }}
     test:
       commands:
         - test -f $PREFIX/lib/libLLVM-C.{{ major_ver }}.dylib   # [osx]
