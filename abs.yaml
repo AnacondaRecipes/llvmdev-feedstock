@@ -11,9 +11,12 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
 
-staging_channel_upload_target: llvm-21.1.8-stage2-build-0
+# Stage 0: Bootstrap build with LLVM 20 compiler
+# Upload to stage0, use defaults channel (has llvmdev 20.1.8)
+staging_channel_upload_target: llvm-21.1.8-stage0-build-0
 
-channels:
-  - https://staging.continuum.io/prefect/llvm-21.1.8-stage2-build-0
+# No staging channel needed - defaults has llvmdev 20.1.8
+# channels:
+#   - https://staging.continuum.io/prefect/llvm-21.1.8-stage0-build-0
 
 aggregate_check: false
