@@ -10,6 +10,10 @@ task_timeout: 14400
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
-  - "-c https://staging.continuum.io/prefect/llvm-21.1.8-stage2-build-0"
+
+staging_channel_upload_target: llvm-21.1.8-stage2-build-0
+
+channels:
+  - https://staging.continuum.io/prefect/llvm-21.1.8-stage2-build-0
 
 aggregate_check: false
