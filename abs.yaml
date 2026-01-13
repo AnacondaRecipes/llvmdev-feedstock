@@ -17,7 +17,7 @@ staging_channel_upload_target: llvm-21.1.8-stage0-build-0
 
 # No staging channel needed - defaults has llvmdev 20.1.8
 # channels:
-#   - https://staging.continuum.io/prefect/llvm-21.1.8-stage0-build-0
+#   - https://staging.continuum.io/pbp/llvm-21.1.8-stage0-build-0
 
 aggregate_check: false
 
