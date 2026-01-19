@@ -5,13 +5,11 @@ cxx_compiler:
   - clang_bootstrap            # [osx]
   - vs2022                     # [win]
 
-# Note: Must use LLVM 20 compiler because clang_bootstrap 21 doesn't exist yet
-# (clang_bootstrap is built from clang-compiler-activation, which depends on clangdev 21)
-# Stage 2 just means building against llvmdev 21 stage0, not using LLVM 21 as compiler
+# Stage 2: Self-hosted build with clang 21 compiler
 c_compiler_version:
-  - 20.1.8            # [osx]
+  - 21.1.8            # [osx]
 cxx_compiler_version:
-  - 20.1.8            # [osx]
+  - 21.1.8            # [osx]
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]
