@@ -31,7 +31,7 @@ requirements:
     - cmake
     - ninja
     - python
-    - libcxx-devel {{ cxx_compiler_version }}    # [osx]
+    - libcxx-devel {{ version }}    # [osx]
     - m2-sed  # [win]
     - m2-grep # [win]
     - git     # [not win]
@@ -40,7 +40,7 @@ requirements:
     - libxml2 {{ libxml2 }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
-    - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+    - libcxx-devel {{ version }}  # [osx]
 
 outputs:
   # Contains everything
@@ -59,9 +59,9 @@ outputs:
         - ninja
         - python
         - m2-sed                  # [win]
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -111,9 +111,9 @@ outputs:
         - ninja                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - libxml2 {{ libxml2 }} # [unix]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
@@ -170,9 +170,9 @@ outputs:
         - cmake
         - ninja
         - python >=3
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib
         - zstd
@@ -203,7 +203,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
@@ -247,9 +247,9 @@ outputs:
         - {{ stdlib('c') }}
         - cmake
         - ninja
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]
+        - libcxx-devel {{ version }}  # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
