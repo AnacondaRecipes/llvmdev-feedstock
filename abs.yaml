@@ -11,12 +11,9 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
 
-# Staging channels needed for LLVM 21 dependencies until promoted to pkgs/main
+# Staging channel needed for LLVM 21 dependencies until promoted to pkgs/main
 channels:
-  # Stage 2 channel has clang_bootstrap 21
   - https://staging.continuum.io/pbp/llvm-21.1.8-stage2-build-0
-  # Stage 0 channel has supporting packages
-  - https://staging.continuum.io/pbp/llvm-21.1.8-stage0-build-0
 
 aggregate_check: false
 
