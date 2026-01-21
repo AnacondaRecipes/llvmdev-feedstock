@@ -36,6 +36,7 @@ requirements:
     - m2-grep       # [win]
     - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
     - m2-diffutils  # [win]  # for cmp, diff
+    - m2-findutils  # [win]  # for find with -exec
     - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
