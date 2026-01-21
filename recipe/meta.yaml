@@ -32,8 +32,10 @@ requirements:
     - ninja
     - python
     - libcxx-devel {{ version }}    # [osx]
-    - m2-sed  # [win]
-    - m2-grep # [win]
+    - m2-sed        # [win]
+    - m2-grep       # [win]
+    - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
+    - m2-diffutils  # [win]  # for cmp, diff
     - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
