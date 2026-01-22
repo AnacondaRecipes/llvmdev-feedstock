@@ -13,10 +13,3 @@ cxx_compiler_version:
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]
-
-backtrace:
-  - '20241216'
-libffi:
-  - '3.4'
-zstd:
-  - '1.5'
