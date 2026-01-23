@@ -13,3 +13,7 @@ cxx_compiler_version:
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]
+
+# Required for PBP - not included in Python-variant task CBCs
+libffi:
+  - '3.4'
