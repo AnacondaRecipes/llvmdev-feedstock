@@ -5,10 +5,15 @@ cxx_compiler:
   - clang_bootstrap            # [osx]
   - vs2022                     # [win]
 
+# Stage 2: Self-hosted build with clang 21 compiler
 c_compiler_version:
-  - 20.1.8            # [osx]
+  - 21.1.8            # [osx]
 cxx_compiler_version:
-  - 20.1.8            # [osx]
+  - 21.1.8            # [osx]
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]
+
+# Required for PBP - not included in Python-variant task CBCs
+libffi:
+  - '3.4'
