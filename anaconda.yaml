@@ -1,0 +1,12 @@
+anaconda_config_version: 1
+upstream_sources:
+  - github:
+      identifier: llvm/llvm-project
+    packages:
+      - libllvm-c21
+      - libllvm21
+      - lit
+      - llvm
+      - llvm-tools
+      - llvm-tools-21
+      - llvmdev
