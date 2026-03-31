@@ -5,7 +5,7 @@ cxx_compiler:
   - clang_bootstrap            # [osx]
   - vs2022                     # [win]
 
-# Stage 2: Self-hosted build with clang 21 compiler
+# Stage 0: Bootstrap build with clang 21 compiler (update to 22.1.2 in Stage 2)
 c_compiler_version:
   - 21.1.8            # [osx]
 cxx_compiler_version:

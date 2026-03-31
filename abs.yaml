@@ -11,9 +11,8 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
 
-# Staging channel needed for LLVM 21 dependencies until promoted to pkgs/main
-channels:
-  - https://staging.continuum.io/pbp/llvm-21.1.8-stage2-build-0
+# Stage 0: Upload to LLVM 22 staging channel
+staging_channel_upload_target: llvm-22.1.2-stage0-build-0
 
 aggregate_check: false
 
