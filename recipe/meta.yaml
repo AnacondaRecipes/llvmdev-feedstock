@@ -2,10 +2,7 @@
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
-# Stage 0: pin libcxx-devel to old LLVM version for bootstrap
-# Jinja renders before selectors, so this must be valid on all platforms
-# Change to `version` in Stage 2 for self-hosted build
-{% set libcxx_devel_ver = "21.1.8" %}
+{% set libcxx_devel_ver = version %}
 
 # as of LLVM 19, we expect an "-rcX" suffix for the release candidates
 {% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
