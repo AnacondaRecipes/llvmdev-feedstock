@@ -2,6 +2,8 @@
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
+# Stage 0: pin libcxx-devel to old version (Jinja renders before selectors, so need default for non-osx)
+{% set libcxx_devel_ver = cxx_compiler_version | default(version) %}
 
 # as of LLVM 19, we expect an "-rcX" suffix for the release candidates
 {% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
@@ -31,7 +33,7 @@ requirements:
     - cmake
     - ninja
     - python
-    - libcxx-devel {{ cxx_compiler_version }}    # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+    - libcxx-devel {{ libcxx_devel_ver }}    # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
     - m2-sed        # [win]
     - m2-grep       # [win]
     - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
@@ -43,7 +45,7 @@ requirements:
     - libxml2 {{ libxml2 }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
-    - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+    - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
 
 outputs:
   # Contains everything
@@ -62,9 +64,9 @@ outputs:
         - ninja
         - python
         - m2-sed                  # [win]
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -75,7 +77,7 @@ outputs:
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}                           # [osx]
+        - libcxx >={{ libcxx_devel_ver }}                           # [osx]
       # Stage 0: run_constrained disabled (re-enable in Stage 2)
       # run_constrained:
       #   - llvm        {{ version }}
@@ -115,15 +117,15 @@ outputs:
         - ninja                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
         - libxml2 {{ libxml2 }} # [unix]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libcxx >={{ libcxx_devel_ver }}  # [osx]
     test:
       commands:
         # old style
@@ -175,16 +177,16 @@ outputs:
         - cmake
         - ninja
         - python >=3
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib
         - zstd
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libcxx >={{ libcxx_devel_ver }}  # [osx]
     test:
       commands:
         - $PREFIX/bin/llc-{{ major_ver }} -version                               # [not win]
@@ -208,7 +210,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
@@ -253,9 +255,9 @@ outputs:
         - {{ stdlib('c') }}
         - cmake
         - ninja
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
       host:
-        - libcxx-devel {{ cxx_compiler_version }}  # [osx]  # Stage 0: use old libcxx (change to {{ version }} in Stage 2)
+        - libcxx-devel {{ libcxx_devel_ver }}  # [osx]  # Stage 0: uses cxx_compiler_version (change to {{ version }} in Stage 2)
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
