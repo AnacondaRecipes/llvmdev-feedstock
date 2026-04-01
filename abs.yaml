@@ -14,7 +14,10 @@ build_parameters:
 # Stage 0: Upload to LLVM 22 staging channel
 staging_channel_upload_target: llvm-22.1.2-stage0-build-0
 
-# No staging channels needed for Stage 0 — libcxx-devel 21.1.8 is in pkgs/main
+# Stage 0 channel needed for libcxx-devel 22.1.2 (osx/linux only)
+# win-64 will get WARNING but should proceed since libcxx-devel has # [osx] selector
+channels:
+  - https://staging.continuum.io/pbp/llvm-22.1.2-stage0-build-0
 
 aggregate_check: false
 
