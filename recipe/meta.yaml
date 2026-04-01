@@ -2,7 +2,12 @@
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
-{% set libcxx_devel_ver = version %}
+# Stage 0: use libcxx-devel from pkgs/main (21.1.8) for bootstrap
+# conda-build resolves ALL deps (even # [osx]) on all platforms during finalization
+# libcxx-devel 22.1.2 only exists in staging (no win-64) → fails on Windows
+# libcxx-devel 21.1.8 is in pkgs/main → resolves everywhere
+# Change to `version` in Stage 2 after libcxx-devel 22.1.2 is in pkgs/main
+{% set libcxx_devel_ver = "21.1.8" %}
 
 # as of LLVM 19, we expect an "-rcX" suffix for the release candidates
 {% set extra = "-" ~ tail_ver if tail_ver not in "0123456789" else "" %}
