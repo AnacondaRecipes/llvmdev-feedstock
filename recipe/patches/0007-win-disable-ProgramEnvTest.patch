@@ -1,5 +1,5 @@
 From: Xianglong Kong <xkong@anaconda.com>
-Date: Mon, 31 Mar 2026
+Date: Tue, 01 Apr 2026
 Subject: [PATCH] Disable ProgramEnvTest.TestExecuteEmptyEnvironment on Windows
 
 This test fails on Windows CI with STATUS_DLL_NOT_FOUND (0xC0000135)
@@ -10,18 +10,17 @@ Index: llvm-project/llvm/unittests/Support/ProgramTest.cpp
 ===================================================================
 --- llvm-project.orig/llvm/unittests/Support/ProgramTest.cpp
 +++ llvm-project/llvm/unittests/Support/ProgramTest.cpp
-@@ -695,6 +695,7 @@ TEST(ProgramEnvTest, TestExecuteAndWaitT
-   ASSERT_GT(SecondsElapsed.count(), 0);
- }
-
-+#if !defined(_WIN32)
- TEST(ProgramEnvTest, TestExecuteEmptyEnvironment) {
-   std::string Executable =
-       sys::FindProgramByName(TestMainArgv0).get();
-@@ -705,5 +706,6 @@ TEST(ProgramEnvTest, TestExecuteEmptyEnv
+@@ -680,6 +680,7 @@
    ASSERT_EQ(0, RetCode);
  }
 
-+#endif
++#if !defined(_WIN32)
+ TEST_F(ProgramEnvTest, TestExecuteEmptyEnvironment) {
+   std::string Executable =
+       sys::FindProgramByName(TestMainArgv0).get();
+@@ -704,5 +705,6 @@
+ #endif
+ }
 
++#endif
  } // end anonymous namespace
