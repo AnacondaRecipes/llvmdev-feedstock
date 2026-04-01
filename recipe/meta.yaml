@@ -19,6 +19,7 @@ source:
     - patches/0005-remove-permission-based-unit-tests.patch
     # These tests pass on a dev instance with more resources, but fail on CI.
     - patches/0006-win-disable-orcjittests.patch  # [win]
+    - patches/0007-win-disable-ProgramEnvTest.patch  # [win]
 
 build:
   number: 0
@@ -34,6 +35,7 @@ requirements:
     - libcxx-devel   # [osx]
     - m2-sed        # [win]
     - m2-grep       # [win]
+    - m2-gawk       # [win]  # for awk (LLVM 22 tests use it)
     - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
     - m2-diffutils  # [win]  # for cmp, diff
     - m2-findutils  # [win]  # for find with -exec
