@@ -10,17 +10,17 @@ Index: llvm-project/llvm/unittests/Support/ProgramTest.cpp
 ===================================================================
 --- llvm-project.orig/llvm/unittests/Support/ProgramTest.cpp
 +++ llvm-project/llvm/unittests/Support/ProgramTest.cpp
-@@ -680,6 +680,7 @@
+@@ -680,6 +680,7 @@ TEST_F(ProgramEnvTest, TestExecuteWithNo
    ASSERT_EQ(0, RetCode);
  }
 
 +#if !defined(_WIN32)
  TEST_F(ProgramEnvTest, TestExecuteEmptyEnvironment) {
-   std::string Executable =
-       sys::FindProgramByName(TestMainArgv0).get();
-@@ -704,5 +705,6 @@
+   using namespace llvm::sys;
+
+@@ -705,4 +706,5 @@ TEST_F(ProgramEnvTest, TestExecuteEmptyE
  #endif
  }
 
-+#endif
++#endif  // !defined(_WIN32)
  } // end anonymous namespace

@@ -11,6 +11,6 @@ Index: llvm-project/llvm/test/CodeGen/X86/basic-block-sections-clusters-bb-hash.
 +++ llvm-project/llvm/test/CodeGen/X86/basic-block-sections-clusters-bb-hash.ll
 @@ -1,3 +1,4 @@
 +; UNSUPPORTED: system-windows
- ;; This test is to check if the bb-hash is emitted correctly when bb-clusters
- ;; are being used to reorder basic blocks.
- ;;
+ ; BB cluster section tests when using edges profile and basic blocks hashes to generate clusters.
+ ; In the tests, we first generate hash values for basic blocks and write them to the profile.
+ ; When generating basic blocks clusters, we match the hashes of basic blocks in the current CFG
