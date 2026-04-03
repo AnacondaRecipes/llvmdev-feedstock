@@ -14,5 +14,9 @@ build_parameters:
 # Stage 0: Upload to new staging channel (old one had CDN corruption)
 staging_channel_upload_target: llvm22-stage0
 
+# Need libcxx 22.1.2 from staging (run dep on osx)
+channels:
+  - https://staging.continuum.io/pbp/llvm22-stage0
+
 aggregate_check: false
 
