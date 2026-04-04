@@ -11,12 +11,10 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
 
-# Stage 0: Upload to new staging channel (old one had CDN corruption)
-staging_channel_upload_target: llvm22-stage0
-
-# Need libcxx 22.1.2 from staging (run dep on osx)
+# Stage 2: Self-hosted build with LLVM 22
+# All LLVM 22 packages on anaconda.org (bypass PBP staging, SIR-2834)
 channels:
-  - https://staging.continuum.io/pbp/llvm22-stage0
+  - https://conda.anaconda.org/xkong-staging
 
 aggregate_check: false
 
