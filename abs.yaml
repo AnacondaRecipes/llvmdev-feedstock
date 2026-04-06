@@ -11,9 +11,10 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
 
-# Staging channel needed for LLVM 21 dependencies until promoted to pkgs/main
+# Stage 2: Self-hosted build with LLVM 22
+# All LLVM 22 packages on anaconda.org (bypass PBP staging, SIR-2834)
 channels:
-  - https://staging.continuum.io/pbp/llvm-21.1.8-stage2-build-0
+  - https://conda.anaconda.org/xkong-staging
 
 aggregate_check: false
 
