@@ -14,6 +14,7 @@ build_parameters:
 # Staging channel needed for LLVM 21 dependencies until promoted to pkgs/main
 channels:
   - https://staging.continuum.io/pbp/llvm-21.1.8-stage2-build-0
+  - https://staging.continuum.io/preprod-pbp/fs/libxml2-feedstock/pr25/58bfcbc
 
 aggregate_check: false
 

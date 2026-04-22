@@ -17,3 +17,5 @@ c_stdlib_version:   # [win]
 # Required for PBP - not included in Python-variant task CBCs
 libffi:
   - '3.4'
+libxml2:
+  - 2.14.4
