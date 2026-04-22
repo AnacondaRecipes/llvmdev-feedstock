@@ -7,7 +7,5 @@ extra_labels_for_os:
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
-channels:
-  - https://staging.continuum.io/preprod-pbp/fs/libxml2-feedstock/pr25/58bfcbc
 
 aggregate_check: false
