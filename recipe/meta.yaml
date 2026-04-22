@@ -37,7 +37,7 @@ requirements:
     - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
     - m2-diffutils  # [win]  # for cmp, diff
     - m2-findutils  # [win]  # for find with -exec
-    - git     # [not win]
+    - git
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
