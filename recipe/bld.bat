@@ -57,6 +57,7 @@ set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/symbol-filters.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/type-qualifiers.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/usingnamespace.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-symbolizer/pdb/pdb.test"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-nm/just-symbols.test"
 
 cmake --build . --target check-llvm
 if %ERRORLEVEL% neq 0 exit 1
