@@ -6,15 +6,3 @@ extra_labels_for_os:
 
 # Extend timeout to 6 hours (21600 seconds) for Windows builds
 task_timeout: 21600
-
-build_parameters:
-  - "--suppress-variables"
-  - "--error-overlinking"
-
-# Stage 2: Self-hosted build with LLVM 22
-# All LLVM 22 packages on anaconda.org (bypass PBP staging, SIR-2834)
-channels:
-  - https://conda.anaconda.org/xkong-staging
-
-aggregate_check: false
-
