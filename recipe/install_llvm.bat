@@ -34,7 +34,7 @@ if "%PKG_NAME%" == "libllvm-c%PKG_VERSION:~0,2%" (
     REM This makes it non-portable between image versions (e.g. 2019 vs 2022), so replace
     REM the hardcoded path with a variable again, preserving the arch-specific lib subdir
     REM (amd64 on win-64, arm64 on win-arm64).
-    sed -i "s,[^\";]*DIA SDK/lib/\([^/]*\)/diaguids\.lib,^$ENV{VSINSTALLDIR}/DIA SDK/lib/\1/diaguids\.lib,g" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake
+    sed -i "s,[^"";]*DIA SDK/lib/\([^/]*\)/diaguids\.lib,^$ENV{VSINSTALLDIR}/DIA SDK/lib/\1/diaguids\.lib,g" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake
 )
 
 rmdir /s /q temp_prefix
