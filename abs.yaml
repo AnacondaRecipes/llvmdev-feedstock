@@ -6,9 +6,3 @@ extra_labels_for_os:
 
 # Extend timeout to 6 hours (21600 seconds) for Windows builds
 task_timeout: 21600
-
-build_parameters:
-  - "--suppress-variables"
-  - "--error-overlinking"
-
-aggregate_check: false
