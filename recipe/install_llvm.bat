@@ -34,7 +34,9 @@ if "%PKG_NAME%" == "libllvm-c%PKG_VERSION:~0,2%" (
     REM This makes it non-portable between image versions (e.g. 2019 vs 2022), so replace
     REM the hardcoded path with a variable again
     REM Updated to remove any assumptions about the edition or version of Visual Studio
-    sed -i "s,[^\";]*DIA SDK/lib/amd64/diaguids\.lib,^$ENV{VSINSTALLDIR}/DIA SDK/lib/amd64/diaguids\.lib,g" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake
+    set "DIA_ARCH=amd64"
+    if /I "%TARGET_PLATFORM%"=="win-arm64" set "DIA_ARCH=arm64"
+    sed -i "s,[^"";]*DIA SDK/lib/%DIA_ARCH%/diaguids\.lib,^$ENV{VSINSTALLDIR}/DIA SDK/lib/%DIA_ARCH%/diaguids\.lib,g" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake
 )
 
 rmdir /s /q temp_prefix
