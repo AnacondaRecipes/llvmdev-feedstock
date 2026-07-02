@@ -58,6 +58,17 @@ set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/type-qualifiers.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/usingnamespace.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-symbolizer/pdb/pdb.test"
 
+REM lli -jit-kind=orc crashes with 0xc0000005 on Windows (see patches/0006-win-disable-orcjittests.patch).
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|ExecutionEngine/Orc/"
+
+REM llvm-jitlistener produces no output without Intel VTune/ittnotify collector (win-64 only; disabled on win-arm64).
+if /I not "%TARGET_PLATFORM%"=="win-arm64" set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|JitListener/"
+
+REM s390x cross-target codegen emits larl constant-pool loads on Windows; FileCheck expects Linux output.
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|CodeGen/SystemZ/rot-03.ll"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|CodeGen/SystemZ/shift-17.ll"
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|CodeGen/SystemZ/store_nonbytesized_vecs.ll"
+
 cmake --build . --target check-llvm
 if %ERRORLEVEL% neq 0 exit 1
 
