@@ -30,11 +30,11 @@ requirements:
     - ninja
     - python
     - libcxx-devel {{ version }}    # [osx]
-    - m2-sed        # [win]
-    - m2-grep       # [win]
-    - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
-    - m2-diffutils  # [win]  # for cmp, diff
-    - m2-findutils  # [win]  # for find with -exec
+    - msys2-sed        # [win]
+    - msys2-grep       # [win]
+    - msys2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
+    - msys2-diffutils  # [win]  # for cmp, diff
+    - msys2-findutils  # [win]  # for find with -exec
     - git
   host:
     - backtrace {{ backtrace }}         # [unix]
@@ -59,7 +59,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - m2-sed                  # [win]
+        - msys2-sed                  # [win]
         - libcxx-devel {{ version }}  # [osx]
       host:
         - libcxx-devel {{ version }}  # [osx]
