@@ -7,5 +7,3 @@ extra_labels_for_os:
 # Extend timeout to 6 hours (21600 seconds) for Windows builds
 task_timeout: 54600
 
-channels:
-  - https://staging.continuum.io/preprod-pbp/fs/libxml2-feedstock/pr29/eca1e3e
