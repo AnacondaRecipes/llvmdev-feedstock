@@ -27,7 +27,7 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cmake
-    - ninja
+    - ninja-base
     - python
     - libcxx-devel {{ version }}    # [osx]
     - msys2-sed        # [win]
@@ -57,7 +57,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python
         - msys2-sed                  # [win]
         - libcxx-devel {{ version }}  # [osx]
