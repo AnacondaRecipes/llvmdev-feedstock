@@ -4,6 +4,6 @@
 extra_labels_for_os:
   osx-arm64: [ventura]
 
-# Extend timeout to 6 hours (21600 seconds) for Windows builds
-task_timeout: 54600
+# Extend timeout to 12 hours (43200 seconds) for Windows builds
+task_timeout: 43200
 
