@@ -19,7 +19,7 @@ source:
     - patches/0005-remove-permission-based-unit-tests.patch
 
 build:
-  number: 5
+  number: 7
   merge_build_host: false
 
 requirements:
@@ -27,11 +27,15 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cmake
-    - ninja
+    - ninja-base
     - python
     - libcxx-devel {{ version }}    # [osx]
-    - m2-sed  # [win]
-    - git     # [not win]
+    - msys2-sed        # [win]
+    - msys2-grep       # [win]
+    - msys2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
+    - msys2-diffutils  # [win]  # for cmp, diff
+    - msys2-findutils  # [win]  # for find with -exec
+    - git
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
@@ -53,9 +57,9 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python
-        - m2-sed                  # [win]
+        - msys2-sed                  # [win]
         - libcxx-devel {{ version }}  # [osx]
       host:
         - libcxx-devel {{ version }}  # [osx]
