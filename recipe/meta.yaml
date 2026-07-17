@@ -23,7 +23,7 @@ source:
     - patches/0008-win-skip-bb-hash-awk-test.patch  # [win]
 
 build:
-  number: 2
+  number: 3
   merge_build_host: false
 
 requirements:
@@ -34,11 +34,11 @@ requirements:
     - ninja
     - python
     - libcxx-devel   # [osx]
-    - m2-sed        # [win]
-    - m2-grep       # [win]
-    - m2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
-    - m2-diffutils  # [win]  # for cmp, diff
-    - m2-findutils  # [win]  # for find with -exec
+    - msys2-sed        # [win]
+    - msys2-grep       # [win]
+    - msys2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
+    - msys2-diffutils  # [win]  # for cmp, diff
+    - msys2-findutils  # [win]  # for find with -exec
     - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
@@ -63,7 +63,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - m2-sed                  # [win]
+        - msys2-sed                  # [win]
         - libcxx-devel   # [osx]
       host:
         - libcxx-devel   # [osx]
