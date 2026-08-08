@@ -32,11 +32,10 @@ if "%PKG_NAME%" == "libllvm-c%PKG_VERSION:~0,2%" (
     REM https://github.com/llvm/llvm-project/blob/llvmorg-14.0.6/llvm/cmake/config-ix.cmake#L516
     REM and gets hardcoded by CMake to point to the path in our windows image.
     REM This makes it non-portable between image versions (e.g. 2019 vs 2022), so replace
-    REM the hardcoded path with a variable again
-    REM Updated to remove any assumptions about the edition or version of Visual Studio
-    set "DIA_ARCH=amd64"
-    if /I "%TARGET_PLATFORM%"=="win-arm64" set "DIA_ARCH=arm64"
-    sed -i "s,[^"";]*DIA SDK/lib/%DIA_ARCH%/diaguids\.lib,^$ENV{VSINSTALLDIR}/DIA SDK/lib/%DIA_ARCH%/diaguids\.lib,g" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake
+    REM the hardcoded path with a variable again, preserving the arch-specific lib subdir
+    REM (amd64 on win-64, arm64 on win-arm64).
+    REM Use | as sed delimiter to avoid batch quoting issues with ; and " in the pattern.
+    sed -i "s|[^"";]*DIA SDK/lib/\([^/]*\)/diaguids\.lib|$ENV{VSINSTALLDIR}/DIA SDK/lib/\1/diaguids\.lib|g" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake
 )
 
 rmdir /s /q temp_prefix
