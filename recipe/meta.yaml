@@ -21,7 +21,7 @@ source:
     - patches/0006-win-disable-orcjittests.patch  # [win]
 
 build:
-  number: 3
+  number: 4
   merge_build_host: false
 
 requirements:
@@ -96,7 +96,7 @@ outputs:
         - llvm-nm.exe --help                                            # [win]
 
         # ensure we've correctly inserted %VSINSTALLDIR% into the CMake metadata for LLVM;
-        # we're looking for: `INTERFACE_LINK_LIBRARIES "$ENV{VSINSTALLDIR}/DIA SDK/lib/amd64/diaguids.lib;[...]`instead
+        # we're looking for: `INTERFACE_LINK_LIBRARIES "$ENV{VSINSTALLDIR}/DIA SDK/lib/{amd64,arm64}/diaguids.lib;[...]` instead
         - rg -e "INTERFACE_LINK_LIBRARIES\s\"\$ENV\{VSINSTALLDIR\}[/\w\s]+/diaguids\.lib" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake  # [win]
 
   # Contains the shared libraries. To make different LLVM libraries co-installable
