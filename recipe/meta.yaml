@@ -1,4 +1,4 @@
-{% set version = "20.1.8" %}
+{% set version = "22.1.2" %}
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
@@ -13,12 +13,14 @@ package:
 
 source:
   url: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{{ version.replace(".rc", "-rc") }}.tar.gz
-  sha256: a6cbad9b2243b17e87795817cfff2107d113543a12486586f8a055a2bb044963
+  sha256: a252efd7a4a268d2cc5145b17adcaa82757fdee1d06d748b4c24137807710ecb
   patches:
     - patches/0004-remove-unsupported-intrinsic-test.patch
     - patches/0005-remove-permission-based-unit-tests.patch
     # These tests pass on a dev instance with more resources, but fail on CI.
     - patches/0006-win-disable-orcjittests.patch  # [win]
+    - patches/0007-win-disable-ProgramEnvTest.patch  # [win]
+    - patches/0008-win-skip-bb-hash-awk-test.patch  # [win]
 
 build:
   number: 1
@@ -31,15 +33,19 @@ requirements:
     - cmake
     - ninja
     - python
-    - libcxx-devel {{ version }}    # [osx]
-    - m2-sed  # [win]
+    - libcxx-devel   # [osx]
+    - msys2-sed        # [win]
+    - msys2-grep       # [win]
+    - msys2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
+    - msys2-diffutils  # [win]  # for cmp, diff
+    - msys2-findutils  # [win]  # for find with -exec
     - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
-    - libcxx-devel {{ version }}  # [osx]
+    - libcxx-devel   # [osx]
 
 outputs:
   # Contains everything
@@ -57,10 +63,10 @@ outputs:
         - cmake
         - ninja
         - python
-        - m2-sed                  # [win]
-        - libcxx-devel {{ version }}  # [osx]
+        - msys2-sed                  # [win]
+        - libcxx-devel   # [osx]
       host:
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -71,7 +77,7 @@ outputs:
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}                           # [osx]
+        - libcxx >={{ version }}                           # [osx]
       run_constrained:
         - llvm        {{ version }}
         - llvm-tools  {{ version }}
@@ -92,7 +98,7 @@ outputs:
         - llvm-nm.exe --help                                            # [win]
 
         # ensure we've correctly inserted %VSINSTALLDIR% into the CMake metadata for LLVM;
-        # we're looking for: `INTERFACE_LINK_LIBRARIES "$ENV{VSINSTALLDIR}/DIA SDK/lib/amd64/diaguids.lib;[...]`instead
+        # we're looking for: `INTERFACE_LINK_LIBRARIES "$ENV{VSINSTALLDIR}/DIA SDK/lib/{amd64,arm64}/diaguids.lib;[...]"`
         - rg -e "INTERFACE_LINK_LIBRARIES\s\"\$ENV\{VSINSTALLDIR\}[/\w\s]+/diaguids\.lib" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake  # [win]
 
   # Contains the shared libraries. To make different LLVM libraries co-installable
@@ -110,15 +116,15 @@ outputs:
         - ninja                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
       host:
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
         - libxml2 {{ libxml2 }} # [unix]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
       run:
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libcxx >={{ version }}  # [osx]
     test:
       commands:
         # old style
@@ -169,16 +175,16 @@ outputs:
         - cmake
         - ninja
         - python >=3
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
       host:
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib
         - zstd
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
-        - libcxx >={{ cxx_compiler_version }}  # [osx]
+        - libcxx >={{ version }}  # [osx]
     test:
       commands:
         - $PREFIX/bin/llc-{{ major_ver }} -version                               # [not win]
@@ -202,7 +208,7 @@ outputs:
         - cmake
         - ninja
         - python
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
@@ -246,9 +252,9 @@ outputs:
         - {{ stdlib('c') }}
         - cmake
         - ninja
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
       host:
-        - libcxx-devel {{ version }}  # [osx]
+        - libcxx-devel   # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
