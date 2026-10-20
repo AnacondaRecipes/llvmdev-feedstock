@@ -20,6 +20,9 @@ source:
     # These tests pass on a dev instance with more resources, but fail on CI.
     - patches/0006-win-disable-orcjittests.patch  # [win]
     - patches/0007-win-disable-ProgramEnvTest.patch  # [win]
+    # upstream backport (llvm-project #232312, merged 2026-10-16, after the 23.1.4 branch point): the
+    # debuginfod timeout test raced the OS scheduler and failed on the win-arm64 worker (llvm issue #232238)
+    - patches/0008-fix-flaky-debuginfod-timeout-test.patch
 
 build:
   number: 0
