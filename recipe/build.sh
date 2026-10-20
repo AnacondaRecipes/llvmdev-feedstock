@@ -1,10 +1,6 @@
 #!/bin/bash
 set -exo pipefail
 
-# Make osx work like linux.
-sed -i.bak "s/NOT APPLE AND ARG_SONAME/ARG_SONAME/g" llvm/cmake/modules/AddLLVM.cmake
-sed -i.bak "s/NOT APPLE AND NOT ARG_SONAME/NOT ARG_SONAME/g" llvm/cmake/modules/AddLLVM.cmake
-
 mkdir build
 cd build
 
@@ -36,6 +32,10 @@ if [[ $target_platform == osx-* ]]; then
   CMAKE_ARGS="${CMAKE_ARGS} -DLLVM_ENABLE_LIBCXX=ON"
   CMAKE_ARGS="${CMAKE_ARGS} -DRUNTIMES_CMAKE_ARGS=-DCMAKE_INSTALL_RPATH=«loader_path/../lib"
   CMAKE_ARGS="${CMAKE_ARGS} -DDEFAULT_SYSROOT=${CONDA_BUILD_SYSROOT}"
+  # versioned dylib names on Darwin like Linux (replaces the AddLLVM.cmake sed used up to LLVM 22);
+  # libLTO must stay versioned too: install_llvm.sh packages lib*.<maj.min>.dylib into libllvm and
+  # cctools-and-ld64 looks up libLTO.*.* by that name
+  CMAKE_ARGS="${CMAKE_ARGS} -DLLVM_VERSIONED_DYLIB_NAME_ON_DARWIN=ON -DLLVM_UNVERSIONED_LIBLTO_ON_DARWIN=OFF"
 fi
 
 if [[ $target_platform == osx-arm64 ]]; then
