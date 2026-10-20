@@ -31,7 +31,7 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cmake
-    - ninja
+    - ninja-base
     - python
     # macOS builds with the released clang_bootstrap (release-first, see conda_build_config.yaml);
     # keep libcxx-devel at that compiler's version: the bootstrap bundle ships its own libc++
@@ -64,7 +64,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python
         - msys2-sed                  # [win]
         - libcxx-devel {{ cxx_compiler_version }}   # [osx]
@@ -110,7 +110,7 @@ outputs:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
-        - ninja                    # [not win]
+        - ninja-base                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
         - libcxx-devel {{ cxx_compiler_version }}   # [osx]
@@ -172,7 +172,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python >=3
         - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
@@ -205,7 +205,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python
         - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
@@ -250,7 +250,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
         - libcxx-devel {{ cxx_compiler_version }}   # [osx]
