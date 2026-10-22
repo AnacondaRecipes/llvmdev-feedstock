@@ -1,4 +1,4 @@
-{% set version = "22.1.2" %}
+{% set version = "23.1.4" %}
 {% set major_ver = version.split(".")[0] %}
 {% set tail_ver = version.split(".")[-1] %}
 {% set maj_min = major_ver ~ "." ~ version.split(".")[1] %}
@@ -13,17 +13,19 @@ package:
 
 source:
   url: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{{ version.replace(".rc", "-rc") }}.tar.gz
-  sha256: a252efd7a4a268d2cc5145b17adcaa82757fdee1d06d748b4c24137807710ecb
+  sha256: 3e1c70b30f623976c2046d94b8eeab6cac536f107914cb4ed7bac572a03131db
   patches:
     - patches/0004-remove-unsupported-intrinsic-test.patch
     - patches/0005-remove-permission-based-unit-tests.patch
     # These tests pass on a dev instance with more resources, but fail on CI.
     - patches/0006-win-disable-orcjittests.patch  # [win]
     - patches/0007-win-disable-ProgramEnvTest.patch  # [win]
-    - patches/0008-win-skip-bb-hash-awk-test.patch  # [win]
+    # upstream backport (llvm-project #232312, merged 2026-10-16, after the 23.1.4 branch point): the
+    # debuginfod timeout test raced the OS scheduler and failed on the win-arm64 worker (llvm issue #232238)
+    - patches/0008-fix-flaky-debuginfod-timeout-test.patch
 
 build:
-  number: 3
+  number: 0
   merge_build_host: false
 
 requirements:
@@ -31,21 +33,25 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cmake
-    - ninja
+    - ninja-base
     - python
-    - libcxx-devel   # [osx]
+    # macOS builds with the released clang_bootstrap (release-first, see conda_build_config.yaml);
+    # keep libcxx-devel at that compiler's version: the bootstrap bundle ships its own libc++
+    # headers/dylibs, which a newer libcxx-devel in the same prefix would overwrite
+    - libcxx-devel {{ cxx_compiler_version }}   # [osx]
     - msys2-sed        # [win]
     - msys2-grep       # [win]
     - msys2-coreutils  # [win]  # for cp, echo, head, tail, uniq, etc.
     - msys2-diffutils  # [win]  # for cmp, diff
     - msys2-findutils  # [win]  # for find with -exec
+    - msys2-gawk       # [win]  # awk for TableGen/aarch64-apple-tuning-features.td and CodeGen/X86/basic-block-sections-clusters-bb-hash.ll
     - git     # [not win]
   host:
     - backtrace {{ backtrace }}         # [unix]
     - libxml2 {{ libxml2 }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
-    - libcxx-devel   # [osx]
+    - libcxx-devel {{ cxx_compiler_version }}   # [osx]
 
 outputs:
   # Contains everything
@@ -61,12 +67,12 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python
         - msys2-sed                  # [win]
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("libllvm-c" ~ major_ver, exact=True) }}     # [win]
         - {{ pin_subpackage("llvm-tools", exact=True) }}
@@ -84,8 +90,6 @@ outputs:
         - clang       {{ version }}
         - clang-tools {{ version }}
     test:
-      requires:
-        - ripgrep  # [win]
       commands:
         - $PREFIX/bin/llvm-config --libs                                # [not win]
         - test -f $PREFIX/include/llvm/Pass.h                           # [not win]
@@ -96,10 +100,6 @@ outputs:
         - if not exist "%LIBRARY_PREFIX%"\\libexec\llvm\not.exe exit 1  # [win]
         - if not exist "%LIBRARY_BIN%"\\llvm-nm.exe exit 1              # [win]
         - llvm-nm.exe --help                                            # [win]
-
-        # ensure we've correctly inserted %VSINSTALLDIR% into the CMake metadata for LLVM;
-        # we're looking for: `INTERFACE_LINK_LIBRARIES "$ENV{VSINSTALLDIR}/DIA SDK/lib/{amd64,arm64}/diaguids.lib;[...]"`
-        - rg -e "INTERFACE_LINK_LIBRARIES\s\"\$ENV\{VSINSTALLDIR\}[/\w\s]+/diaguids\.lib" %LIBRARY_LIB%\cmake\llvm\LLVMExports.cmake  # [win]
 
   # Contains the shared libraries. To make different LLVM libraries co-installable
   # soversion is appended to the package name.
@@ -113,12 +113,12 @@ outputs:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
-        - ninja                    # [not win]
+        - ninja-base                    # [not win]
         - cmake                    # [not win]
         - python                   # [not win]
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
         - libxml2 {{ libxml2 }} # [unix]
         - zlib {{ zlib }}
         - zstd {{ zstd }}
@@ -132,7 +132,9 @@ outputs:
         - test -f $PREFIX/lib/libLLVM-{{ major_ver }}{{ extra }}.dylib  # [osx]
         # new style
         - test -f $PREFIX/lib/libLLVM.so.{{ maj_min }}{{ extra }}       # [linux]
+        - test -f $PREFIX/lib/libLTO.so.{{ maj_min }}{{ extra }}        # [linux]
         - test -f $PREFIX/lib/libLLVM.{{ maj_min }}{{ extra }}.dylib    # [osx]
+        - test -f $PREFIX/lib/libLTO.{{ maj_min }}{{ extra }}.dylib     # [osx]
 
   # This is a meta package so that people can use the latest libllvm and also
   # for run_exports
@@ -173,14 +175,14 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python >=3
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
-        - zlib
-        - zstd
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
       run:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         # we need to do this manually because clang_bootstrap has no run-export
@@ -206,9 +208,9 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
+        - ninja-base
         - python
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - {{ pin_subpackage("llvm-tools-" ~ major_ver, exact=True) }}   # [not win]
@@ -251,10 +253,10 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
         - cmake
-        - ninja
-        - libcxx-devel   # [osx]
+        - ninja-base
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
       host:
-        - libcxx-devel   # [osx]
+        - libcxx-devel {{ cxx_compiler_version }}   # [osx]
         - {{ pin_subpackage("libllvm" ~ major_ver, exact=True) }}
         - zlib {{ zlib }}
         - zstd {{ zstd }}
@@ -285,7 +287,10 @@ outputs:
     test:
       imports:
         - lit
+      requires:
+        - pip
       commands:
+        - pip check
         - lit -h
         - llvm-lit -h
 
@@ -307,6 +312,8 @@ extra:
     # for some of the individual outputs.
     - missing_tests
     - wrong_output_script_key
+    # run_constrained `clang {{ version }}` is a version lock on the sibling package, not a compiler dep
+    - should_use_compilers
   recipe-maintainers:
     - JohanMabille
     - inducer

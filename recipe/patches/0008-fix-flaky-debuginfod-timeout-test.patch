@@ -1,0 +1,75 @@
+From 1cd9dd67b8eefb1f2ee0010536fb16de0030ba9b Mon Sep 17 00:00:00 2001
+From: David Spickett <david.spickett@arm.com>
+Date: Fri, 16 Oct 2026 09:08:41 +0100
+Subject: [PATCH] [llvm][test][debuginfod] Fix flaky timeout.test by using an
+ Event (#232312)
+
+Fixes #232238
+
+Because this test relies on real time, the OS scheduler may delay the
+client long enough to get past the server's fixed delay causing the test
+to fail.
+
+We only care that the client applies a timeout, not that it is of some
+set number of seconds. So we can use an Event to stall the server until
+we know the client has exited.
+
+I also added a very long timeout on the subprocess call now in case of a
+bug in the tested utility. Ideally this would be applied by lit, but one
+of the lit timeout options requires the psutil library, and builders
+might have their reasons for wanting one or the other option. This is
+something we can address in future but right now a big number is the
+solution.
+---
+ .../tools/llvm-debuginfod-find/Inputs/delay_req.py   | 12 ++++++------
+ llvm/test/tools/llvm-debuginfod-find/timeout.test    |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/llvm/test/tools/llvm-debuginfod-find/Inputs/delay_req.py b/llvm/test/tools/llvm-debuginfod-find/Inputs/delay_req.py
+index f7c256a211c25..8fbf5ab4f1804 100644
+--- a/llvm/test/tools/llvm-debuginfod-find/Inputs/delay_req.py
++++ b/llvm/test/tools/llvm-debuginfod-find/Inputs/delay_req.py
+@@ -3,15 +3,14 @@
+ import subprocess
+ import sys
+ import threading
+-import time
+ 
+ 
+ class DelayingHandler(http.server.BaseHTTPRequestHandler):
+-    def do_GET(self):
+-        # The test sets DEBUGINFOD_TIMEOUT=1
+-        time.sleep(5)
+-        self.send_response(501)
++    can_respond = threading.Event()
+ 
++    def do_GET(self):
++        # Wait until the client has finished running.
++        self.can_respond.wait()
+ 
+ httpd = http.server.HTTPServer(("localhost", 0), DelayingHandler)
+ port = httpd.socket.getsockname()[1]
+@@ -19,8 +18,9 @@ def do_GET(self):
+ try:
+     t = threading.Thread(target=httpd.serve_forever).start()
+     os.environ["DEBUGINFOD_URLS"] = f"http://localhost:{port}"
+-    result = subprocess.run(sys.argv[1:], capture_output=True)
++    result = subprocess.run(sys.argv[1:], capture_output=True, timeout=600)
+     # e.g. Build ID 00: curl_easy_perform() failed: Timeout was reached
+     print(result.stderr.decode())
+ finally:
++    DelayingHandler.can_respond.set()
+     httpd.shutdown()
+diff --git a/llvm/test/tools/llvm-debuginfod-find/timeout.test b/llvm/test/tools/llvm-debuginfod-find/timeout.test
+index aae6f4a53527a..0476018a2dec2 100644
+--- a/llvm/test/tools/llvm-debuginfod-find/timeout.test
++++ b/llvm/test/tools/llvm-debuginfod-find/timeout.test
+@@ -3,7 +3,7 @@ REQUIRES: curl || system-windows, http-server
+ RUN: rm -rf %t
+ RUN: mkdir -p %t/debuginfod-cache
+ 
+-# We hit the timeout because the Python script delays the response by 2 seconds
++# The server will stall until the client exits, so the client should always time out.
+ RUN: env DEBUGINFOD_TIMEOUT=1 \
+ RUN: env DEBUGINFOD_CACHE_PATH=%t/debuginfod-cache \
+ RUN: env DEBUGINFOD_HEADERS_FILE=%S/Inputs/headers \

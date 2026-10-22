@@ -7,10 +7,10 @@ upstream_sources:
       from_pattern: ^llvmorg-(.+)$
       to_pattern: \1
     packages:
-      - libllvm-c22
-      - libllvm22
+      - libllvm-c23
+      - libllvm23
       - lit
       - llvm
       - llvm-tools
-      - llvm-tools-22
+      - llvm-tools-23
       - llvmdev
