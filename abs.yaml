@@ -7,8 +7,3 @@ extra_labels_for_os:
 # Extend timeout to 12 hours (43200 seconds) for Windows builds
 task_timeout: 43200
 
-
-# PR CI only - libcxx 23.1.4 from AnacondaRecipes/libcxx-feedstock#28 (graph of head 2273ec2);
-# REMOVE before merge (llvmdev runs libcxx >=23.1.4 on macOS, so the tests need it)
-channels:
-  - https://package-build.internal.anaconda.com/pkg-orchestrator/v1/channels/graphs/d33fb111-1d94-44d6-b64b-b19785257ea1

@@ -37,7 +37,7 @@ requirements:
     - python
     # macOS builds with the released clang_bootstrap (release-first, see conda_build_config.yaml);
     # keep libcxx-devel at that compiler's version: the bootstrap bundle ships its own libc++
-    # headers/dylibs and a newer libcxx-devel in the same prefix would clobber them
+    # headers/dylibs, which a newer libcxx-devel in the same prefix would overwrite
     - libcxx-devel {{ cxx_compiler_version }}   # [osx]
     - msys2-sed        # [win]
     - msys2-grep       # [win]
