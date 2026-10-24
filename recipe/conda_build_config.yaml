@@ -5,11 +5,11 @@ cxx_compiler:
   - clang_bootstrap            # [osx]
   - vs2022                     # [win]
 
-# macOS: build with the released clang_bootstrap (LLVM 22); release-first order of the LLVM 23 chain
+# macOS: self-hosted build with clang_bootstrap 23 (23.1.4 build 0 was built with clang_bootstrap 22)
 c_compiler_version:
-  - 22.1.2            # [osx]
+  - 23.1.4            # [osx]
 cxx_compiler_version:
-  - 22.1.2            # [osx]
+  - 23.1.4            # [osx]
 
 c_stdlib_version:   # [win]
   - 2022.14         # [win]

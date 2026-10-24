@@ -25,7 +25,7 @@ source:
     - patches/0008-fix-flaky-debuginfod-timeout-test.patch
 
 build:
-  number: 0
+  number: 1
   merge_build_host: false
 
 requirements:
@@ -35,7 +35,7 @@ requirements:
     - cmake
     - ninja-base
     - python
-    # macOS builds with the released clang_bootstrap (release-first, see conda_build_config.yaml);
+    # macOS builds with clang_bootstrap (see conda_build_config.yaml);
     # keep libcxx-devel at that compiler's version: the bootstrap bundle ships its own libc++
     # headers/dylibs, which a newer libcxx-devel in the same prefix would overwrite
     - libcxx-devel {{ cxx_compiler_version }}   # [osx]
