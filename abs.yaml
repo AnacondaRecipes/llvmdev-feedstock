@@ -7,6 +7,3 @@ extra_labels_for_os:
 # Extend timeout to 12 hours (43200 seconds) for Windows builds
 task_timeout: 43200
 
-# TEMPORARY, REMOVE BEFORE MERGE: clang_bootstrap 23.1.4 from the clang-compiler-activation#29 PR graph
-channels:
-  - https://package-build.internal.anaconda.com/pkg-orchestrator/v1/channels/graphs/4a9ea5f3-3e92-4125-ba0c-2451311fd67c
