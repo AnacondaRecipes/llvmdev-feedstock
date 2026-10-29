@@ -58,6 +58,12 @@ set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/type-qualifiers.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-pdbutil/usingnamespace.test"
 set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|tools/llvm-symbolizer/pdb/pdb.test"
 
+REM lli -jit-kind=orc crashes with 0xc0000005 on Windows (see patches/0006-win-disable-orcjittests.patch).
+set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|ExecutionEngine/Orc/"
+
+REM SystemZ codegen lit tests fail on win-arm64 (LLVM 21).
+if /I "%TARGET_PLATFORM%"=="win-arm64" set "LIT_FILTER_OUT=%LIT_FILTER_OUT%|CodeGen/SystemZ/"
+
 cmake --build . --target check-llvm
 if %ERRORLEVEL% neq 0 exit 1
 
